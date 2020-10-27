@@ -23,14 +23,18 @@ function document_initiation() {
 
     setTimeout(function() {
         $('.inner h1').fadeIn(1000);
-    }, 1100);
+    }, 900);
 
     setTimeout(function() {
         $('.inner h2').fadeIn(1000);
-    }, 2000);
+    }, 1600);
 
     setTimeout(function() {
         $('.inner button').fadeIn(500);
+    }, 1600);
+
+    setTimeout(function() {
+        $('.inner h3').fadeIn(1000);
     }, 2000);
 }
 
@@ -38,6 +42,7 @@ function hide_elements() {
     $('.inner h1').hide();
     $('.inner h2').hide();
     $('.inner button').hide();
+    $('.inner h3').hide();
 }
 
 function button_click_setting() {
