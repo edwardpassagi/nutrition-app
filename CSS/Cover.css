@@ -86,13 +86,13 @@ button {
 }
 
 .upper {
-    height: 56%;
+    height: 60%;
     text-align: center;
     background-color: #28abb9;
 }
 
 .lower {
-    height: 44%;
+    height: 40%;
     background-color: #2d6187;
 }
 
@@ -104,49 +104,17 @@ button {
 .inner h1 {
     color: #ffffff;
     text-align: center;
-    font-size: 50px;
+    font-size: 55px;
+    font-weight: lighter;
     margin: auto auto;
-}
-
-.inner h1 span {
-    font-size: 80px;
-}
-
-@media (max-width: 1000px) {
-    .inner h1 {
-        font-size: 50px;
-    }
-
-    .inner p {
-        font-size: 22px;
-    }
-}
-
-@media (max-width: 800px) {
-    .inner h1 {
-        font-size: 40px;
-    }
-
-    .inner p {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 400px) {
-    .inner h1 {
-        font-size: 30px;
-    }
-
-    .inner p {
-        font-size: 20px;
-    }
 }
 
 .inner h2 {
     padding-top: 25px;
     color: #ffffff;
-    font-size: 40px;
+    font-size: 50px;
     text-align: center;
+    font-weight: lighter;
     margin: auto auto;
 }
 
@@ -156,10 +124,76 @@ button {
     font-size: 15px;
     text-align: center;
     margin: auto auto;
-    position:absolute; 
+    position:absolute;
     bottom: 4px;
     left: 36%;
 }
+
+@media (max-width: 1600px) {
+    .inner h1 {
+        font-size: 45px;
+    }
+
+    .inner h2 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .inner h1 {
+        font-size: 45px;
+    }
+
+    .inner h2 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    .inner h1 {
+        font-size: 40px;
+    }
+
+    .inner h2 {
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 750px) {
+    .inner h1 {
+        font-size: 30px;
+    }
+
+    .inner h2 {
+        font-size: 25px;
+    }
+
+    .inner h3 {
+        font-size: 10px;
+    }
+}
+
+/* @media (max-width: 600px) {
+    .inner h1 {
+        font-size: 30px;
+    }
+} */
+
+@media (max-width: 400px) {
+    .inner h1 {
+        font-size: 20px;
+    }
+
+    .inner h2 {
+        font-size: 15px;
+    }
+}
+
+/* @media (max-width: 200px) {
+    .inner h1 {
+        font-size: 20px;
+    }
+} */
 
 .lower button {
     padding: 10px 10px;
