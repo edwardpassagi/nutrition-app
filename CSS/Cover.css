@@ -46,6 +46,7 @@ h1, h2, h3, p, button {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-family: 'Oswald', sans-serif;
 }
 
 button {
@@ -100,7 +101,7 @@ button {
 
 .lower div {
     height: fit-content;
-    padding: 4vh 3vh;
+    padding: 1vh 3vh;
 }
 
 .upper div {
@@ -116,7 +117,7 @@ button {
 }
 
 .inner h2 {
-    padding-top: 25px;
+    padding-top: 0px;
     color: #ffffff;
     font-size: 50px;
     text-align: center;
@@ -145,6 +146,16 @@ button {
     color: #ffa62b;
 }
 
+.upper-inner h1 span {
+    font-size: 40px;
+    font-weight: lighter;
+}
+
+.lower-inner h2 span {
+    font-size: 50px;
+    font-weight: bold;
+}
+
 @media (max-width: 1100px) {
     .lower h1 {
         font-size: 45px;
@@ -152,6 +163,10 @@ button {
 
     .inner h2 {
         font-size: 40px;
+    }
+
+    .lower-inner h2 span {
+        font-size: 50px;
     }
 }
 
@@ -162,6 +177,10 @@ button {
 
     .lower h2 {
         font-size: 35px;
+    }
+
+    .lower-inner h2 span {
+        font-size: 40px;
     }
 }
 
@@ -176,6 +195,10 @@ button {
 
     .lower h3 {
         font-size: 10px;
+    }
+
+    .lower-inner h2 span {
+        font-size: 30px;
     }
 }
 
