@@ -88,12 +88,12 @@ button {
 .upper {
     height: 60%;
     text-align: center;
-    background-color: #28abb9;
+    background-color: #ebebeb;
 }
 
 .lower {
     height: 40%;
-    background-color: #2d6187;
+    background-color: #ffa62b;
 }
 
 .lower div {
@@ -124,6 +124,7 @@ button {
     font-size: 15px;
     text-align: center;
     margin: auto auto;
+    padding-bottom: 10px;
     position:absolute;
     bottom: 4px;
     left: 36%;
