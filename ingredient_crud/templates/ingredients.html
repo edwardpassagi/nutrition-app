@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<title>List of Ingredients</title>
+
+<p><a href="/new_ingredient">Add Ingredient</a></p>
+
+<table>
+    <tr>
+        <th>Ingredient Name</th>
+        <th>Ingredient Image</th>
+        <th>Ingredient Calories</th>
+    </tr>
+    
+    {% for row in rows %}
+    <tr>
+        <td>{{row['ingredient_name']}}</td>
+        <td>{{row['ingredient_image']}}</td>
+        <td>{{row['ingredient_calories']}}</td>
+        <td><a href="/edit/{{row['ingredient_id']}}">EDIT</a></td>
+        <td><a href="/delete/{{row['ingredient_id']}}">DELETE</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+

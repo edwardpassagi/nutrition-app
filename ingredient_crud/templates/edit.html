@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<title>Edit ingredient</title>
+
+<h2>Edit ingredient</h2>
+<form method="post" action="/update">
+    <dl>
+        <p>
+            <input name="ingredientName" value="{{ row['ingredient_name'] }}" type="text" placeholder = "Ingredient name" autocomplete="off" required>
+        </p>
+        <p>
+            <input name="ingredientImage" value="{{ row['ingredient_image'] }}" type="text" placeholder = "Ingredient name" autocomplete="off" required>
+        </p>
+        <p>
+            <input name="ingredientCalories" value="{{ row['ingredient_calories'] }}" type="number" placeholder = "ingredient_calories name" autocomplete="off" required>
+        </p>
+    </dl>
+
+    <p>
+        <input name="ingredient_id" value="{{ row['ingredient_id'] }}" type="hidden">
+        <input type="submit" value="Submit">
+    </p>
+</form>

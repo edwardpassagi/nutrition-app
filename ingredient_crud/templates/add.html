@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<title>Add an ingredient</title>
+
+<h2>Add an ingredient</h2>
+<form method="post" action="/add">
+    <dl>
+        <p>
+            <input name="ingredientName" value="" type="text" placeholder = "Ingredient name" autocomplete="off" required>
+        </p>
+        <p>
+            <input name="ingredientImage" value="" type="text" placeholder = "Ingredient image url" autocomplete="off" required>
+        </p>
+        <p>
+            <input name="ingredientCalories" value="" type="number" placeholder = "Ingredient calories" autocomplete="off" required>
+        </p>
+    </dl>
+
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form>
