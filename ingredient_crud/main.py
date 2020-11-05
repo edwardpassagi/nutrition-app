@@ -157,12 +157,9 @@ def search_ingredient():
         print(_name_hint)
         if _name_hint:
             sql = "SELECT * FROM ingredient WHERE ingredient_name LIKE '%{}%'".format(_name_hint)
-            print(sql)
             cursor.execute(sql)
 
             rows = cursor.fetchall()
-            print("ROWS: {}".format(rows))
-            # flash("Search result for: {}".format(_name_hint))
             msg = "Search result for: {}".format(_name_hint)
             return render_template('ingredients.html', rows=rows, msg=msg)
     except Exception as e:
@@ -170,30 +167,6 @@ def search_ingredient():
     finally:
         cursor.close()
         conn.close()
-
-    return render_template('ingredients.html', rows=[])
-
-
-# @app.route('/')
-# def ingredients():
-#     conn = None
-#     cursor = None
-    
-#     try:
-#         conn = mysql.connect()
-#         cursor = conn.cursor(pymysql.cursors.DictCursor)
-#         cursor.execute("SELECT * FROM ingredient")
-#         rows = cursor.fetchall()
-
-#         return render_template('ingredients.html', rows=rows)
-    
-#     except Exception as e:
-#         print(e)
-    
-#     finally:
-#         cursor.close()
-#         conn.close()
-
 
 if __name__ == "__main__":
     app.run()
