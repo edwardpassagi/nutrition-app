@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(window).ready(function() {
         document_initiation();
         button_click_setting();
-        set_header3_position();
+        set_coming_soon_position();
         setTimeout(function() {
             lower_height = $('.lower-inner').height();
         }, 900);
@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     $(window).resize(function() {
         // document_resized();
-        set_header3_position();
+        set_coming_soon_position();
         // lower_side_setup(lower_height);
     });
 
@@ -63,10 +63,12 @@ function button_click_setting() {
     });
 }
 
-function set_header3_position() {
+function set_coming_soon_position() {
     var window_width = $('body').width();
-    var header3_width = $('.inner h3').width();
-    $('.inner h3').css('left', window_width/2 - header3_width/2);
+    setTimeout(function() {
+        var header3_width = $('.inner h3').width();
+        $('.inner h3').css('left', window_width/2 - header3_width/2);
+    }, 2100);
 }
 
 function lower_side_setup(lower_height) {

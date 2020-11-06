@@ -90,13 +90,13 @@ button {
     height: 65%;
     text-align: center;
     background-color: #ffffff;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .lower {
     height: 35%;
     background-color: #ffa62b;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .lower div {
