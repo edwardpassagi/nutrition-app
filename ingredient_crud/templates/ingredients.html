@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <title>List of Ingredients</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/65913c67fd.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="padding-top: 65px;">
+    <div>
+        <nav class="navbar fixed-top" style="background-color: #e3f2fd">
+            <a class="navbar-brand" href="/">NutritionX</a>
+            <a class="navbar-brand" href="/new_ingredient">
+                <i class="fas fa-plus"></i>
+            </a>
+        </nav>
+    </div>
+
+    <div class="px-3 py-3">
+        <form method="post" action="/search">
+            <div class="form-group">
+                <input name="ingredientHint" class="form-control" value="" type="text" placeholder = "Search Name" autocomplete="off" required>
+            </div>
+            <button type="submit" class="form-control btn btn-outline-success">Search</button>
+        </form>
+        <p>{{msg}}</p>
+    </div>
+
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th scope="col">Ingredient Name</th>
+                    <th scope="col" class="d-none d-sm-table-cell">Ingredient Image</th>
+                    <th scope="col" class="d-none d-sm-table-cell">Ingredient Calories</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <td>{{row['ingredient_name']}}</td>
+                    <td scope="col" class="d-none d-sm-table-cell">{{row['ingredient_image']}}</td>
+                    <td scope="col" class="d-none d-sm-table-cell">{{row['ingredient_calories']}}</td>
+                    <td><a href="/edit/{{row['ingredient_id']}}" class="btn btn-warning">Edit</a></td>
+                    <td><a href="/delete/{{row['ingredient_id']}}" class="btn btn-danger">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
