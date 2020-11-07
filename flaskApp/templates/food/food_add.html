@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Add an ingredient</title>
+    <title>Add an food</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/65913c67fd.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +8,23 @@
 <div>
     <nav class="navbar" style="background-color: #e3f2fd">
         <a class="navbar-brand" href="/">NutritionX</a>
-        <a class="navbar-brand" href="/new_ingredient">
+        <a class="navbar-brand" href="/food/new_food">
             <i class="fas fa-plus"></i>
         </a>
     </nav>
 </div>
 
 <div class="py-3 px-3">
-    <h2>Add an ingredient</h2>
-    <form method="post" action="/add">
+    <h2>Add an food</h2>
+    <form method="post" action="/food/add">
         <div class="form-group">
-            <input class="form-control" name="ingredientName" value="" type="text" placeholder = "Ingredient name" autocomplete="off" required>
+            <input class="form-control" name="foodName" value="" type="text" placeholder = "food name" autocomplete="off" required>
         </div>
         <div class="form-group">
-            <input class="form-control" name="ingredientImage" value="" type="text" placeholder = "Ingredient image URL" autocomplete="off" required>
+            <input class="form-control" name="foodImage" value="" type="text" placeholder = "food image URL" autocomplete="off" required>
         </div>
         <div class="form-group">
-            <input class="form-control" name="ingredientCalories" value="" type="number" placeholder = "Calories" autocomplete="off" required>
+            <input class="form-control" name="foodCalories" value="" type="number" placeholder = "Calories" autocomplete="off" required>
         </div>
             <input class="form-control btn btn-outline-success" type="submit" value="Submit">
     </form>
