@@ -1,0 +1,21 @@
+h2{
+  text-align: center;
+}
+.login-fields{
+  margin: auto;
+  margin-top: 33vh;
+  max-width: 350px;
+}
+.register-fields{
+  margin: auto;
+  margin-top: -15vh;
+  max-width: 350px;
+}
+.collapsing{
+  -webkit-transition: none;
+  transition: none;
+  display: none;
+}
+.btn{
+  margin-top: 20px;
+}
