@@ -3,6 +3,7 @@ import json
 from app import app
 from db_config import mysql
 from flask import flash, render_template, request, redirect
+from api_handler import api_handler
 
 # CREATE
 # When a user wants to add a new entry
@@ -62,6 +63,47 @@ def ingredients():
     finally:
         cursor.close()
         conn.close()
+
+@app.route('/load_ingredients')
+def load_ingredients():
+    try:
+        load_data_to_tables()
+        return redirect('/')
+    except Exception as e:
+        print(e)
+
+
+def load_data_to_tables():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    try:
+        food_array = api_handler()
+        for item in food_array:
+            name, image, calorie_count = get_item_data(item)
+            # validate received value
+            if name and image and calorie_count:
+                sql = "INSERT INTO ingredient (ingredient_name,ingredient_image, ingredient_calories) VALUES(%s,%s,%s)"
+                data = (name, image, calorie_count)
+                cursor.execute(sql,data)
+                conn.commit()
+                flash('Succesfully added ingredient')
+            else:
+                return 'Invalid ingredient input'
+        
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
+
+def get_item_data(item):
+    name = item.get('description')
+    image = "/" + name + ".jpg"
+    calories = 0.0
+    foodNutrients = item.get('foodNutrients')
+    for nutrient in foodNutrients:
+        calories += nutrient.get('amount')
+    return name, image, calories
 
 # UPDATE
 @app.route('/edit/<int:id>')
