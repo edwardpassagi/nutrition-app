@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(#111d30 80%,#002258, #1d4070, #7749bb, #e0ccff);
+    /* background: linear-gradient(#111d30 80%,#002258, #1d4070, #7749bb, #e0ccff); */
     background: #ffffff;
     padding: 0px;
     margin: 0px;
@@ -46,6 +46,7 @@ h1, h2, h3, p, button {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-family: 'Oswald', sans-serif;
 }
 
 button {
@@ -54,13 +55,14 @@ button {
 }
 
 .wrapper {
-    height: 100%;
-    width: 100%;
-    background: #0c192e;
+    height: 100vh;
+    width: 100vw;
+    /* overflow: scroll; */
+    background: #ffffff;
     animation: imageAnimation 1s ease-in 100ms;
 }
 
-@keyframes imageAnimation {
+/* @keyframes imageAnimation {
     0% {
         background: #d4e4ff;
     }
@@ -76,39 +78,151 @@ button {
     100% {
         background: #0c192e;
     }
-}
+} */
 
 .inner {
-    height: auto;
-    padding-top: 8vh;
+    height: 100%;
     text-align: center;
+    overflow: scroll;
+}
+
+.upper {
+    height: 65%;
+    text-align: center;
+    background-color: #ffffff;
+    overflow: auto;
+}
+
+.lower {
+    height: 35%;
+    background-color: #ffa62b;
+    overflow: auto;
+}
+
+.lower div {
+    height: fit-content;
+    padding: 1vh 3vh;
+}
+
+.upper div {
+    height: 100%;
 }
 
 .inner h1 {
-    color: #dceaff;
+    color: #ffffff;
     text-align: center;
+    font-size: 55px;
+    font-weight: lighter;
     margin: auto auto;
 }
 
 .inner h2 {
-    padding-top: 20px;
-    color: #dceaff;
+    padding-top: 0px;
+    color: #ffffff;
+    font-size: 50px;
     text-align: center;
+    font-weight: lighter;
     margin: auto auto;
 }
 
-.inner button {
+.inner h3 {
+    /* padding-top: 40px; */
+    color: #ffffff;
+    font-size: 15px;
+    text-align: center;
+    margin: auto auto;
+    padding-bottom: 10px;
+    position:absolute;
+    bottom: 0px;
+}
+
+.upper-inner {
+    margin: auto auto;
+}
+
+.upper-inner h1 {
+    padding-top: 15vh;
+    font-size: 70px;
+    color: #ffa62b;
+}
+
+.upper-inner h1 span {
+    font-size: 40px;
+    font-weight: lighter;
+}
+
+.lower-inner h2 span {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+@media (max-width: 1100px) {
+    .lower h1 {
+        font-size: 45px;
+    }
+
+    .inner h2 {
+        font-size: 40px;
+    }
+
+    .lower-inner h2 span {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 900px) {
+    .lower h1 {
+        font-size: 40px;
+    }
+
+    .lower h2 {
+        font-size: 35px;
+    }
+
+    .lower-inner h2 span {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 750px) {
+    .lower h1 {
+        font-size: 30px;
+    }
+
+    .lower h2 {
+        font-size: 25px;
+    }
+
+    .lower h3 {
+        font-size: 10px;
+    }
+
+    .lower-inner h2 span {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 400px) {
+    .upper-inner h1 {
+        font-size: 50px;
+    }
+}
+
+.lower button {
     padding: 10px 10px;
     margin: 20px;
     font-size: 25px;
-    border-radius: 10px;
-    background: #0c192e;
-    color: #0c192e;
+    border-radius: 8px;
+    /* #0c192e old dark blue color */
+    background: #2d6187;
+    color: #2d6187;
     box-shadow: 0px 0px 0px 0px #050b148e;
     transition: box-shadow 200ms ease-out;
 }
 
 .inner button:hover {
-    box-shadow: 0px 0px 7px 5px #050b148e;
-    transition: box-shadow 300ms ease-out;
+    background: #2d6186;
+    color: #2d6186;
+    box-shadow: 0px 0px 10px 3px #224661;
+    transition: box-shadow 400ms ease-out;
 }
