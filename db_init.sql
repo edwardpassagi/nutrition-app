@@ -1,8 +1,8 @@
-CREATE TABLE ingredient
+CREATE TABLE food
 (
-  ingredient_id     INT NOT NULL AUTO_INCREMENT,
-  ingredient_name   VARCHAR(255) NOT NULL,       
-  ingredient_image  VARCHAR(255),
-  ingredient_calories INT,
-  PRIMARY KEY     (ingredient_id)
+  food_id     INT NOT NULL AUTO_INCREMENT,
+  food_name   VARCHAR(255) NOT NULL,       
+  food_image  VARCHAR(255),
+  food_calories INT,
+  PRIMARY KEY     (food_id)
 );
