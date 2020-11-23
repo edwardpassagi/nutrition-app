@@ -1,21 +1,51 @@
 h2{
   text-align: center;
 }
-.login-fields{
-  margin: auto;
-  margin-top: 33vh;
-  max-width: 350px;
+.panel{
+  background-color: 4bc272;
+  border-color: white;
+  min-height: 100%;
+  box-shadow: 0 0 16px rgba(0,0,0,0.125);
+  padding: 8px;
+  border-radius: 0px;
 }
-.register-fields{
+.panel-item{
+  background-color: white;
+  border-color: white;
+  min-height: 15vh;
+  box-shadow: 0 0 16px rgba(0,0,0,0.125);
+  outline: none;
+  padding: 8px;
+  border-radius: 0px;
+}
+.container-meals{
   margin: auto;
-  margin-top: -15vh;
-  max-width: 350px;
+  margin-top: 56px;
+  max-width: 1200px;
+  height: calc(80vh - 56px - 32px);
+  padding: 32px;
 }
 .collapsing{
   -webkit-transition: none;
   transition: none;
   display: none;
 }
-.btn{
-  margin-top: 20px;
+.btn-primary{
+    border-radius: 0px;
+    color: #fff;
+    background-color: #4bc272;
+    border-color: #4bc272; /*set the color you want here*/
+}
+.btn-primary:hover{
+    border-radius: 0px;
+    color: #fff;
+    background-color: #295033;
+    border-color: #295033; /*set the color you want here*/
+}
+.navbar{
+    background-color: #509e64;
+    box-shadow: 0 0 16px rgba(0,0,0,0.25);
+}
+.calories{
+    text-align: right;
 }
