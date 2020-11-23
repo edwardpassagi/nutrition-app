@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="background-color: #f0f0f0;">
+<body>
     <div>
         <div class="container-sm">
             <nav class="navbar fixed-top">
                 <ul class="navbar-nav ml-auto">
                     <row>
                         <a class="btn btn-primary btn-nav float-right ml-2 sexy" href="login.html" role="button">Log In</a>
-                        <a class="btn btn-primary btn-nav float-right sexy" href="login.html" role="button">Diet Goal</a>
+                        <a class="btn btn-primary btn-nav float-right " href="login.html" role="button">Diet Goal</a>
                     </row>
                 </ul>
             </nav>
@@ -29,8 +29,9 @@
 <!--This container holds all the plans-->
                         <div class="card panel-item">
                             <div class="card-body" style="padding:0px">
-                                <p>Meal Name</p>
+                                <p>Plan name</p>
                                 <p class="calories">4400 cal</p>
+                                <a href="#" class="btn panel-btn btn-primary stretched-link"></a>
                             </div>
                         </div>
                         <br>
@@ -54,16 +55,36 @@
                             <p class="calories">4400 cal</p>
                         </div>
                         <br>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card panel">
-<!--This container holds all the foods-->
                         <div class="card panel-item">
-                            <p>Bananas</p>
+                            <p>Dinner</p>
                             <p class="calories">4400 cal</p>
                         </div>
                         <br>
+                        <div class="card panel-item">
+                            <p>Dinner</p>
+                            <p class="calories">4400 cal</p>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <row>
+                        <a class="btn btn-primary" href="login.html" role="button">Search</a>
+                    </row>
+                    <div class="card panel">
+                        {% for row in rows %}
+                        <tr>
+
+<!--This container holds all the foods-->
+                                <div class="card panel-item">
+                                    <p>{{row['food_name']}}</p>
+                                    <p class="calories">{{row['food_calories']}} cal</p>
+                                    <td><a href="/food/delete/{{row['food_id']}}" class="btn btn-danger">Delete</a></td>
+                                </div>
+                                <br>
+
+                        </tr>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -71,3 +92,13 @@
     </div>
 </body>
 
+<!--
+{% for row in rows %}
+<tr>
+    <td>{{row['food_name']}}</td>
+    <td scope="col" class="d-none d-sm-table-cell">{{row['food_image']}}</td>
+    <td scope="col" class="d-none d-sm-table-cell">{{row['food_calories']}}</td>
+    <td><a href="/food/edit/{{row['food_id']}}" class="btn btn-warning">Edit</a></td>
+    <td><a href="/food/delete/{{row['food_id']}}" class="btn btn-danger">Delete</a></td>
+</tr>
+{% endfor %}-->
