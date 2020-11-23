@@ -27,14 +27,16 @@
                 <div class="col-4">
                     <div class="card panel">
 <!--This container holds all the plans-->
-                    {% for row in rows %}
+                    {% for plan in plans %}
                         <tr>
 
 <!--This container holds all the plans-->
                                 <div class="card panel-item">
-                                    <p>{{row['food_name']}}</p>
-                                    <p class="calories">{{row['food_calories']}} cal</p>
-                                    <td><a href="/food/delete/{{row['food_id']}}" class="btn btn-danger">Delete</a></td>
+                                    <div class="card-body" style="padding:0px">
+                                        <p>{{plan['plan_name']}}</p>
+                                        <p class="calories">{{plan['plan_calories']}} cal</p>
+                                        <a href="/showMealForPlan/{{plan['plan_id']}}" class="btn panel-btn btn-primary stretched-link"></a>
+                                    </div>
                                 </div>
                                 <br>
 
@@ -44,32 +46,15 @@
                 </div>
                 <div class="col-4">
                     <div class="card panel">
+                    {% for meal in meals %}
 <!--This container holds all the meals-->
                         <div class="card panel-item">
-                            <p>Breakfast</p>
-                            <p class="calories">4400 cal</p>
+                            <p>{{meal['meal_name']}}</p>
+                            <p class="calories">{{meal['meal_calories']}}</p>
+                            <a href="/showFoodForMeal/#" class="btn panel-btn btn-primary stretched-link"></a>
                         </div>
                         <br>
-                        <div class="card panel-item">
-                            <p>Lunch</p>
-                            <p class="calories">4400 cal</p>
-                        </div>
-                        <br>
-                        <div class="card panel-item">
-                            <p>Dinner</p>
-                            <p class="calories">4400 cal</p>
-                        </div>
-                        <br>
-                        <div class="card panel-item">
-                            <p>Dinner</p>
-                            <p class="calories">4400 cal</p>
-                        </div>
-                        <br>
-                        <div class="card panel-item">
-                            <p>Dinner</p>
-                            <p class="calories">4400 cal</p>
-                        </div>
-                        <br>
+                    {% endfor %}
                     </div>
                 </div>
                 <div class="col-4">
