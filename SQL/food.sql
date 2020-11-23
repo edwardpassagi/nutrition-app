@@ -6,3 +6,5 @@ CREATE TABLE food
   food_calories INT,
   PRIMARY KEY     (food_id)
 );
+
+
