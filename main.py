@@ -3,7 +3,8 @@ import json
 from app import app
 from db_config import mysql
 from flask import flash, render_template, request, redirect
-from api_handler import api_handler
+
+import api_handler
 
 # CREATE
 # When a user wants to add a new entry
