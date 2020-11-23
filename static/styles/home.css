@@ -1,29 +1,39 @@
-h2{
-  text-align: center;
+:root{
+  --vl-green: #2bddb1;
+  --l-green: #27c9a1;
+  --green: #24be98;
+  --d-green: #24be98;
+  --b-green: #202d2a;
+  --b-radius: 12px;
+  --btn-radius: 8px;
+  --nav-height: 60px;
 }
 .panel{
-  background-color: 4bc272;
   border-color: white;
-  min-height: 100%;
-  box-shadow: 0 0 16px rgba(0,0,0,0.125);
+  height: 100%;
+  box-shadow: 0 0 16px rgba(0,0,0,0.25);
   padding: 8px;
-  border-radius: 0px;
+  border-radius: var(--b-radius);
 }
 .panel-item{
-  background-color: white;
   border-color: white;
   min-height: 15vh;
   box-shadow: 0 0 16px rgba(0,0,0,0.125);
   outline: none;
   padding: 8px;
-  border-radius: 0px;
+  border-radius: var(--b-radius);
+}
+.panel-btn{
+    padding: 0px;
+    min-height: 6px;
+    min-width: 100%;
+    margin-top: calc(6vh);
 }
 .container-meals{
   margin: auto;
-  margin-top: 56px;
+  margin-top: calc(var(--nav-height) + 48px);
   max-width: 1200px;
-  height: calc(80vh - 56px - 32px);
-  padding: 32px;
+  height: calc(80vh - var(--nav-height) - 32px);
 }
 .collapsing{
   -webkit-transition: none;
@@ -31,21 +41,22 @@ h2{
   display: none;
 }
 .btn-primary{
-    border-radius: 0px;
-    color: #fff;
-    background-color: #4bc272;
-    border-color: #4bc272; /*set the color you want here*/
+    box-shadow: 0 0 16px rgba(0,0,0,0.125);
+    border-radius: var(--btn-radius);
+    background-color: var(--l-green);
+    border-color: var(--l-green); /*set the color you want here*/
 }
 .btn-primary:hover{
-    border-radius: 0px;
-    color: #fff;
-    background-color: #295033;
-    border-color: #295033; /*set the color you want here*/
+    border-radius: var(--btn-radius);
+    background-color: var(--vl-green);
+    border-color: var(--vl-green); /*set the color you want here*/
 }
 .navbar{
-    background-color: #509e64;
-    box-shadow: 0 0 16px rgba(0,0,0,0.25);
+    background-color: var(--green);
+    min-height: var(--nav-height);
+    box-shadow: 0 0 32px rgba(0,0,0,0.125);
 }
 .calories{
     text-align: right;
+    margin-bottom: 0px;
 }

@@ -64,7 +64,7 @@ def show_foods():
         cursor.execute("SELECT * FROM food")
         rows = cursor.fetchall()
 
-        return render_template('food/food.html', rows=rows)
+        return render_template('home.html', rows=rows)
     
     except Exception as e:
         print(e)
