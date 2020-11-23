@@ -219,5 +219,8 @@ def get_item_data(item):
         calories += nutrient.get('amount')
     return name, image, calories
 
+
+# FIXME: Meals handler
+
 if __name__ == "__main__":
     app.run()
