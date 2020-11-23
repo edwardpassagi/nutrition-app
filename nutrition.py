@@ -6,6 +6,89 @@ from flask import flash, render_template, request, redirect
 
 import api_handler
 
+
+@app.route('/')
+def show_plans():
+    """Show initial page while only showing plans (if no other thing is passed)
+
+    Returns:
+        plans: an array of plan objects returned by the SQL query from the plan table
+    """
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT * FROM plan")
+        plans = cursor.fetchall()
+
+        return render_template('home.html', plans=plans)
+    
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.route('/showMealForPlan/<int:id>')
+def show_meals(id):
+    """Show meals that makes the plan (if no other thing is passed)
+
+        Returns:
+            plans: an array of meal objects returned by the SQL query from the plan table
+        """
+    conn = None
+    cursor = None
+
+    try:
+        # Get plans
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT * FROM plan")
+        plans = cursor.fetchall()
+
+        get_meal_from_plan_cmd = "SELECT meal_name, meal_calories FROM plan NATURAL JOIN plan_contains pc NATURAL JOIN meal m where plan_id = {};".format(str(id))
+        cursor.execute(get_meal_from_plan_cmd)
+        meals = cursor.fetchall()
+
+        print(meals)
+        
+        # if not found
+
+        return render_template('home.html', plans=plans, meals = meals)
+    
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()
+
+
+# @app.route('/foods')
+# def show_foods():
+#     conn = None
+#     cursor = None
+    
+#     try:
+#         conn = mysql.connect()
+#         cursor = conn.cursor(pymysql.cursors.DictCursor)
+#         cursor.execute("SELECT * FROM food")
+#         rows = cursor.fetchall()
+
+#         return render_template('home.html', rows=rows)
+    
+#     except Exception as e:
+#         print(e)
+    
+#     finally:
+#         cursor.close()
+#         conn.close()
+
+
+
 # CREATE
 # When a user wants to add a new entry
 @app.route('/food/new_food')
@@ -45,12 +128,7 @@ def add_food():
         cursor.close()
         conn.close()
 
-@app.route('/')
-def show_home():
-    try:
-        return render_template('home.html')
-    except Exception as e:
-        print(e)
+
 
 # READ
 @app.route('/foods')
@@ -64,7 +142,7 @@ def show_foods():
         cursor.execute("SELECT * FROM food")
         rows = cursor.fetchall()
 
-        return render_template('food/food.html', rows=rows)
+        return render_template('home.html', rows=rows)
     
     except Exception as e:
         print(e)
@@ -218,6 +296,9 @@ def get_item_data(item):
     for nutrient in foodNutrients:
         calories += nutrient.get('amount')
     return name, image, calories
+
+
+# FIXME: Meals handler
 
 if __name__ == "__main__":
     app.run()
