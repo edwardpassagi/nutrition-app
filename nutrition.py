@@ -4,8 +4,8 @@ from app import app
 from db_config import mysql
 from flask import flash, render_template, request, redirect
 import sys
-sys.path.insert(1, 'src/action')
-from runQueriesAction import execute_sql_folder
+sys.path.insert(1, 'src/')
+from action.runQueriesAction import execute_sql_folder
 import api_handler
 
 

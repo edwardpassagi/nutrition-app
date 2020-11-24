@@ -8,12 +8,6 @@ from runQueriesDAO import executeFileCommands
 CREATE_TABLE_FILE = "./SQL/CreateAllTables.sql"
 DROP_TABLE_FILE = "./SQL/dropAllTables.sql"
 
-FOOD_TABLE_INSERT_FILE_PATH = "./SQL/food.sql"
-MEAL_CONTAINS_TABLE_INSERT_FILE_PATH = "./SQL/meal_contains.sql"
-MEAL_TABLE_INSERT_FILE_PATH = "./SQL/meal.sql"
-PLAN_CONTAINS_TABLE_INSERT_FILE_PATH = "./SQL/plan_contains.sql"
-PLAN_TABLE_INSERT_FILE_PATH = "./SQL/plan.sql"
-
 FILE_PATHS = os.listdir('./SQL/mysql')
 
 def dropAllTables():
