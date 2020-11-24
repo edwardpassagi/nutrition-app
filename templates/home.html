@@ -44,7 +44,7 @@
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
                                 <p>Plan Preferences</p>
 <!-- TODO: change the action -->
-                                <form method="post" action="/TODO">
+                                <form method="post" action="/plan/generate">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Plan Name</span>
@@ -72,7 +72,7 @@
                                     <p class="calories">{{plan['plan_calories']}} cal</p>
                                     <a href="/details/planid:{{plan['plan_id']}}" class="btn panel-btn btn-primary"></a>
 <!-- TODO: THIS SHOULD DELETE A PLAN!!!! -->
-                                    <td><a href="/TODO" class="btn btn-danger">Delete</a></td>
+                                    <td><a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-danger">Delete</a></td>
                                 </div>
                             </div>
                             <br>

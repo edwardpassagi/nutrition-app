@@ -5,7 +5,7 @@ from db_config import mysql
 from flask import flash, render_template, request, redirect
 
 import api_handler
-
+import generateAI as gai
 
 @app.route('/')
 def show_plans():
@@ -53,10 +53,6 @@ def show_meals(id):
         cursor.execute(get_meal_from_plan_cmd)
         meals = cursor.fetchall()
 
-        print(meals)
-        
-        # if not found
-
         return render_template('home.html', plans=plans, planID=id, meals = meals)
     
     except Exception as e:
@@ -97,6 +93,39 @@ def show_food_in_meal(pid,mid):
 
         return render_template('home.html', plans=plans, planID=pid, meals = meals, mealID = mid, foods = foods)
     
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()
+
+# PLAN
+@app.route('/plan/generate', methods=['POST'])
+def genereatePlan():
+    try:
+        plan_name = request.form['planName']
+        plan_num_meals = request.form['planNumMeals']
+        mealIDs_str = gai.generatePlanAI(plan_name, int(plan_num_meals))
+
+        return redirect('/')
+
+    except Exception as e:
+        print (e)
+
+@app.route('/plan/delete/<int:id>')
+def delete_plan_by_id(id):
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM plan WHERE plan_id=%s", (id,))
+        conn.commit()
+        flash('Succesfully deleted food')
+        return redirect('/')
+        
     except Exception as e:
         print(e)
     
