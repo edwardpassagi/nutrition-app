@@ -23,9 +23,13 @@
   padding: 8px;
   border-radius: var(--b-radius);
 }
+.panel-small{
+  min-height: 5vh;
+}
 .panel-btn{
-    padding: 0px;
-    min-height: 6px;
+    /* padding: 0px;
+    min-height: 6px; */
+    min-height: 60px;
     min-width: 100%;
     margin-top: calc(6vh);
 }
@@ -54,9 +58,9 @@
 .navbar{
     background-color: var(--green);
     min-height: var(--nav-height);
-    box-shadow: 0 0 32px rgba(0,0,0,0.125);
+    box-shadow: 0 0 32px rgba(0,0,0,0.15);
 }
 .calories{
-    text-align: right;
-    margin-bottom: 0px;
+    text-align: left;
+    /* padding-top: 0px; */
 }
