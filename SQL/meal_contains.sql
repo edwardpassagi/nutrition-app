@@ -1,15 +1,6 @@
--- TABLE CREATION
-CREATE TABLE meal_contains
-(
-  meal_id INT NOT NULL,
-  food_id INT NOT NULL
-);
-
-
--- INSERT VALUES
 INSERT INTO meal_contains(meal_id, food_id)
-VALUES(1,7);
+VALUES(1,1);
 INSERT INTO meal_contains(meal_id, food_id)
-VALUES(1,11);
+VALUES(1,2);
 INSERT INTO meal_contains(meal_id, food_id)
-VALUES(1,17);
+VALUES(1,3);

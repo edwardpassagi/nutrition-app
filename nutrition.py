@@ -32,7 +32,7 @@ def show_plans():
         cursor.close()
         conn.close()
 
-@app.route('/showMealForPlan/<int:id>')
+@app.route('/details/planid:<int:id>')
 def show_meals(id):
     """Show meals that makes the plan (if no other thing is passed)
 
@@ -49,7 +49,7 @@ def show_meals(id):
         cursor.execute("SELECT * FROM plan")
         plans = cursor.fetchall()
 
-        get_meal_from_plan_cmd = "SELECT meal_name, meal_calories FROM plan NATURAL JOIN plan_contains pc NATURAL JOIN meal m where plan_id = {};".format(str(id))
+        get_meal_from_plan_cmd = "SELECT meal_id, meal_name, meal_calories FROM plan NATURAL JOIN plan_contains pc NATURAL JOIN meal m where plan_id = {};".format(str(id))
         cursor.execute(get_meal_from_plan_cmd)
         meals = cursor.fetchall()
 
@@ -57,7 +57,7 @@ def show_meals(id):
         
         # if not found
 
-        return render_template('home.html', plans=plans, meals = meals)
+        return render_template('home.html', plans=plans, planID=id, meals = meals)
     
     except Exception as e:
         print(e)
@@ -67,25 +67,42 @@ def show_meals(id):
         conn.close()
 
 
-# @app.route('/foods')
-# def show_foods():
-#     conn = None
-#     cursor = None
-    
-#     try:
-#         conn = mysql.connect()
-#         cursor = conn.cursor(pymysql.cursors.DictCursor)
-#         cursor.execute("SELECT * FROM food")
-#         rows = cursor.fetchall()
+@app.route('/details/planid:<int:pid>/mealid:<int:mid>')
+def show_food_in_meal(pid,mid):
+    """Show meals that makes the plan (if no other thing is passed)
 
-#         return render_template('home.html', rows=rows)
+        Returns:
+            plans: an array of meal objects returned by the SQL query from the plan table
+        """
+
+    conn = None
+    cursor = None
+
+    try:
+        # Get plans
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT * FROM plan")
+        plans = cursor.fetchall()
+
+        # Get meals
+        get_meal_from_plan_cmd = "SELECT meal_id, meal_name, meal_calories FROM plan NATURAL JOIN plan_contains pc NATURAL JOIN meal m where plan_id = {};".format(str(pid))
+        cursor.execute(get_meal_from_plan_cmd)
+        meals = cursor.fetchall()
+
+        # Get food
+        get_food_from_meal_cmd = "SELECT * FROM meal NATURAL JOIN meal_contains NATURAL JOIN food WHERE meal_id={};".format(str(mid))
+        cursor.execute(get_food_from_meal_cmd)
+        foods = cursor.fetchall()
+
+        return render_template('home.html', plans=plans, planID=pid, meals = meals, mealID = mid, foods = foods)
     
-#     except Exception as e:
-#         print(e)
+    except Exception as e:
+        print(e)
     
-#     finally:
-#         cursor.close()
-#         conn.close()
+    finally:
+        cursor.close()
+        conn.close()
 
 
 
@@ -142,7 +159,7 @@ def show_foods():
         cursor.execute("SELECT * FROM food")
         rows = cursor.fetchall()
 
-        return render_template('home.html', rows=rows)
+        return render_template('food/food.html', rows=rows)
     
     except Exception as e:
         print(e)
