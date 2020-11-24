@@ -35,7 +35,7 @@
                                     <div class="card-body" style="padding:0px">
                                         <p>{{plan['plan_name']}}</p>
                                         <p class="calories">{{plan['plan_calories']}} cal</p>
-                                        <a href="/showMealForPlan/{{plan['plan_id']}}" class="btn panel-btn btn-primary stretched-link"></a>
+                                        <a href="/details/planid:{{plan['plan_id']}}" class="btn panel-btn btn-primary stretched-link"></a>
                                     </div>
                                 </div>
                                 <br>
@@ -51,7 +51,7 @@
                         <div class="card panel-item">
                             <p>{{meal['meal_name']}}</p>
                             <p class="calories">{{meal['meal_calories']}}</p>
-                            <a href="/showFoodForMeal/#" class="btn panel-btn btn-primary stretched-link"></a>
+                            <a href="/details/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn panel-btn btn-primary stretched-link"></a>
                         </div>
                         <br>
                     {% endfor %}
@@ -62,14 +62,14 @@
                         <a class="btn btn-primary" href="login.html" role="button">Search</a>
                     </row>
                     <div class="card panel">
-                        {% for row in rows %}
+                        {% for food in foods %}
                         <tr>
 
 <!--This container holds all the foods-->
                                 <div class="card panel-item">
-                                    <p>{{row['food_name']}}</p>
-                                    <p class="calories">{{row['food_calories']}} cal</p>
-                                    <td><a href="/food/delete/{{row['food_id']}}" class="btn btn-danger">Delete</a></td>
+                                    <p>{{food['food_name']}}</p>
+                                    <p class="calories">{{food['food_calories']}} cal</p>
+                                    <td><a href="/food/delete/{{food['food_id']}}" class="btn btn-danger">Delete</a></td>
                                 </div>
                                 <br>
 

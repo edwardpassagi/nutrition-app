@@ -9,4 +9,4 @@ CREATE TABLE plan
 
 -- DATA VALUES
 INSERT INTO plan (plan_name, plan_calories)
-VALUES ("Workout", 2500)
+VALUES ("Workout", 2500);

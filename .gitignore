@@ -22,4 +22,7 @@ htmlcov/
 .coverage
 .coverage.*
 *,cover
+
+# useless files
 *.log
+db_config.py
