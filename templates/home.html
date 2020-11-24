@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=ia6IWaFgYTyUR5kQkAXZ9_T9v91PUxjkYW71dLNgXY2j_9mHLS_Dw5nHsIgW4qMkU79iV1GOr5su2uSancWYg0eMS-VoO8MIokQpomJmF29dPkmSYDdc5Pn65Y4vb9V0ODXwFDu8Gs6XZdKkMt0k2g" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jZG4uZGlzY29yZGFwcC5jb20vYXR0YWNobWVudHMvNzUzMjY3MTU5MDUxOTI3NzA0Lzc4MDUzNTQwOTM4NTQwNjQ5NC9ob21lLmh0bWw"/><script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <!--    <link rel="stylesheet" href="{{ url_for('static', filename='static/home.css') }}" type="text/css" media=screen>-->
     <link rel="stylesheet"
@@ -16,8 +15,8 @@
             <nav class="navbar fixed-top">
                 <ul class="navbar-nav ml-auto">
                     <row>
-                        <a class="btn btn-primary btn-nav float-right ml-2 sexy" href="login.html" role="button">Log In</a>
-                        <a class="btn btn-primary btn-nav float-right " href="login.html" role="button">Diet Goal</a>
+                        <a class="btn btn-primary btn-nav float-right ml-2" href="login.html" role="button">Log In</a>
+                        <a class="btn btn-primary btn-nav float-right " href="login.html" role="button">Diet Preferences</a>
                     </row>
                 </ul>
             </nav>
@@ -27,9 +26,17 @@
                 <div class="col-4">
                     <div class="card panel">
 <!--This container holds all the plans-->
+                        <div class="card panel-item" style="min-height: 7.5vh;">
+                            <div class="card-body" style="padding:0px">
+                                <a class="btn btn-primary" href="login.html" role="button"
+                                style="width: 60%;">Generate</a>
+                                <a class="btn btn-primary" href="login.html" role="button"
+                                style="width: calc(40% - 6px);">Blank Plan</a>
+                            </div>
+                        </div>
+                        <br>
                     {% for plan in plans %}
                         <tr>
-
 <!--This container holds all the plans-->
                                 <div class="card panel-item">
                                     <div class="card-body" style="padding:0px">
@@ -46,6 +53,15 @@
                 </div>
                 <div class="col-4">
                     <div class="card panel">
+                        <div class="card panel-item" style="min-height: 7.5vh;">
+                            <div class="card-body" style="padding:0px">
+                                <a class="btn btn-primary" href="login.html" role="button"
+                                style="width: 60%;">Regenerate Plan</a>
+                                <a class="btn btn-primary" href="login.html" role="button"
+                                style="width: calc(40% - 6px);">Blank Meal</a>
+                            </div>
+                        </div>
+                        <br>
                     {% for meal in meals %}
 <!--This container holds all the meals-->
                         <div class="card panel-item">
@@ -58,13 +74,18 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <row>
-                        <a class="btn btn-primary" href="login.html" role="button">Search</a>
-                    </row>
                     <div class="card panel">
+                        <div class="card panel-item" style="min-height: 7.5vh;">
+                            <div class="card-body" style="padding:0px">
+                                <a class="btn btn-primary" href="login.html" role="button"
+                                style="width: 60%;">Lookup Food</a>
+                                <a class="btn btn-primary" href="login.html" role="button"
+                                style="width: calc(40% - 6px);">Add Custom</a>
+                            </div>
+                        </div>
+                        <br>
                         {% for food in foods %}
                         <tr>
-
 <!--This container holds all the foods-->
                                 <div class="card panel-item">
                                     <p>{{food['food_name']}}</p>
