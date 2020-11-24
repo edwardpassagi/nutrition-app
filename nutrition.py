@@ -3,7 +3,7 @@ import json
 from app import app
 from db_config import mysql
 from flask import flash, render_template, request, redirect
-
+from runQueriesAction import execute_sql_folder
 import api_handler
 
 
@@ -27,7 +27,7 @@ def show_plans():
     
     except Exception as e:
         print(e)
-    
+
     finally:
         cursor.close()
         conn.close()
@@ -318,4 +318,5 @@ def get_item_data(item):
 # FIXME: Meals handler
 
 if __name__ == "__main__":
+    execute_sql_folder()
     app.run()
