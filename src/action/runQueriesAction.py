@@ -1,5 +1,6 @@
 import pymysql
 from db_config import mysql
+import os
 import sys
 sys.path.insert(1, './src/dao/')
 from runQueriesDAO import executeFileCommands
@@ -13,8 +14,7 @@ MEAL_TABLE_INSERT_FILE_PATH = "./SQL/meal.sql"
 PLAN_CONTAINS_TABLE_INSERT_FILE_PATH = "./SQL/plan_contains.sql"
 PLAN_TABLE_INSERT_FILE_PATH = "./SQL/plan.sql"
 
-FILE_PATHS = [FOOD_TABLE_INSERT_FILE_PATH, MEAL_CONTAINS_TABLE_INSERT_FILE_PATH, MEAL_TABLE_INSERT_FILE_PATH, PLAN_CONTAINS_TABLE_INSERT_FILE_PATH,
-                PLAN_TABLE_INSERT_FILE_PATH]
+FILE_PATHS = os.listdir('./SQL/mysql')
 
 def dropAllTables():
     drop_tables_file = open(DROP_TABLE_FILE, 'r')
@@ -28,7 +28,7 @@ def createAllTables():
 
 def execute_files():
     for file_path in FILE_PATHS:
-        commands_file = open(file_path, 'r')
+        commands_file = open('./SQL/mysql/'+file_path, 'r')
         executeFileCommands(commands_file)
         commands_file.close()
 

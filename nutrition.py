@@ -321,4 +321,4 @@ def get_item_data(item):
 
 if __name__ == "__main__":
     execute_sql_folder()
-    app.run()
+    # app.run()
