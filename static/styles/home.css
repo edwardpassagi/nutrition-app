@@ -2,17 +2,20 @@
   --vl-green: #2bddb1;
   --l-green: #27c9a1;
   --green: #24be98;
-  --d-green: #24be98;
+  --d-green: #125f4c;
   --b-green: #202d2a;
   --b-radius: 12px;
-  --btn-radius: 8px;
+  --btn-radius: 16px;
   --nav-height: 60px;
+}
+.form-control:focus {
+    box-shadow: none !important;
 }
 .panel{
   border-color: white;
   height: 100%;
-  box-shadow: 0 0 16px rgba(0,0,0,0.25);
-  padding: 8px;
+  box-shadow: 0 0 32px rgba(0,0,0,0.25);
+  padding: 16px;
   border-radius: var(--b-radius);
 }
 .panel-item{
@@ -20,18 +23,17 @@
   min-height: 15vh;
   box-shadow: 0 0 16px rgba(0,0,0,0.125);
   outline: none;
-  padding: 8px;
+  padding: 16px;
   border-radius: var(--b-radius);
 }
 .panel-small{
   min-height: 5vh;
 }
 .panel-btn{
-    /* padding: 0px;
-    min-height: 6px; */
-    min-height: 60px;
+    padding: 0px;
+    min-height: 6px;
     min-width: 100%;
-    margin-top: calc(6vh);
+    margin-top: calc(-4.5vh);
 }
 .container-meals{
   margin: auto;
@@ -54,6 +56,34 @@
     border-radius: var(--btn-radius);
     background-color: var(--vl-green);
     border-color: var(--vl-green); /*set the color you want here*/
+}
+.btn-primary:active,
+.btn-primary:focus{
+    border-radius: var(--btn-radius);
+    background-color: var(--vl-green) !important;
+    border-color: var(--vl-green) !important; /*set the color you want here*/
+    box-shadow: 0 0 0px 6px rgba(96, 240, 185, 0.25) !important;
+}
+.btn-secondary{
+    box-shadow: 0 0 16px rgba(0,0,0,0.125);
+    border-radius: var(--btn-radius);
+    background-color: white;
+    border-color: white; /*set the color you want here*/
+    color: black;
+}
+.btn-secondary:hover{
+    border-radius: var(--btn-radius);
+    background-color: var(--l-green);
+    border-color: var(--l-green); /*set the color you want here*/
+    color: white;
+}
+.btn-secondary:active,
+.btn-secondary:focus{
+    border-radius: var(--btn-radius);
+    background-color: var(--vl-green) !important;
+    border-color: var(--vl-green) !important; /*set the color you want here*/
+    color: white;
+    box-shadow: 0 0 0px 6px rgba(96, 240, 185, 0.25) !important;
 }
 .navbar{
     background-color: var(--green);
