@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(1, './')
+
 import pymysql
 from db_config import mysql
 
