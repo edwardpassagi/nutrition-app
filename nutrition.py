@@ -1,11 +1,11 @@
+import sys
+sys.path.insert(1, './')
 import pymysql
 import json
 from app import app
 from db_config import mysql
 from flask import flash, render_template, request, redirect
-import sys
-sys.path.insert(1, 'src/')
-from action.runQueriesAction import execute_sql_folder
+from src.action.ProcessDataAction import processDataIntoDatabase
 import api_handler
 
 
@@ -320,5 +320,5 @@ def get_item_data(item):
 # FIXME: Meals handler
 
 if __name__ == "__main__":
-    execute_sql_folder()
-    # app.run()
+    processDataIntoDatabase()
+    app.run()
