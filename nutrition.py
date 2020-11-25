@@ -320,5 +320,7 @@ def get_item_data(item):
 # FIXME: Meals handler
 
 if __name__ == "__main__":
-    processDataIntoDatabase()
-    # app.run()
+    # do not uncomment the below line unless you are sure of its side effects, 
+    # it will clear out all the data. 
+    # processDataIntoDatabase()
+    app.run()

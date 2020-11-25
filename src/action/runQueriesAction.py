@@ -21,9 +21,10 @@ def createAllTables():
 
 def execute_files():
     for file_path in FILE_PATHS:
-        commands_file = open(ABSOLUTE_PATH+file_path, 'r')
-        executeFileCommands(commands_file)
-        commands_file.close()
+        if file_path.endswith(".sql"):
+            commands_file = open(ABSOLUTE_PATH+file_path, 'r')
+            executeFileCommands(commands_file)
+            commands_file.close()
 
 def ProcessAllSQLFiles():
     dropAllTables()

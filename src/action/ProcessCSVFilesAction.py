@@ -4,17 +4,19 @@ import os
 sys.path.insert(1, './')
 from src.dao.ProcessCSVFilesDAO import loadFoodCategoryFile
 
-FILE_PATHS = os.listdir('CSV/')
+DIRECTORY_PATH = 'CSV/'
+FILE_PATHS = os.listdir(DIRECTORY_PATH)
 
-FOOD_CATEGORY_FILE_PATH = r'CSV/food_category.csv'
-
-def processFoodCategoryFileData():
-    foodCategoryDataFile = pd.read_csv(FOOD_CATEGORY_FILE_PATH)
+def processCVSFileData(file_name):
+    foodCategoryDataFile = pd.read_csv(file_name)
+    # this assumes the food category csv file. 
+    # does not need to be implemented.
     df = pd.DataFrame(foodCategoryDataFile, columns=['id', 'code', 'description'])
     return df
 
 def processAllCSVFiles():
-    foodCategoryData = processFoodCategoryFileData()
-    # print(foodCategoryData)
-    # loadFoodCategoryFile(foodCategoryData)
+    for file_name in FILE_PATHS:
+        if file_name.endswith('.csv'):  
+            foodCategoryData = processCVSFileData(file_name)
+            loadFoodCategoryFile(file_name, foodCategoryData)
 

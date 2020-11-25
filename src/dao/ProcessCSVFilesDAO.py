@@ -16,7 +16,10 @@ def executeRow(command):
         cursor.close()
         conn.close()
 
-def loadFoodCategoryFile(data):
+def loadFoodCategoryFile(file_name, data):
     for row in data.itertuples():
-        executeRow(row)
+        # not a final implementation of a csv. this assumes we only have 3 columns. 
+        # it does not have to be implemented.
+        execution_string = '''INSERT INTO ?(?, ?, ?) VALUES(?, ?, ?)'''
+        executeRow(execution_string)
         
