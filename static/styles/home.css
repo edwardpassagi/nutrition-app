@@ -1,4 +1,6 @@
 :root{
+  --l-red: #f33e56;
+  --red: #d63248;
   --vl-green: #2bddb1;
   --l-green: #27c9a1;
   --green: #24be98;
@@ -11,11 +13,16 @@
 .form-control:focus {
     box-shadow: none !important;
 }
+.navbar{
+    background-color: var(--green);
+    min-height: var(--nav-height);
+    box-shadow: 0 0 32px rgba(0,0,0,0.15);
+}
 .panel{
   border-color: white;
   height: 100%;
   box-shadow: 0 0 32px rgba(0,0,0,0.25);
-  padding: 16px;
+  padding: 20px;
   border-radius: var(--b-radius);
 }
 .panel-item{
@@ -35,10 +42,14 @@
     min-width: 100%;
     margin-top: calc(-4.5vh);
 }
+.calories{
+    text-align: left;
+    /* padding-top: 0px; */
+}
 .container-meals{
   margin: auto;
   margin-top: calc(var(--nav-height) + 48px);
-  max-width: 1200px;
+  max-width: 1300px;
   height: calc(80vh - var(--nav-height) - 32px);
 }
 .collapsing{
@@ -46,6 +57,8 @@
   transition: none;
   display: none;
 }
+
+/* The Primary Button Attributes */
 .btn-primary{
     box-shadow: 0 0 16px rgba(0,0,0,0.125);
     border-radius: var(--btn-radius);
@@ -64,6 +77,8 @@
     border-color: var(--vl-green) !important; /*set the color you want here*/
     box-shadow: 0 0 0px 6px rgba(96, 240, 185, 0.25) !important;
 }
+
+/* The secondary button attributes */
 .btn-secondary{
     box-shadow: 0 0 16px rgba(0,0,0,0.125);
     border-radius: var(--btn-radius);
@@ -85,12 +100,26 @@
     color: white;
     box-shadow: 0 0 0px 6px rgba(96, 240, 185, 0.25) !important;
 }
-.navbar{
-    background-color: var(--green);
-    min-height: var(--nav-height);
-    box-shadow: 0 0 32px rgba(0,0,0,0.15);
+
+/* The danger button attributes */
+.btn-danger{
+    box-shadow: 0 0 8px rgba(0,0,0,0.085);
+    border-radius: var(--btn-radius);
+    background-color: white;
+    border-color: white; /*set the color you want here*/
+    color: var(--red);
 }
-.calories{
-    text-align: left;
-    /* padding-top: 0px; */
+.btn-danger:hover{
+    border-radius: var(--btn-radius);
+    background-color: var(--l-red);
+    border-color: var(--l-red); /*set the color you want here*/
+    color: white;
+}
+.btn-danger:active,
+.btn-danger:focus{
+    border-radius: var(--btn-radius);
+    background-color: var(--l-red);
+    border-color: var(--l-red); /*set the color you want here*/
+    color: white;
+    box-shadow: 0 0 0px 6px rgba(240, 96, 96, 0.25) !important;
 }
