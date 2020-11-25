@@ -1,9 +1,11 @@
+import sys
+sys.path.insert(1, './')
 import pymysql
 import json
 from app import app
 from db_config import mysql
 from flask import flash, render_template, request, redirect
-
+from src.action.ProcessDataAction import processDataIntoDatabase
 import api_handler
 
 
@@ -27,7 +29,7 @@ def show_plans():
     
     except Exception as e:
         print(e)
-    
+
     finally:
         cursor.close()
         conn.close()
@@ -318,4 +320,5 @@ def get_item_data(item):
 # FIXME: Meals handler
 
 if __name__ == "__main__":
+    processDataIntoDatabase()
     app.run()
