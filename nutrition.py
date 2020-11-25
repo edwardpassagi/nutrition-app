@@ -349,5 +349,5 @@ def get_item_data(item):
 # FIXME: Meals handler
 
 if __name__ == "__main__":
-    processDataIntoDatabase()
+    # processDataIntoDatabase()
     app.run()

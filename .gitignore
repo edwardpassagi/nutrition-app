@@ -26,4 +26,3 @@ htmlcov/
 # useless files
 *.log
 db_config.py
-db_config.py
