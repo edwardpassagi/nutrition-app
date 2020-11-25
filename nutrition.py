@@ -58,7 +58,7 @@ def delete_plan_by_id(id):
 ########## MEAL ##########
 @app.route('/remove/planid:<int:pid>/mealid:<int:mid>')
 def remove_meal(pid,mid):
-    processMealAction.removeMealByID(mid)
+    processMealAction.removeMealByID(pid, mid)
     return redirect('/details/planid:{}'.format(pid))
 
 

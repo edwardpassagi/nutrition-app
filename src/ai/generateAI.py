@@ -2,6 +2,10 @@ import sys
 sys.path.insert(1, './')
 import src.dao.generateAIDAO as g_ai_dao
 
+import src.action.processMealAction as processMealAction
+import src.action.processFoodAction as processFoodAction
+import src.action.processPlanAction as processPlanAction
+
 mealNameBase = ["Breakfast","Lunch","Dinner","Snack"]
 
 def generatePlanAI(planName: str, numMeal:int ):
@@ -18,7 +22,7 @@ def generatePlanAI(planName: str, numMeal:int ):
     if numMeal > 4 or numMeal <= 0: numMeal = 3
 
     # FIXME: Plan calories is still hardcoded to 5000
-    planCalories = 5000
+    planCalories = 0
 
     # TODO: Generate a plan
     planID = g_ai_dao.createNewPlanSQL(planName, planCalories)
@@ -26,6 +30,15 @@ def generatePlanAI(planName: str, numMeal:int ):
     # TODO: Link plan with all of the meals
     for eachMeal in range(numMeal):
         mealID = generateMeal(planName, eachMeal)
+
+        # get meal_id and add calories to planID's planCalories
+        meal = processMealAction.getMealByMealId(mealID)
+        mealCalories = meal[0]['meal_calories']
+        print("MEAL CALORIES: {}".format(mealCalories))
+        updateVal = "+" + str(mealCalories)
+
+        processPlanAction.updatePlanCaloriesByPlanId(planID, updateVal)
+
         g_ai_dao.linkMealIDtoPlanID(planID, mealID)
 
     return
@@ -46,7 +59,7 @@ def generateMeal(planName: str, mealNum: int):
     print("mealname: {}".format(mealName))
 
     # FIXME: calorieTotal should sum all calories from food
-    calorieTotal = 500
+    calorieTotal = 0
 
     # TODO: make new meal that consists of all the foodIDs, catch error
     mealID = g_ai_dao.createNewMealSQL(mealName, calorieTotal)
@@ -56,8 +69,14 @@ def generateMeal(planName: str, mealNum: int):
         # TODO: REMOVE HARDCODED VALUES
         # foodID = generateFood(planName)
         foodID = eachFood + 1
-        g_ai_dao.linkFoodIdToMealId(mealID,foodID)
 
+        # get food_id and add calories to mealID's mealCalories
+        food = processFoodAction.getFoodById(foodID)
+        foodCalories = food[0]['food_calories']
+        updateVal = "+" + str(foodCalories)
+
+        processMealAction.updateMealCaloriesById(mealID, updateVal)
+        g_ai_dao.linkFoodIdToMealId(mealID,foodID)
     return mealID
 
 

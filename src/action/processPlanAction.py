@@ -22,6 +22,10 @@ def updatePlanCaloriesByMealId(mid, updateVal):
     # updateVal on all planCalories referred by pid
     for planID in planIDs:
         pid = planID['plan_id']
-        processPlanDAO.updatePlanCaloriesByIdDAO(pid, updateVal)
+        updatePlanCaloriesByPlanId(pid, updateVal)
 
+    return
+
+def updatePlanCaloriesByPlanId(pid, updateVal):
+    processPlanDAO.updatePlanCaloriesByPlanIdDAO(pid, updateVal)
     return

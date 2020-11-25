@@ -40,7 +40,7 @@ def deletePlanByIdDAO(id):
         cursor.close()
         conn.close()
 
-def updatePlanCaloriesByIdDAO(id, updateVal):
+def updatePlanCaloriesByPlanIdDAO(id, updateVal):
     """updateVal is formatted like "+100" or "-100"
     """
     conn = None

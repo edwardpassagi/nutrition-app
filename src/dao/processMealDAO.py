@@ -3,6 +3,25 @@ sys.path.insert(1, './')
 import pymysql
 from db_config import mysql
 
+def getMealByMealIdDAO(id):
+    conn = None
+    cursor = None
+    try:
+        # Get meals
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cmd = "SELECT * FROM meal WHERE meal_id = {};".format(str(id))
+        cursor.execute(cmd)
+        meal = cursor.fetchall()
+        return meal
+    
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()
+
 def getMealsByPlanIdDAO(id):
     conn = None
     cursor = None
