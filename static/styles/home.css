@@ -1,6 +1,7 @@
 :root{
   --l-red: #f33e56;
   --red: #d63248;
+  --vvl-green: #e3fff8;
   --vl-green: #2bddb1;
   --l-green: #27c9a1;
   --green: #24be98;
@@ -9,15 +10,21 @@
   --b-radius: 12px;
   --btn-radius: 16px;
   --nav-height: 60px;
+  --shadow-near: 0 0 8px rgba(0,0,0,0.085);
 }
-.inside-padding{
+.inside-padding {
     padding: 20px;
 }
-::-webkit-scrollbar {
+.form-control {
+    -webkit-border-radius: var(--btn-radius);
+       -moz-border-radius: var(--btn-radius);
+            border-radius: var(--btn-radius);
+}
+::-webkit-scrollbar{
     width: 0px;
     background: transparent; /* make scrollbar transparent */
 }
-.form-control:focus {
+.form-control:focus{
     box-shadow: none !important;
 }
 .navbar{
@@ -71,6 +78,12 @@
   transition: none;
   display: none;
 }
+.prepend{
+    border-radius: var(--btn-radius);
+    border-color: var(--vvl-green);
+    background-color: white;
+    box-shadow: var(--shadow-near);
+}
 
 /* The Primary Button Attributes */
 .btn-primary{
@@ -117,7 +130,7 @@
 
 /* The danger button attributes */
 .btn-danger{
-    box-shadow: 0 0 8px rgba(0,0,0,0.085);
+    box-shadow: var(--shadow-near);
     border-radius: var(--btn-radius);
     background-color: white;
     border-color: white; /*set the color you want here*/

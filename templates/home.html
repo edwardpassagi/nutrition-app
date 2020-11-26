@@ -42,17 +42,18 @@
                         <!-- The collapsible container that holds the generate form -->
                         <div class="collapse" id="genCollapse">
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
-                                <p>Plan Preferences</p>
+                                <h6>Plan Preferences</h6>
+                                <br>
                                 <form method="post" action="/plan/generate">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Plan Name</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Plan Name</span>
                                         </div>
                                         <input class="form-control" name="planName" value="" type="text" autocomplete="off" required>
                                     </div>
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Number of Meals</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Number of Meals</span>
                                         </div>
                                         <input class="form-control" name="planNumMeals" value="" type="number" placeholder = "3 meals" autocomplete="off" required>
                                     </div>
@@ -65,12 +66,13 @@
                         <!-- The collapsible container that holds the blank plan form -->
                         <div class="collapse" id="blankPlanCollapse">
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
-                                <p>Plan Preferences</p>
+                                <h6>Plan Preferences</h6>
+                                <br>
     <!-- TODO: change the action -->
                                 <form method="post" action="/plan/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Plan Name</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Plan Name</span>
                                         </div>
                                         <input class="form-control" name="planName" value="" type="text" autocomplete="off" required>
                                     </div>
@@ -128,16 +130,17 @@
                         <!-- The regenerate collapse form -->
                         <div class="collapse" id="reGenCollapse">
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
-                                <p>Plan Preferences</p>
+                                <h6>Plan Preferences</h6>
+                                <br>
     <!-- TODO: change the action -->
                                 <form method="post" action="/plan/regenerate">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Number of Meals</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Number of Meals</span>
                                         </div>
                                         <input class="form-control" name="planNumMeals" value="" type="number" placeholder = "3 meals" autocomplete="off" required>
-                                        <input type="hidden" name="planID" value="{{planID}}">
                                     </div>
+                                    <input type="hidden" name="planID" value="{{planID}}">
                                     <input class="form-control btn btn-primary" type="submit" value="Regenerate Plan">
                                 </form>
                             </div>
@@ -147,18 +150,19 @@
                         <!-- the Blank meal collapse form -->
                         <div class="collapse" id="blankMealCollapse">
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
-                                <p>Meal Preferences</p>
+                                <h6>Meal Preferences</h6>
+                                <br>
     <!-- TODO: change the action -->
     <!-- TODO: The submit should add a meal with the provided name -->
     <!-- DON'T FORGET! the meal must be attached to the current plan (somehow?) -->
                                 <form method="post" action="/meal/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Meal Name</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Meal Name</span>
                                         </div>
                                         <input class="form-control" name="mealName" value="" type="text" autocomplete="off" required>
-                                        <input type="hidden" name="planID" value="{{planID}}">
                                     </div>
+                                    <input type="hidden" name="planID" value="{{planID}}">
                                     <input class="form-control btn btn-primary" type="submit" value="Add Meal">
                                 </form>
                             </div>
@@ -206,30 +210,48 @@
                         </div>
                     </div>
 
-                    <div class="container-scroll inside-padding" id="foodScroll">
+                    <div class="container-scroll inside-padding" id="addFoodScroll">
                         <!-- This collapsible holds the add food form -->
                         <div class="collapse" id="addFoodCollapse">
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
-                                <p>Food Preferences</p>
+                                <h6>Food Preferences</h6>
+                                <br>
     <!-- TODO: change the action -->
     <!-- TODO: The submit should add a food with the provided name -->
     <!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
                                 <form method="post" action="/food/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Food Name</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Food Name</span>
                                         </div>
                                         <input class="form-control" name="foodName" value="" type="text" autocomplete="off" required>
                                     </div>
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Calories</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Calories</span>
                                         </div>
                                         <input class="form-control" name="foodCalories" value="" type="number" autocomplete="off" required>
-                                        <input type="hidden" name="planID" value="{{planID}}">
-                                        <input type="hidden" name="mealID" value="{{mealID}}">
                                     </div>
+                                    <input type="hidden" name="planID" value="{{planID}}">
+                                    <input type="hidden" name="mealID" value="{{mealID}}">
                                     <input class="form-control btn btn-primary" type="submit" value="Add Custom Food">
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="collapse" id="lookupCollapse">
+                            <div class="card card-body panel-item" style="min-height:7.5vh;">
+    <!-- TODO: change the action -->
+    <!-- TODO: The submit should add a food with the provided name -->
+    <!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
+                                <form method="post" action="/TODO:">
+                                    <div class="input-group">
+                                        <input class="form-control" name="foodName" value="" type="text" autocomplete="off" aria-describedby="lookupButtonSeach" required>
+                                        <div class="input-group-append">
+                                            <input class="form-control btn btn-primary" id="lookupButtonSeach" type="submit" value="Search">
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <br>
@@ -289,9 +311,16 @@
                 $('#blankMealCollapse').collapse('hide');
             })
             $('#addFoodButton').click(function(){
-                var element = $('#foodScroll');
+                var element = $('#addFoodScroll');
                 element.scrollTop(0,0);
                 $('#addFoodCollapse').collapse('toggle');
+                $('#lookupCollapse').collapse('hide');
+            })
+            $('#lookupButton').click(function(){
+                var element = $('#addFoodScroll');
+                element.scrollTop(0,0);
+                $('#lookupCollapse').collapse('toggle');
+                $('#addFoodCollapse').collapse('hide');
             })
         });
     </script>
