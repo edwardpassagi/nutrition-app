@@ -46,11 +46,13 @@
     padding: 0px;
     min-height: 6px;
     min-width: 100%;
-    margin-top: calc(1vh);
+    margin-bottom: calc(-3vh);
 }
-.calories{
-    text-align: left;
-    /* padding-top: 0px; */
+.container-scroll{
+    height: 60vh;
+    width: 100%;
+    overflow-x: visible;
+    overflow-y: scroll;
 }
 .container-scroll{
     height: 60vh;
