@@ -1,6 +1,7 @@
 :root{
   --l-red: #f33e56;
   --red: #d63248;
+  --vvl-green: #e3fff6;
   --vl-green: #2bddb1;
   --l-green: #27c9a1;
   --green: #24be98;
@@ -9,15 +10,21 @@
   --b-radius: 12px;
   --btn-radius: 16px;
   --nav-height: 60px;
+  --shadow-near: 0 0 8px rgba(0,0,0,0.10);
 }
-.inside-padding{
+.inside-padding {
     padding: 20px;
 }
-::-webkit-scrollbar {
+.form-control {
+    -webkit-border-radius: var(--btn-radius);
+       -moz-border-radius: var(--btn-radius);
+            border-radius: var(--btn-radius);
+}
+::-webkit-scrollbar{
     width: 0px;
     background: transparent; /* make scrollbar transparent */
 }
-.form-control:focus {
+.form-control:focus{
     box-shadow: none !important;
 }
 .navbar{
@@ -38,6 +45,13 @@
   outline: none;
   padding: 16px;
   border-radius: var(--b-radius);
+}
+.panel-item-selected{
+    border-radius: 16px;
+    border-color: var(--green);
+    background-color: var(--green);
+    color: white;
+    box-shadow: var(--shadow-near);
 }
 .panel-small{
   min-height: 5vh;
@@ -70,6 +84,12 @@
   -webkit-transition: none;
   transition: none;
   display: none;
+}
+.prepend{
+    border-radius: var(--btn-radius);
+    border-color: var(--vvl-green);
+    background-color: white;
+    box-shadow: var(--shadow-near);
 }
 
 /* The Primary Button Attributes */
@@ -117,7 +137,7 @@
 
 /* The danger button attributes */
 .btn-danger{
-    box-shadow: 0 0 8px rgba(0,0,0,0.085);
+    box-shadow: var(--shadow-near);
     border-radius: var(--btn-radius);
     background-color: white;
     border-color: white; /*set the color you want here*/
@@ -136,4 +156,27 @@
     border-color: var(--l-red); /*set the color you want here*/
     color: white;
     box-shadow: 0 0 0px 6px rgba(240, 96, 96, 0.25) !important;
+}
+
+/* The danger button attributes */
+.btn-warning{
+    box-shadow: 0 0 16px rgba(0,0,0,0.125);
+    border-radius: var(--btn-radius);
+    background-color: var(--l-green);
+    border-color: var(--l-green); /*set the color you want here*/
+    color: white;
+}
+.btn-warning:hover{
+    border-radius: var(--btn-radius);
+    background-color: var(--l-red);
+    border-color: var(--l-red); /*set the color you want here*/
+    color: white !important;
+}
+.btn-warning:active,
+.btn-warning:focus{
+    border-radius: var(--btn-radius);
+    background-color: var(--l-red) !important;
+    border-color: var(--l-red) !important; /*set the color you want here*/
+    color: white !important;
+    box-shadow: 0 0 0px 6px rgba(96, 240, 185, 0.25) !important;
 }
