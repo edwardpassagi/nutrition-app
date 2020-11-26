@@ -87,7 +87,11 @@
                     {% for plan in plans %}
                         <tr>
                             <!-- All plan containers -->
+                            {% if plan['plan_id'] == planID %}
+                            <div class="card panel-item panel-item-selected">
+                            {% else %}
                             <div class="card panel-item">
+                            {% endif %}
                                 <div class="card-body" style="padding:0px">
                                     <div class="row" style="min-height: 100%;">
                                         <div class="col"
@@ -97,10 +101,18 @@
                                             <a href="/details/planid:{{plan['plan_id']}}" class="stretched-link"></a>
                                         </div>
                                         <div class="col-1">
+                                            {% if plan['plan_id'] == planID %}
+                                            <td><a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-warning float-right">Delete</a></td>
+                                            {% else %}
                                             <td><a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-danger float-right">Delete</a></td>
+                                            {% endif %}
                                         </div>
                                     </div>
+                                    {% if plan['plan_id'] == planID %}
+                                    <a class="btn panel-btn btn-primary" style="background-color: white; border-color: white;"></a>
+                                    {% else %}
                                     <a class="btn panel-btn btn-primary"></a>
+                                    {% endif %}
                                 </div>
                             </div>
                             <br>
@@ -113,9 +125,9 @@
             <div class="col-4">
                 <div class="card panel">
                     <div class="inside-padding">
-                        <h3>My Meals</h3>
-                        <br>
                         {% if planID %}
+                        <h3>{{planName}}</h3>
+                        <br>
                         <div class="row">
                             <div class="col">
                                 <button class="btn btn-secondary btn-block" id="reGenButton">Regenerate Plan</button>
@@ -171,7 +183,11 @@
 
                         <!-- The for loop containing all meals -->
                     {% for meal in meals %}
+                        {% if meal['meal_id'] == mealID %}
+                        <div class="card panel-item panel-item-selected">
+                        {% else %}
                         <div class="card panel-item">
+                        {% endif %}
                             <div class="card-body" style="padding:0px">
                                 <div class="row" style="min-height: 100%;">
                                     <div class="col"
@@ -181,10 +197,18 @@
                                         <a href="/details/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="stretched-link"></a>
                                     </div>
                                     <div class="col-1">
+                                        {% if meal['meal_id'] == mealID %}
+                                        <td><a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-warning float-right">Delete</a></td>
+                                        {% else %}
                                         <td><a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-danger float-right">Delete</a></td>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% if meal['meal_id'] == mealID %}
+                                <a class="btn panel-btn btn-primary" style="background-color: white; border-color: white;"></a>
+                                {% else %}
                                 <a class="btn panel-btn btn-primary"></a>
+                                {% endif %}
                             </div>
                         </div>
                         <br>
@@ -197,9 +221,9 @@
             <div class="col-4">
                 <div class="card panel">
                     <div class="inside-padding">
-                        <h3>What to Eat</h3>
-                        <br>
                         {% if mealID %}
+                        <h3>{{mealName}}</h3>
+                        <br>
                         <div class="row">
                             <div class="col">
                                 <button class="btn btn-secondary btn-block" id="lookupButton">Lookup Food</button>
@@ -256,6 +280,23 @@
                             </div>
                             <br>
                         </div>
+
+                        <div class="card panel-item">
+                            <div class="card-body container-scroll" style="height: 30vh;">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Food name</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>calories or sth idk</p>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-secondary btn-block" id="genButton">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
 
                         {% for food in foods %}
                         <tr>

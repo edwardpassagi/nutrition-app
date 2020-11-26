@@ -27,14 +27,17 @@ def show_plans():
 def show_meals(id):
     plans = processPlanAction.getAllPlans()
     meals = processMealAction.getMealsByPlanID(id)
-    return render_template('home.html', plans=plans, planID=id, meals = meals)
+    planName = processPlanAction.getPlanById(id)[0]['plan_name']
+    return render_template('home.html', plans=plans, planID=id, planName=planName, meals=meals)
     
 @app.route('/details/planid:<int:pid>/mealid:<int:mid>')
 def show_food_in_meal(pid,mid):
     plans = processPlanAction.getAllPlans()
     meals = processMealAction.getMealsByPlanID(pid)
     foods = processFoodAction.getFoodsByMealID(mid)
-    return render_template('home.html', plans=plans, planID=pid, meals = meals, mealID = mid, foods = foods)
+    planName = processPlanAction.getPlanById(pid)[0]['plan_name']
+    mealName = processMealAction.getMealByMealId(mid)[0]['meal_name']
+    return render_template('home.html', plans=plans, planID=pid, planName=planName, meals=meals, mealID=mid, mealName=mealName, foods=foods)
 
     
 ########## PLAN ##########
