@@ -62,9 +62,22 @@ def create_plan():
 
 
 ########## MEAL ##########
+# Remove Meal
 @app.route('/remove/planid:<int:pid>/mealid:<int:mid>')
 def remove_meal(pid,mid):
     processMealAction.removeMealByID(pid, mid)
+    return redirect('/details/planid:{}'.format(pid))
+
+# Regenerate Meal
+@app.route('/plan/regenerate', methods=['POST'])
+def regenerate_meal():
+    plan_num_meals = request.form['planNumMeals']
+    pid = request.form['planID']
+    # unlink all mid entry from pid
+    processPlanContainsAction.deletePlanIdEntry(pid)
+    # call regenerate AI
+    gai.generatePlanAI("", int(plan_num_meals), pid)
+    # redirect to plan details
     return redirect('/details/planid:{}'.format(pid))
 
 
@@ -84,8 +97,7 @@ def create_empty_meal_to_plan():
     processPlanContainsAction.linkPidToMid(pid,mid)
     return redirect('/details/planid:{}'.format(pid))
 
-
-# TODO: Create food to a meal
+# Create New Food Entry
 @app.route('/food/create', methods=['POST'])
 def create_empty_food_to_meal():
     # Form already validates so that foodName and foodCalories is NOT NULL

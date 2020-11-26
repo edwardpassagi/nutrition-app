@@ -130,12 +130,13 @@
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
                                 <p>Plan Preferences</p>
     <!-- TODO: change the action -->
-                                <form method="post" action="/plan/TODO:">
+                                <form method="post" action="/plan/regenerate">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Number of Meals</span>
                                         </div>
                                         <input class="form-control" name="planNumMeals" value="" type="number" placeholder = "3 meals" autocomplete="off" required>
+                                        <input type="hidden" name="planID" value="{{planID}}">
                                     </div>
                                     <input class="form-control btn btn-primary" type="submit" value="Regenerate Plan">
                                 </form>

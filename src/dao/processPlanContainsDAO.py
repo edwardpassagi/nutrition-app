@@ -83,3 +83,23 @@ def getPlanIdsFromMealIdDAO(mid):
     finally:
         cursor.close()
         conn.close()
+
+def getMealIdsFromPlanIdDAO(pid):
+    conn = None
+    cursor = None
+    try:
+        # Delete fid from mid
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cmd = "SELECT meal_id FROM plan_contains WHERE plan_id={};".format(str(pid))
+        print(cmd)
+        cursor.execute(cmd)
+        mealIDs = cursor.fetchall()
+        return mealIDs
+    
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()
