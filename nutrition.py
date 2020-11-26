@@ -15,6 +15,7 @@ import src.action.processPlanAction as processPlanAction
 import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
 import src.action.processMealContainsAction as processMealContainsAction
+import src.action.processPlanContainsAction as processPlanContainsAction
 
 ########## VIEW ##########
 @app.route('/')
@@ -52,13 +53,31 @@ def delete_plan_by_id(id):
     return redirect('/')
 
 # TODO: Create Empty Plan
+@app.route('/plan/create', methods=['POST'])
+def create_plan():
+    plan_name = request.form['planName']
+    processPlanAction.createNewPlan(plan_name)
+    return redirect('/')
 
 
 
 ########## MEAL ##########
+# Remove Meal
 @app.route('/remove/planid:<int:pid>/mealid:<int:mid>')
 def remove_meal(pid,mid):
     processMealAction.removeMealByID(pid, mid)
+    return redirect('/details/planid:{}'.format(pid))
+
+# Regenerate Meal
+@app.route('/plan/regenerate', methods=['POST'])
+def regenerate_meal():
+    plan_num_meals = request.form['planNumMeals']
+    pid = request.form['planID']
+    # unlink all mid entry from pid
+    processPlanContainsAction.deletePlanIdEntry(pid)
+    # call regenerate AI
+    gai.generatePlanAI("", int(plan_num_meals), pid)
+    # redirect to plan details
     return redirect('/details/planid:{}'.format(pid))
 
 
@@ -69,10 +88,27 @@ def remove_food_from_meal(pid, mid,fid):
     processMealContainsAction.removeFoodIdFromMealId(mid,fid)
     return redirect('/details/planid:{}/mealid:{}'.format(pid,mid))
 
-# TODO: Create food to a meal
-@app.route('/add/food/mealid:<int:mid>')
-def add_food_to_mealID(mid):
-    pass
+# Create blank meal and add to plan
+@app.route('/meal/create', methods=['POST'])
+def create_empty_meal_to_plan():
+    pid = request.form['planID']
+    mealName = request.form['mealName']
+    mid = processMealAction.createNewMeal(mealName)
+    processPlanContainsAction.linkPidToMid(pid,mid)
+    return redirect('/details/planid:{}'.format(pid))
+
+# Create New Food Entry
+@app.route('/food/create', methods=['POST'])
+def create_empty_food_to_meal():
+    # Form already validates so that foodName and foodCalories is NOT NULL
+    foodName = request.form['foodName']
+    foodCalories = request.form['foodCalories']
+    pid = request.form['planID']
+    mid = request.form['mealID']
+    #TODO: Create food instance
+    fid = processFoodAction.createNewFood(foodName, foodCalories)
+    processMealContainsAction.addFoodIdToMealId(mid,fid)
+    return redirect('/details/planid:{}/mealid:{}'.format(pid,mid))
 
 
 if __name__ == "__main__":

@@ -3,7 +3,27 @@ sys.path.insert(1, './')
 import pymysql
 from db_config import mysql
 
-def removeFoodIdFromMealIdDAO(mid,fid):
+def linkMidToFidDAO(mid,fid):
+    conn = None
+    cursor = None
+    try:
+        # add MID and FID to meal_contains entry
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cmd = "INSERT INTO meal_contains (meal_id, food_id) VALUES({},{});".format(str(mid), str(fid))
+        cursor.execute(cmd)
+        conn.commit()
+        return
+    
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def unlinkMidToFidDAO(mid,fid):
     conn = None
     cursor = None
     try:

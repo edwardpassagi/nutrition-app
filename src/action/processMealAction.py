@@ -7,6 +7,10 @@ import src.dao.processMealDAO as processMealDAO
 import src.dao.processMealContainsDAO as processMealContainsDAO
 import src.dao.processPlanContainsDAO as processPlanContainsDAO
 
+def createNewMeal(mealName, mealCalories = 0):
+    mid = processMealDAO.createNewMealDAO(mealName, mealCalories)
+    return mid
+
 def getMealByMealId(id):
     meal = processMealDAO.getMealByMealIdDAO(id)
     return meal
