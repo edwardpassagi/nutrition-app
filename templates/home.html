@@ -67,7 +67,7 @@
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
                                 <p>Plan Preferences</p>
     <!-- TODO: change the action -->
-                                <form method="post" action="/plan/generate">
+                                <form method="post" action="/plan/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Plan Name</span>
@@ -150,12 +150,13 @@
     <!-- TODO: change the action -->
     <!-- TODO: The submit should add a meal with the provided name -->
     <!-- DON'T FORGET! the meal must be attached to the current plan (somehow?) -->
-                                <form method="post" action="/TODO">
+                                <form method="post" action="/meal/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Meal Name</span>
                                         </div>
                                         <input class="form-control" name="mealName" value="" type="text" autocomplete="off" required>
+                                        <input type="hidden" name="planID" value="{{planID}}">
                                     </div>
                                     <input class="form-control btn btn-primary" type="submit" value="Add Meal">
                                 </form>
@@ -212,7 +213,7 @@
     <!-- TODO: change the action -->
     <!-- TODO: The submit should add a food with the provided name -->
     <!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
-                                <form method="post" action="/add/food/mealid:mealID">
+                                <form method="post" action="/food/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Food Name</span>
@@ -224,6 +225,8 @@
                                             <span class="input-group-text" id="basic-addon1">Calories</span>
                                         </div>
                                         <input class="form-control" name="foodCalories" value="" type="number" autocomplete="off" required>
+                                        <input type="hidden" name="planID" value="{{planID}}">
+                                        <input type="hidden" name="mealID" value="{{mealID}}">
                                     </div>
                                     <input class="form-control btn btn-primary" type="submit" value="Add Custom Food">
                                 </form>

@@ -4,6 +4,10 @@ sys.path.insert(1, './')
 import src.dao.processPlanDAO as processPlanDAO
 import src.dao.processPlanContainsDAO as processPlanContainsDAO
 
+def createNewPlan(planName, planCalories = 0):
+    processPlanDAO.createNewPlanDAO(planName,planCalories)
+    return
+
 def getAllPlans():
     plans = processPlanDAO.getAllPlansDAO()
     return plans
@@ -26,6 +30,6 @@ def updatePlanCaloriesByMealId(mid, updateVal):
 
     return
 
-def updatePlanCaloriesByPlanId(pid, updateVal):
+def updatePlanCaloriesByPlanId(pid, updateVal = "+0"):
     processPlanDAO.updatePlanCaloriesByPlanIdDAO(pid, updateVal)
     return

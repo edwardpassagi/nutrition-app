@@ -3,6 +3,23 @@ sys.path.insert(1, './')
 import pymysql
 from db_config import mysql
 
+def createNewPlanDAO(planName, planCalories):
+    conn = None
+    cursor = None
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cmd = "INSERT INTO plan (plan_name, plan_calories) VALUES ('{}',{})".format(planName, str(planCalories))
+        cursor.execute(cmd)
+        conn.commit()
+        return
+    
+    except Exception as e:
+        print(e)
+
+    finally:
+        cursor.close()
+        conn.close()
 
 def getAllPlansDAO():
     conn = None

@@ -62,7 +62,7 @@ def generateMeal(planName: str, mealNum: int):
     calorieTotal = 0
 
     # TODO: make new meal that consists of all the foodIDs, catch error
-    mealID = g_ai_dao.createNewMealSQL(mealName, calorieTotal)
+    mealID = processMealAction.createNewMeal(mealName, calorieTotal)
 
     # TODO: link mealID with all of the foodID
     for eachFood in range(numFoods):
