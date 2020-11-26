@@ -54,6 +54,12 @@
     overflow-x: visible;
     overflow-y: scroll;
 }
+.container-scroll{
+    height: 60vh;
+    width: 100%;
+    overflow-x: visible;
+    overflow-y: scroll;
+}
 .container-meals{
   margin: auto;
   margin-top: calc(var(--nav-height) + 48px);
