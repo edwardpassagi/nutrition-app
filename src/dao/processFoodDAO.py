@@ -37,7 +37,7 @@ def getFoodsByMealIdDAO(id):
         # Get food
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        get_food_from_meal_cmd = "SELECT * FROM meal NATURAL JOIN meal_contains NATURAL JOIN food WHERE meal_id={};".format(str(id))
+        get_food_from_meal_cmd = "SELECT * FROM meal NATURAL JOIN meal_contains NATURAL JOIN food WHERE meal_id={} ORDER BY food_calories DESC, food_name ASC;".format(str(id))
         cursor.execute(get_food_from_meal_cmd)
         foods = cursor.fetchall()
         return foods
