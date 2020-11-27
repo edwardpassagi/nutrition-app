@@ -5,7 +5,12 @@ sys.path.insert(1, './')
 from src.dao.ProcessCSVFilesDAO import loadFoodCategoryFile
 
 DIRECTORY_PATH = 'CSV/'
-FILE_PATHS = os.listdir(DIRECTORY_PATH)
+FILE_PATHS = []
+try:
+    FILE_PATHS = os.listdir(DIRECTORY_PATH)
+except Exception as e:
+    print("An error occured: {}".format(e))
+
 
 def processCVSFileData(file_name):
     foodCategoryDataFile = pd.read_csv(file_name)
