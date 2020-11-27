@@ -175,3 +175,5 @@ CREATE TABLE food_protein_conversion_factor (
     food_nutrient_conversion_factor_id INTEGER PRIMARY KEY,
     value DOUBLE
 );
+
+CREATE 
