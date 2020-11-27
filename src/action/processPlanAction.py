@@ -2,8 +2,10 @@ import sys
 sys.path.insert(1, './')
 
 import src.action.processPlanContainsAction as processPlanContainsAction
+import src.dao.processMealDAO as processMealDAO
 import src.dao.processPlanDAO as processPlanDAO
 import src.dao.processPlanContainsDAO as processPlanContainsDAO
+import src.dao.processMealContainsDAO as processMealContainsDAO
 
 def createNewPlan(planName, planCalories = 0):
     processPlanDAO.createNewPlanDAO(planName,planCalories)
@@ -17,11 +19,18 @@ def getPlanById(pid):
     plan = processPlanDAO.getPlanByIdDAO(pid)
     return plan
 
-def deletePlanById(id):
+def deletePlanById(pid):
+    # get all meal IDs associated with it
+    mids = processPlanContainsAction.getMealIdsFromPid(pid)
+    # delete all meal IDs entrance and its associated meal_contains
+    for mid in mids:
+        processMealDAO.removeMealByIdDAO(mid)
+        processMealContainsDAO.removeMealIdFromMealContains(mid)
+
     # delete plan instance
-    processPlanDAO.deletePlanByIdDAO(id)
+    processPlanDAO.deletePlanByIdDAO(pid)
     # delete planID entry from the plan_contains table
-    processPlanContainsDAO.deletePlanIdEntryDAO(id)
+    processPlanContainsDAO.deletePlanIdEntryDAO(pid)
     return
 
 def updatePlanCaloriesByMealId(mid, updateVal):

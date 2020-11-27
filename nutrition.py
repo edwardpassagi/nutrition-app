@@ -18,18 +18,21 @@ import src.action.processMealContainsAction as processMealContainsAction
 import src.action.processPlanContainsAction as processPlanContainsAction
 
 ########## VIEW ##########
+# Show all plans
 @app.route('/')
 def show_plans():
     plans = processPlanAction.getAllPlans()
     return render_template('home.html', plans=plans)
 
+# Show all meals in plan
 @app.route('/details/planid:<int:id>')
 def show_meals(id):
     plans = processPlanAction.getAllPlans()
     meals = processMealAction.getMealsByPlanID(id)
     planName = processPlanAction.getPlanById(id)[0]['plan_name']
     return render_template('home.html', plans=plans, planID=id, planName=planName, meals=meals)
-    
+
+# Show all foods in meal    
 @app.route('/details/planid:<int:pid>/mealid:<int:mid>')
 def show_food_in_meal(pid,mid):
     plans = processPlanAction.getAllPlans()
@@ -39,6 +42,21 @@ def show_food_in_meal(pid,mid):
     mealName = processMealAction.getMealByMealId(mid)[0]['meal_name']
     return render_template('home.html', plans=plans, planID=pid, planName=planName, meals=meals, mealID=mid, mealName=mealName, foods=foods)
 
+# Render search result into home.html
+@app.route('/search/food', methods=['POST'])
+def search_food_keyword():
+    pid = int(request.form['planID'])
+    mid = int(request.form['mealID'])
+    foodKeyword = request.form['foodKeyword']
+    plans = processPlanAction.getAllPlans()
+    meals = processMealAction.getMealsByPlanID(pid)
+    foods = processFoodAction.getFoodsByMealID(mid)
+    planName = processPlanAction.getPlanById(pid)[0]['plan_name']
+    mealName = processMealAction.getMealByMealId(mid)[0]['meal_name']
+    foodResults = processFoodAction.getFoodByKeyword(foodKeyword)
+    print(pid,mid)
+    
+    return render_template('home.html', plans=plans, planID=pid, planName=planName, meals=meals, mealID=mid, mealName=mealName, foods=foods, foodResults = foodResults, foodKeyword = foodKeyword)
     
 ########## PLAN ##########
 # Generate Plan
@@ -113,6 +131,14 @@ def create_empty_food_to_meal():
     processMealContainsAction.addFoodIdToMealId(mid,fid)
     return redirect('/details/planid:{}/mealid:{}'.format(pid,mid))
 
+# Link Food to Meal
+@app.route('/food/link', methods=['post'])
+def link_food_to_meal():
+    pid = request.form['planID']
+    mid = request.form['mealID']
+    fid = request.form['foodID']
+    processMealContainsAction.addFoodIdToMealId(mid,fid)  
+    return redirect('/details/planid:{}/mealid:{}'.format(pid,mid))
 
 if __name__ == "__main__":
     # processDataIntoDatabase()

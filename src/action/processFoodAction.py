@@ -14,3 +14,7 @@ def getFoodsByMealID(id):
 def getFoodById(id):
     food = processFoodDAO.getFoodById(id)
     return food
+
+def getFoodByKeyword(foodKeyword):
+    foods = processFoodDAO.getFoodByKeywordDAO(foodKeyword)
+    return foods

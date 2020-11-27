@@ -269,10 +269,12 @@
     <!-- TODO: change the action -->
     <!-- TODO: The submit should add a food with the provided name -->
     <!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
-                                <form method="post" action="/TODO:">
+                                <form method="post" action="/search/food">
                                     <div class="input-group">
-                                        <input class="form-control" name="foodName" value="" type="text" autocomplete="off" aria-describedby="lookupButtonSeach" required>
+                                        <input class="form-control" name="foodKeyword" value="" type="text" autocomplete="off" aria-describedby="lookupButtonSeach" required>
                                         <div class="input-group-append">
+                                            <input type="hidden" name="planID" value="{{planID}}">
+                                            <input type="hidden" name="mealID" value="{{mealID}}">
                                             <input class="form-control btn btn-primary" id="lookupButtonSeach" type="submit" value="Search">
                                         </div>
                                     </div>
@@ -281,22 +283,34 @@
                             <br>
                         </div>
 
+                        {% if foodResults %}
                         <div class="card panel-item">
                             <div class="card-body container-scroll" style="height: 30vh;">
                                 <div class="row">
+                                    <p>Search result for: {{foodKeyword}} </p>
+                                </div>
+                            {% for foodResult in foodResults %}
+                                <form method="post" action="/food/link">
+                                <div class="row">
                                     <div class="col">
-                                        <p>Food name</p>
+                                        <p>{{foodResult['food_name']}}</p>
                                     </div>
                                     <div class="col">
-                                        <p>calories or sth idk</p>
+                                        <p>{{foodResult['food_calories']}} calories</p>
                                     </div>
                                     <div class="col">
+                                        <input type="hidden" name="planID" value="{{planID}}">
+                                        <input type="hidden" name="mealID" value="{{mealID}}">
+                                        <input type="hidden" name="foodID" value="{{foodResult['food_id']}}">
                                         <button class="btn btn-secondary btn-block" id="genButton">Add</button>
                                     </div>
                                 </div>
+                                </form>
+                            {% endfor %}
                             </div>
                         </div>
                         <br>
+                        {% endif %}
 
                         {% for food in foods %}
                         <tr>

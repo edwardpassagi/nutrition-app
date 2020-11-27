@@ -3,6 +3,8 @@ sys.path.insert(1, './')
 import pymysql
 from db_config import mysql
 
+SEARCH_LIMIT = 50
+
 def createNewFoodDAO(foodName, foodCalories, foodImage):
     conn = None
     cursor = None
@@ -55,6 +57,26 @@ def getFoodById(id):
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "SELECT * FROM food WHERE food_id={};".format(str(id))
+        cursor.execute(cmd)
+        foods = cursor.fetchall()
+        return foods
+
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()
+
+def getFoodByKeywordDAO(foodKeyword):
+    global SEARCH_LIMIT
+    conn = None
+    cursor = None
+    try:
+        # Get food
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cmd = "SELECT * FROM food WHERE food_name LIKE('%{}%') LIMIT {};".format(foodKeyword, SEARCH_LIMIT)
         cursor.execute(cmd)
         foods = cursor.fetchall()
         return foods
