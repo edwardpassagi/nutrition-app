@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <!--    <link rel="stylesheet" href="{{ url_for('static', filename='static/home.css') }}" type="text/css" media=screen>-->
     <link rel="stylesheet" href= "{{ url_for('static',filename='styles/home.css') }}">
@@ -9,170 +10,373 @@
 </head>
 
 <body>
-    <div>
-        <div class="container-sm">
-            <nav class="navbar fixed-top">
-                <ul class="navbar-nav ml-auto">
-                    <row>
-                        <a class="btn btn-primary btn-nav float-right ml-2" href="login.html" role="button">Log In</a>
-                        <a class="btn btn-primary btn-nav float-right " href="login.html" role="button">Diet Preferences</a>
-                    </row>
-                </ul>
-            </nav>
-        </div>
-        <div class="container-meals">
-            <div class="row" style="height:inherit;">
-                <div class="col-4">
-                    <div class="card panel">
-                        <!-- The container hodling the header buttons -->
-                        <div class="card panel-item" style="min-height: 7.5vh;">
-                            <div class="card-body" style="padding:0px">
-                                <button class="btn btn-primary" type="button"
-                                data-toggle="collapse" data-target="#generateCollapse"
-                                aria-expanded="false" aria-controls="generateCollapse"
-                                style="width: 60%;">Generate</button>
-                                <a class="btn btn-primary" href="login.html" role="button"
-                                style="width: calc(40% - 6px);">Blank Plan</a>
+    <div class="container-sm">
+        <nav class="navbar fixed-top">
+            <ul class="navbar-nav ml-auto">
+                <row>
+                    <a class="btn btn-primary btn-nav float-right ml-2" href="login.html" role="button">Log In</a>
+                    <a class="btn btn-primary btn-nav float-right " href="preferences.html" role="button">Diet Preferences</a>
+                </row>
+            </ul>
+        </nav>
+    </div>
+    <div class="container-meals">
+        <div class="row" style="height:inherit;">
+            <div class="col-4">
+                <div class="card panel">
+                    <div class="inside-padding">
+                        <h3>My Plans</h3>
+                        <br>
+                        <!-- The container is hodling the header buttons -->
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-secondary btn-block" id="genButton">Generate</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-secondary btn-block" id="blankPlanButton">Blank Plan</button>
                             </div>
                         </div>
-                        <br>
+                    </div>
 
-<!-- The collapsible container that holds the generate form -->
-                        <div class="collapse" id="generateCollapse">
+                    <div class="container-scroll inside-padding" id="planScroll">
+                        <!-- The collapsible container that holds the generate form -->
+                        <div class="collapse" id="genCollapse">
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
-                                <p>Plan Preferences</p>
-<!-- TODO: change the action -->
-                                <form method="post" action="/TODO">
+                                <h6>Plan Preferences</h6>
+                                <br>
+                                <form method="post" action="/plan/generate">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Plan Name</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Plan Name</span>
                                         </div>
                                         <input class="form-control" name="planName" value="" type="text" autocomplete="off" required>
                                     </div>
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Number of Meals</span>
+                                            <span class="input-group-text prepend" id="basic-addon1">Number of Meals</span>
                                         </div>
                                         <input class="form-control" name="planNumMeals" value="" type="number" placeholder = "3 meals" autocomplete="off" required>
                                     </div>
-<!-- TODO: The submit should add a plan with the provided name -->
-                                    <input class="form-control btn btn-primary" type="submit" value="Submit">
+                                    <input class="form-control btn btn-primary" type="submit" value="Generate Plan">
                                 </form>
                             </div>
                             <br>
                         </div>
+
+                        <!-- The collapsible container that holds the blank plan form -->
+                        <div class="collapse" id="blankPlanCollapse">
+                            <div class="card card-body panel-item" style="min-height:7.5vh;">
+                                <h6>Plan Preferences</h6>
+                                <br>
+    <!-- TODO: change the action -->
+                                <form method="post" action="/plan/create">
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text prepend" id="basic-addon1">Plan Name</span>
+                                        </div>
+                                        <input class="form-control" name="planName" value="" type="text" autocomplete="off" required>
+                                    </div>
+    <!-- TODO: The submit should add a blank plan with the provided name -->
+                                    <input class="form-control btn btn-primary" type="submit" value="Create Blank Plan">
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+                    
+                        <!-- the for-loop that generates all plan cards -->
                     {% for plan in plans %}
                         <tr>
                             <!-- All plan containers -->
+                            {% if plan['plan_id'] == planID %}
+                            <div class="card panel-item panel-item-selected">
+                            {% else %}
                             <div class="card panel-item">
+                            {% endif %}
                                 <div class="card-body" style="padding:0px">
-                                    <p>{{plan['plan_name']}}</p>
-                                    <p class="calories">{{plan['plan_calories']}} cal</p>
-                                    <a href="/details/planid:{{plan['plan_id']}}" class="btn panel-btn btn-primary"></a>
-<!-- TODO: THIS SHOULD DELETE A PLAN!!!! -->
-                                    <td><a href="/TODO" class="btn btn-danger">Delete</a></td>
+                                    <div class="row" style="min-height: 100%;">
+                                        <div class="col"
+                                        style="transform: rotate(0); min-height: 100%;">
+                                            <h6>{{plan['plan_name']}}</h6>
+                                            <p>{{plan['plan_calories']}} cal</p>
+                                            <a href="/details/planid:{{plan['plan_id']}}" class="stretched-link"></a>
+                                        </div>
+                                        <div class="col-1">
+                                            {% if plan['plan_id'] == planID %}
+                                            <td><a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-warning float-right">Delete</a></td>
+                                            {% else %}
+                                            <td><a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-danger float-right">Delete</a></td>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% if plan['plan_id'] == planID %}
+                                    <a class="btn panel-btn btn-primary" style="background-color: white; border-color: white;"></a>
+                                    {% else %}
+                                    <a class="btn panel-btn btn-primary"></a>
+                                    {% endif %}
                                 </div>
                             </div>
                             <br>
-
-                        </tr>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card panel">
-                        <div class="card panel-item" style="min-height: 7.5vh;">
-                            <div class="card-body" style="padding:0px">
-                                <a class="btn btn-primary" href="login.html" role="button"
-                                style="width: 60%;">Regenerate Plan</a>
-                                <button class="btn btn-primary" type="button"
-                                data-toggle="collapse" data-target="#addBlankMealCollapse"
-                                aria-expanded="false" aria-controls="addBlankMealCollapse"
-                                style="width: calc(40% - 6px);">Blank Meal</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="collapse" id="addBlankMealCollapse">
-                            <div class="card card-body panel-item" style="min-height:7.5vh;">
-<!-- TODO: change the action -->
-                                <form method="post" action="/TODO">
-                                    <div class="form-group input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Meal Name</span>
-                                        </div>
-                                        <input class="form-control" name="mealName" value="" type="text" autocomplete="off" required>
-                                    </div>
-<!-- TODO: The submit should add a meal with the provided name -->
-<!-- DON'T FORGET! the meal must be attached to the current plan (somehow?) -->
-                                    <input class="form-control btn btn-primary" type="submit" value="Add Meal">
-                                </form>
-                            </div>
-                            <br>
-                        </div>
-                    {% for meal in meals %}
-                        <!--This container holds all the meals-->
-                        <div class="card panel-item">
-                            <p>{{meal['meal_name']}}</p>
-                            <p class="calories">{{meal['meal_calories']}}</p>
-                            <a href="/details/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn panel-btn btn-primary"></a>
-<!-- TODO: THIS SHOULD DELETE A MEAL!!!! -->
-                            <td><a href="/TODO" class="btn btn-danger">Delete</a></td>
-                        </div>
-                        <br>
-                    {% endfor %}
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card panel">
-                        <div class="card panel-item" style="min-height: 7.5vh;">
-                            <div class="card-body" style="padding:0px">
-                                <a class="btn btn-primary" href="login.html" role="button"
-                                style="width: 60%;">Lookup Food</a>
-                                <button class="btn btn-primary" type="button"
-                                data-toggle="collapse" data-target="#addCustomFoodCollapse"
-                                aria-expanded="false" aria-controls="addCustomFoodCollapse"
-                                style="width: calc(40% - 6px);">Add Custom</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="collapse" id="addCustomFoodCollapse">
-                            <div class="card card-body panel-item" style="min-height:7.5vh;">
-<!-- TODO: change the action -->
-                                <form method="post" action="/TODO">
-                                    <div class="form-group input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Meal Name</span>
-                                        </div>
-                                        <input class="form-control" name="foodName" value="" type="text" autocomplete="off" required>
-                                    </div>
-                                    <div class="form-group input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Calories</span>
-                                        </div>
-                                        <input class="form-control" name="foodCalories" value="" type="number" autocomplete="off" required>
-                                    </div>
-<!-- TODO: The submit should add a food with the provided name -->
-<!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
-                                    <input class="form-control btn btn-primary" type="submit" value="Add Custom Food">
-                                </form>
-                            </div>
-                            <br>
-                        </div>
-                        {% for food in foods %}
-                        <tr>
-<!--This container holds all the foods-->
-                                <div class="card panel-item">
-                                    <p>{{food['food_name']}}</p>
-                                    <p class="calories">{{food['food_calories']}} cal</p>
-                                    <td><a href="/food/delete/{{food['food_id']}}" class="btn btn-danger">Delete</a></td>
-                                </div>
-                                <br>
-
                         </tr>
                         {% endfor %}
                     </div>
                 </div>
             </div>
+
+            <div class="col-4">
+                <div class="card panel">
+                    <div class="inside-padding">
+                        {% if planID %}
+                        <h3>{{planName}}</h3>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-secondary btn-block" id="reGenButton">Regenerate Plan</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-secondary btn-block" id="blankMealButton">Blank Meal</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scroll inside-padding" id="mealScroll">
+                        <!-- The regenerate collapse form -->
+                        <div class="collapse" id="reGenCollapse">
+                            <div class="card card-body panel-item" style="min-height:7.5vh;">
+                                <h6>Plan Preferences</h6>
+                                <br>
+    <!-- TODO: change the action -->
+                                <form method="post" action="/plan/regenerate">
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text prepend" id="basic-addon1">Number of Meals</span>
+                                        </div>
+                                        <input class="form-control" name="planNumMeals" value="" type="number" placeholder = "3 meals" autocomplete="off" required>
+                                    </div>
+                                    <input type="hidden" name="planID" value="{{planID}}">
+                                    <input class="form-control btn btn-primary" type="submit" value="Regenerate Plan">
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+
+                        <!-- the Blank meal collapse form -->
+                        <div class="collapse" id="blankMealCollapse">
+                            <div class="card card-body panel-item" style="min-height:7.5vh;">
+                                <h6>Meal Preferences</h6>
+                                <br>
+    <!-- TODO: change the action -->
+    <!-- TODO: The submit should add a meal with the provided name -->
+    <!-- DON'T FORGET! the meal must be attached to the current plan (somehow?) -->
+                                <form method="post" action="/meal/create">
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text prepend" id="basic-addon1">Meal Name</span>
+                                        </div>
+                                        <input class="form-control" name="mealName" value="" type="text" autocomplete="off" required>
+                                    </div>
+                                    <input type="hidden" name="planID" value="{{planID}}">
+                                    <input class="form-control btn btn-primary" type="submit" value="Add Meal">
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+
+                        <!-- The for loop containing all meals -->
+                    {% for meal in meals %}
+                        {% if meal['meal_id'] == mealID %}
+                        <div class="card panel-item panel-item-selected">
+                        {% else %}
+                        <div class="card panel-item">
+                        {% endif %}
+                            <div class="card-body" style="padding:0px">
+                                <div class="row" style="min-height: 100%;">
+                                    <div class="col"
+                                    style="transform: rotate(0); min-height: 100%;">
+                                        <h6>{{meal['meal_name']}}</h6>
+                                        <p>{{meal['meal_calories']}} cal</p>
+                                        <a href="/details/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="stretched-link"></a>
+                                    </div>
+                                    <div class="col-1">
+                                        {% if meal['meal_id'] == mealID %}
+                                        <td><a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-warning float-right">Delete</a></td>
+                                        {% else %}
+                                        <td><a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-danger float-right">Delete</a></td>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if meal['meal_id'] == mealID %}
+                                <a class="btn panel-btn btn-primary" style="background-color: white; border-color: white;"></a>
+                                {% else %}
+                                <a class="btn panel-btn btn-primary"></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card panel">
+                    <div class="inside-padding">
+                        {% if mealID %}
+                        <h3>{{mealName}}</h3>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-secondary btn-block" id="lookupButton">Lookup Food</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-secondary btn-block" id="addFoodButton">Add Custom</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scroll inside-padding" id="addFoodScroll">
+                        <!-- This collapsible holds the add food form -->
+                        <div class="collapse" id="addFoodCollapse">
+                            <div class="card card-body panel-item" style="min-height:7.5vh;">
+                                <h6>Food Preferences</h6>
+                                <br>
+    <!-- TODO: change the action -->
+    <!-- TODO: The submit should add a food with the provided name -->
+    <!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
+                                <form method="post" action="/food/create">
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text prepend" id="basic-addon1">Food Name</span>
+                                        </div>
+                                        <input class="form-control" name="foodName" value="" type="text" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text prepend" id="basic-addon1">Calories</span>
+                                        </div>
+                                        <input class="form-control" name="foodCalories" value="" type="number" autocomplete="off" required>
+                                    </div>
+                                    <input type="hidden" name="planID" value="{{planID}}">
+                                    <input type="hidden" name="mealID" value="{{mealID}}">
+                                    <input class="form-control btn btn-primary" type="submit" value="Add Custom Food">
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="collapse" id="lookupCollapse">
+                            <div class="card card-body panel-item" style="min-height:7.5vh;">
+    <!-- TODO: change the action -->
+    <!-- TODO: The submit should add a food with the provided name -->
+    <!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
+                                <form method="post" action="/search/food">
+                                    <div class="input-group">
+                                        <input class="form-control" name="foodKeyword" value="" type="text" autocomplete="off" aria-describedby="lookupButtonSeach" required>
+                                        <div class="input-group-append">
+                                            <input type="hidden" name="planID" value="{{planID}}">
+                                            <input type="hidden" name="mealID" value="{{mealID}}">
+                                            <input class="form-control btn btn-primary" id="lookupButtonSeach" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+
+                        {% if foodResults %}
+                        <div class="card panel-item">
+                            <div class="card-body container-scroll" style="height: 30vh;">
+                                <div class="row">
+                                    <p>Search result for: {{foodKeyword}} </p>
+                                </div>
+                            {% for foodResult in foodResults %}
+                                <form method="post" action="/food/link">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>{{foodResult['food_name']}}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>{{foodResult['food_calories']}} calories</p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="hidden" name="planID" value="{{planID}}">
+                                        <input type="hidden" name="mealID" value="{{mealID}}">
+                                        <input type="hidden" name="foodID" value="{{foodResult['food_id']}}">
+                                        <button class="btn btn-secondary btn-block" id="genButton">Add</button>
+                                    </div>
+                                </div>
+                                </form>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        <br>
+                        {% endif %}
+
+                        {% for food in foods %}
+                        <tr>
+                            <!--This container holds all the foods-->
+                            <div class="card panel-item">
+                                <div class="card-body" style="padding:0px">
+                                    <div class="row" style="min-height: 100%;">
+                                        <div class="col"
+                                        style="transform: rotate(0); min-height: 100%;">
+                                            <h6>{{food['food_name']}}</h6>
+                                            <p class="calories">{{food['food_calories']}} cal</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <td><a href="/food/removeFromMeal/planid:{{planID}}/mealid:{{mealID}}/foodid:{{food['food_id']}}" class="btn btn-danger float-right">Delete</a></td>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#genButton').click(function(){
+                var element = $('#planScroll');
+                element.scrollTop(0,0);
+                $('#genCollapse').collapse('toggle');
+                $('#blankPlanCollapse').collapse('hide');
+            })
+            $('#blankPlanButton').click(function(){
+                var element = $('#planScroll');
+                element.scrollTop(0,0);
+                $('#blankPlanCollapse').collapse('toggle');
+                $('#genCollapse').collapse('hide');
+            })
+            $('#blankMealButton').click(function(){
+                var element = $('#mealScroll');
+                element.scrollTop(0,0);
+                $('#blankMealCollapse').collapse('toggle');
+                $('#reGenCollapse').collapse('hide');
+            })
+            $('#reGenButton').click(function(){
+                var element = $('#mealScroll');
+                element.scrollTop(0,0);
+                $('#reGenCollapse').collapse('toggle');
+                $('#blankMealCollapse').collapse('hide');
+            })
+            $('#addFoodButton').click(function(){
+                var element = $('#addFoodScroll');
+                element.scrollTop(0,0);
+                $('#addFoodCollapse').collapse('toggle');
+                $('#lookupCollapse').collapse('hide');
+            })
+            $('#lookupButton').click(function(){
+                var element = $('#addFoodScroll');
+                element.scrollTop(0,0);
+                $('#lookupCollapse').collapse('toggle');
+                $('#addFoodCollapse').collapse('hide');
+            })
+        });
+    </script>
 </body>
