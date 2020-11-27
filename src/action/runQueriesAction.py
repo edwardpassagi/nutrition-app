@@ -7,7 +7,7 @@ CREATE_TABLE_FILE = "SQL/CreateAllTables.sql"
 DROP_TABLE_FILE = "SQL/dropAllTables.sql"
 ABSOLUTE_PATH = 'SQL/mysql/'
 
-FILE_PATHS = os.listdir('SQL/mysql/')
+FILE_PATHS = os.listdir(ABSOLUTE_PATH)
 
 def dropAllTables():
     drop_tables_file = open(DROP_TABLE_FILE, 'r')
@@ -21,9 +21,10 @@ def createAllTables():
 
 def execute_files():
     for file_path in FILE_PATHS:
-        commands_file = open(ABSOLUTE_PATH+file_path, 'r')
-        executeFileCommands(commands_file)
-        commands_file.close()
+        if file_path.endswith(".sql"):
+            commands_file = open(ABSOLUTE_PATH+file_path, 'r')
+            executeFileCommands(commands_file)
+            commands_file.close()
 
 def ProcessAllSQLFiles():
     dropAllTables()

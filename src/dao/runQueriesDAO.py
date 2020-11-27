@@ -16,7 +16,11 @@ def executeCommand(command):
         conn.close()
 
 def executeFileCommands(file):
-    content = file.read()
+    content = ''
+    try:
+        content = file.read()
+    except Exception as e:
+        print("An error occured: {}".format(e))
     commands = content.split(';')
     commands.pop()
     for command in commands:

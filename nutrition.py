@@ -141,5 +141,7 @@ def link_food_to_meal():
     return redirect('/details/planid:{}/mealid:{}'.format(pid,mid))
 
 if __name__ == "__main__":
+    # do not uncomment the below line unless you are sure of its side effects, 
+    # it will clear out all the data. 
     # processDataIntoDatabase()
     app.run()
