@@ -30,7 +30,7 @@ def unlinkMidToFidDAO(mid,fid):
         # Delete fid from mid
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cmd = "DELETE FROM meal_contains WHERE meal_id={} AND food_id={};".format(str(mid), str(fid))
+        cmd = "DELETE FROM meal_contains WHERE meal_id={} AND food_id={} LIMIT 1;".format(str(mid), str(fid))
         print(cmd)
         cursor.execute(cmd)
         conn.commit()
