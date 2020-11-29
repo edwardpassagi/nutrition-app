@@ -12,7 +12,6 @@ def deletePlanIdEntry(pid):
     # delete mid entries from pid
     mids = processPlanContainsAction.getMealIdsFromPid(pid)
     for mid in mids:
-        print(pid,mid)
         removeMealAction.removeMealByID(pid,mid)
     # Delete pid from planContains
     # processPlanContainsDAO.deletePlanIdEntryDAO(pid)

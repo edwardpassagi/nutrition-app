@@ -11,7 +11,6 @@ import src.dao.processPlanContainsDAO as processPlanContainsDAO
 
 
 def removeMealByID(pid, mid):
-    # TODO: subtract plan calories from the mealCalories
     meal = processMealAction.getMealByMealId(mid)
     mealCalories = meal[0]['meal_calories']
     print("MEAL CALORIES: {}".format(mealCalories))
