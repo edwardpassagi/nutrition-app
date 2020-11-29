@@ -16,6 +16,8 @@ import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
 import src.action.processMealContainsAction as processMealContainsAction
 import src.action.processPlanContainsAction as processPlanContainsAction
+import src.action.clearPlanEntriesAction as clearPlanEntriesAction
+import src.action.removeMealAction as removeMealAction
 
 ########## VIEW ##########
 # Show all plans
@@ -86,7 +88,7 @@ def create_plan():
 # Remove Meal
 @app.route('/remove/planid:<int:pid>/mealid:<int:mid>')
 def remove_meal(pid,mid):
-    processMealAction.removeMealByID(pid, mid)
+    removeMealAction.removeMealByID(pid, mid)
     return redirect('/details/planid:{}'.format(pid))
 
 # Regenerate Meal
@@ -95,7 +97,7 @@ def regenerate_meal():
     plan_num_meals = request.form['planNumMeals']
     pid = request.form['planID']
     # unlink all mid entry from pid
-    processPlanContainsAction.deletePlanIdEntry(pid)
+    clearPlanEntriesAction.deletePlanIdEntry(pid)
     # call regenerate AI
     gai.generatePlanAI("", int(plan_num_meals), pid)
     # redirect to plan details
@@ -143,5 +145,5 @@ def link_food_to_meal():
 if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data. 
-    # processDataIntoDatabase()
-    app.run()
+    processDataIntoDatabase()
+    app.run(host = 'localhost')
