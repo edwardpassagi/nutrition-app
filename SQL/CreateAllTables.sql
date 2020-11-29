@@ -176,25 +176,38 @@ CREATE TABLE plan
 --     value DOUBLE
 -- );
 
+-- confirmed table
 CREATE TABLE user_info (
 	  user_id INT NOT NULL auto_increment PRIMARY KEY,
-    username VARCHAR(255) UNIQUE NOT NULL,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL default '',
+    first_name VARCHAR(255) NOT NULL default '',
+    last_name VARCHAR(255) NOT NULL default '',
     hashed_password VARCHAR(255),
     salt VARCHAR(255) DEFAULT '',
-    email VARCHAR(255),
-    alternate_name varchar(32) default ''
+    email VARCHAR(255)
 );
 
-CREATE TABLE user_heath_info (
-
-
-
+-- confirmed table
+CREATE TABLE user_health_info (
+	  user_id INT NOT NULL primary key,
+	  gender enum('M', 'F'),
+	  birthYear INT,
+    user_decision enum('MAINTAIN', 'LOSE', 'GAIN'),
+	  weight DOUBLE,
+    target_weight DOUBLE,
+    target_timeframe INT, -- number of weeks STRICTLY.
+    height_inches INT,
+    daily_activity enum('SEDENTARY', 'LIGHT', 'MODERATE', 'HARD', 'EXTREME'),
+    is_pregnant BOOLEAN default FALSE,
+    is_nursing BOOLEAN default FALSE,
+    BMI DOUBLE,
+    BMR DOUBLE,
+    daily_maintain_calories DOUBLE,
+    daily_adjusted_calories DOUBLE
 );
 
 
--- do not touch
+-- confirmed table
 CREATE TABLE nutrient_doses (
 	  nutrient_id INT, 
     max_age INT,
@@ -206,6 +219,7 @@ CREATE TABLE nutrient_doses (
     UB INT
 );
 
+-- confirmed table
 CREATE TABLE user_nutrient_doses (
 	  user_id INT,
     nutrient_id INT,

@@ -144,4 +144,4 @@ if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data. 
     # processDataIntoDatabase()
-    app.run()
+    # app.run()
