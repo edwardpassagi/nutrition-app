@@ -5,17 +5,15 @@ import json
 from app import app
 from db_config import mysql
 from flask import flash, render_template, request, redirect
-
-import api_handler
-
 from src.action.ProcessDataAction import processDataIntoDatabase
-
 import src.ai.generateAI as gai
 import src.action.processPlanAction as processPlanAction
 import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
 import src.action.processMealContainsAction as processMealContainsAction
 import src.action.processPlanContainsAction as processPlanContainsAction
+import src.beans.UserBean as userBean
+import src.action.addUserAction as addUserAction
 
 ########## VIEW ##########
 # Show all plans
@@ -144,4 +142,21 @@ if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data. 
     processDataIntoDatabase()
+    userTest = userBean.UserBean()
+    userTest.setUsername("hhache2")
+    userTest.setFirstName("sam")
+    userTest.setLastName("hachem")
+    userTest.setPassword("qwertyuio")
+    userTest.setEmail("hhache2@illinois.edu")
+    userTest.setGender("M")
+    userTest.setBirthYear(1999)
+    userTest.setUserDecision("MAINTAIN")
+    userTest.setWeight(150)
+    userTest.setTargetWeight(150)
+    userTest.setTargetTimeFrame(12)
+    userTest.setHeight(71)
+    userTest.setDailyActivity("LIGHT")
+    userTest.setIsPregnant(False)
+    userTest.setIsNursing(False)
+    addUserAction.addNewUser(userTest)
     # app.run()
