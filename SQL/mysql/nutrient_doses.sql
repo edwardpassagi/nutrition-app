@@ -1,5 +1,5 @@
 -- Calcium Data:
-INSERT INTO nutrient_doses(nutrient_id, max_age, gneder, pregnant, nursing, LB, IA, UB)
+INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
 VALUES (1087, 18, 'IDC', false, false, 700, 1300, 3000);
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
 VALUES (1087, 50, 'IDC', false, false, 500, 1000, 2500);

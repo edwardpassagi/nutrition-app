@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS plan;
 -- DROP TABLE IF EXISTS food_nutrient;
 -- DROP TABLE IF EXISTS food_portion;
 -- DROP TABLE IF EXISTS food_protein_conversion_factor;
-DROP TABLE IF EXSITS nutrient_doses;
+DROP TABLE IF EXISTS nutrient_doses;
 DROP TABLE IF EXISTS user_info;
 DROP TABLE IF EXISTS user_health_info;
 DROP TABLE IF EXISTS user_nutrient_doses;
