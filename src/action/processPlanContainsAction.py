@@ -1,21 +1,11 @@
 import sys
 sys.path.insert(1, './')
 
-import src.dao.processPlanDAO as processPlanDAO
 import src.dao.processPlanContainsDAO as processPlanContainsDAO
-
 
 def linkPidToMid(pid,mid):
     processPlanContainsDAO.linkPidToMidDAO(pid,mid)
     return
-
-def deletePlanIdEntry(pid):
-    # set pid planCalories to 0
-    processPlanDAO.setPlanCaloriesFromPlanIdDAO(pid, 0)
-    # Delete pid from planContains
-    processPlanContainsDAO.deletePlanIdEntryDAO(pid)
-    return
-
 
 def getMealIdsFromPid(pid):
     meals = processPlanContainsDAO.getMealIdsFromPlanIdDAO(pid)
