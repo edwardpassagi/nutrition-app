@@ -59,8 +59,10 @@
 .panel-btn{
     padding: 0px;
     min-height: 6px;
-    min-width: 100%;
-    margin-bottom: calc(-3vh);
+    min-width: calc(100% - var(--b-radius) - var(--b-radius));
+    position: absolute;
+    left: var(--b-radius);
+    bottom: var(--b-radius);
 }
 .container-scroll{
     height: 60vh;
