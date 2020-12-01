@@ -94,18 +94,17 @@
                             {% endif %}
                                 <div class="card-body" style="padding:0px">
                                     <div class="row" style="min-height: 100%;">
-                                        <div class="col"
+                                        <div class="col collapse show" id="planItemCollapse" aria-expanded="true"
                                         style="transform: rotate(0); min-height: 100%;">
                                             <h6>{{plan['plan_name']}}</h6>
                                             <p>{{plan['plan_calories']}} cal</p>
                                             <a href="/details/planid:{{plan['plan_id']}}" class="stretched-link"></a>
                                         </div>
-                                        <div class="col-1">
-                                            {% if plan['plan_id'] == planID %}
-                                            <td><a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-warning float-right">Delete</a></td>
-                                            {% else %}
-                                            <td><a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-danger float-right">Delete</a></td>
-                                            {% endif %}
+                                        <div class="col-5">
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="/TODO:" class="btn btn-warning float-right">Edit</a>
+                                                <a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-danger float-right">Delete</a>
+                                            </div>
                                         </div>
                                     </div>
                                     {% if plan['plan_id'] == planID %}
@@ -126,7 +125,7 @@
                 <div class="card panel">
                     <div class="inside-padding">
                         {% if planID %}
-                        <h3>{{planName}}</h3>
+                        <h3>My Meals</h3>
                         <br>
                         <div class="row">
                             <div class="col">
@@ -196,12 +195,11 @@
                                         <p>{{meal['meal_calories']}} cal</p>
                                         <a href="/details/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="stretched-link"></a>
                                     </div>
-                                    <div class="col-1">
-                                        {% if meal['meal_id'] == mealID %}
-                                        <td><a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-warning float-right">Delete</a></td>
-                                        {% else %}
-                                        <td><a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-danger float-right">Delete</a></td>
-                                        {% endif %}
+                                    <div class="col-5">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="/TODO:" class="btn btn-warning float-right">Edit</a>
+                                            <a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-danger float-right">Delete</a>
+                                        </div>
                                     </div>
                                 </div>
                                 {% if meal['meal_id'] == mealID %}
@@ -222,7 +220,7 @@
                 <div class="card panel">
                     <div class="inside-padding">
                         {% if mealID %}
-                        <h3>{{mealName}}</h3>
+                        <h3>Foods</h3>
                         <br>
                         <div class="row">
                             <div class="col">
