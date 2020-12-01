@@ -12,13 +12,10 @@ import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
 import src.action.processMealContainsAction as processMealContainsAction
 import src.action.processPlanContainsAction as processPlanContainsAction
-<<<<<<< HEAD
 import src.action.clearPlanEntriesAction as clearPlanEntriesAction
 import src.action.removeMealAction as removeMealAction
-=======
 import src.beans.UserBean as userBean
 import src.action.addUserAction as addUserAction
->>>>>>> d4a21e797147e07eda7505d9c6b82676d203522f
 
 ########## VIEW ##########
 # Show all plans
