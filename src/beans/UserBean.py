@@ -59,10 +59,10 @@ class UserBean():
         self.weight = newWeight
 
     def setTargetWeight(self, newTargetWeight):
-        self.tarset_weight = newTargetWeight
+        self.target_weight = newTargetWeight
 
     def setTargetTimeFrame(self, newTargetTimeFrame):
-        self.tarset_timeframe = newTargetTimeFrame
+        self.target_timeframe = newTargetTimeFrame
 
     def setHeight(self, newHeight):
         self.height = newHeight

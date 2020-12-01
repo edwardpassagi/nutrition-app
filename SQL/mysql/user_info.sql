@@ -1,0 +1,12 @@
+-- INSERT INTO user_info(user_id) VALUES(NULL);
+-- UPDATE user_info SET username='hhache2', first_name='sam', last_name='hachem', hashed_password='qwertyuio', email='hhache2@illinois.edu' 
+-- WHERE user_id=1;
+-- INSERT INTO user_info(user_id) VALUES(NULL);
+-- UPDATE user_info SET username='stonov2', first_name='simon', last_name='tonov', hashed_password='qwe3rty4', email='simon@tonov.edu' 
+-- WHERE user_id=2;
+-- INSERT INTO user_info(user_id) VALUES(NULL);
+-- UPDATE user_info SET username='passagi2', first_name='edward', last_name='passagi', hashed_password='qwe5rty5', email='edward@passagi.edu' 
+-- WHERE user_id=3;
+-- INSERT INTO user_info(user_id) VALUES(NULL);
+-- UPDATE user_info SET username='mcroberts2', first_name='paige', last_name='mcroberts', hashed_password='qwe5rty5', email='paige@mcroberts.edu' 
+-- WHERE user_id=4;

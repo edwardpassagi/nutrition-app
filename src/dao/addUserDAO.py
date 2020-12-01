@@ -1,6 +1,4 @@
-import src.beans.UserBean as userBean
 import sys
-
 from src.beans.UserBean import UserBean
 sys.path.insert(1, './')
 import pymysql
