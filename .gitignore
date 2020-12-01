@@ -3,6 +3,9 @@
 .flaskenv
 *.pyc
 *.pyo
+# useless files
+*.log
+db_config.py
 env/
 env*
 dist/
@@ -23,6 +26,4 @@ htmlcov/
 .coverage.*
 *,cover
 
-# useless files
-*.log
-db_config.py
+
