@@ -1,0 +1,66 @@
+def generateMeals:
+    # user_nutrient_doses: a dictionary whose key is the nutrient ID, and value is a list of [LB, IA, UB]
+    # addedFoods: a list of food classes
+    # a food class: contains the nutritional information, the quantity, and the name of a food
+    # NUTRIENTS: a list of all nutrient ids-- 1087, 1092, etc.
+	addedFoods = []
+    mealNutrition = {}
+	programEnd = False
+	for i in NUTRIENTS:
+		# if (NUTRIENT_IS_MET(i, addedFoods)):
+			# continue
+		for j in range(3):
+			foodToAdd, foodNutrition = GET_RANDOM_FOOD(i)
+			if (CHECK_IF_FITS(foodNutrition, mealNutrition, user_nutrient_doses)):
+				addedFoods, mealNutrition = ADD_FOOD(foodToAdd, addedFoods, foodNutrition, mealNutrition)
+				if (NUTRIENTS_MET(mealNutrition, user_nutrient_doses)):
+					programEnd = true
+				break
+		if (programEnd):
+			break
+		addedFoods, mealNutrition = REMOVE_HIGHEST(i, addedFoods, mealNutrition)
+    MSCORE = 0
+    for i in NUTRIENTS:
+        MSCORE += CALCULATE_NSCORE(i, user_nutrient_doses)
+	return addedFoods, MSCORE
+
+def CHECK_IF_FITS(foodNutrition, mealNutrition, user_nutrient_doses):
+    for i in NUTRIENTS:
+        # reminder: user_nutrient_doses is a dictionary with NUTRIENT_ID as its key and [LB, IA, UB] as its value
+        UB = user_nutrient_doses[i][2]
+        totalNutrientValue = mealNutrition[i] + foodNutrition[i]
+        if (totalNutrientValue >= UB):
+            return False
+    return True
+
+def ADD_FOOD(foodToAdd, addedFoods, foodNutrition, mealNutrition):
+    for i in NUTRIENTS:
+        mealNutrition[i] += foodNutrition[i]
+    addedFoods.append(foodToAdd)
+    return addedFoods, mealNutrition
+
+def NUTRIENTS_MET(mealNutrition, user_nutrient_doses):
+    for i in NUTRIENTS:
+        # reminder: user_nutrient_doses is a dictionary with NUTRIENT_ID as its key and [LB, IA, UB] as its value
+        if (mealNutrition[i] < user_nutrient_doses[i][0]):
+            return False
+    return True
+
+def REMOVE_HIGHEST(nutrient_id, addedFoods, mealNutrition):
+    max_arg = 0
+    max_idx = 0
+    # find the food with highest nutritional value of nutrient_id (e.g. calcium)
+    for i in range(len(addedFoods)):
+        if ((value = GET_FOOD_NUTRIENT_VALUE(nutrient_id, addedFoods[i])) > max_arg):
+            max_arg = value
+            max_idx = i
+    # remove all nutritional values associated with that food from our mealNutrition
+    # reminder: mealNutrition is a sum of all the nutritional values of all foods in our plan
+    for i in NUTRIENTS:
+        mealNutrition[i] -= GET_FOOD_NUTRIENT_VALUE(i, addedFoods[max_idx]))
+    addedFoods.pop(max_idx)
+    return addedFoods, mealNutrition
+
+def CALCULATE_NSCORE(nutrient_id, user_nutrient_doses):
+    
+    return 0

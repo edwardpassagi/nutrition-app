@@ -5,19 +5,20 @@ import json
 from app import app
 from db_config import mysql
 from flask import flash, render_template, request, redirect
-
-import api_handler
-
 from src.action.ProcessDataAction import processDataIntoDatabase
-
 import src.ai.generateAI as gai
 import src.action.processPlanAction as processPlanAction
 import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
 import src.action.processMealContainsAction as processMealContainsAction
 import src.action.processPlanContainsAction as processPlanContainsAction
+<<<<<<< HEAD
 import src.action.clearPlanEntriesAction as clearPlanEntriesAction
 import src.action.removeMealAction as removeMealAction
+=======
+import src.beans.UserBean as userBean
+import src.action.addUserAction as addUserAction
+>>>>>>> d4a21e797147e07eda7505d9c6b82676d203522f
 
 ########## VIEW ##########
 # Show all plans
