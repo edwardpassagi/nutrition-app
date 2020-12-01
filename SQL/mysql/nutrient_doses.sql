@@ -149,3 +149,9 @@ INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, 
 VALUES (1165, 1000, 'M', false, false, 0, 2, 10000);
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
 VALUES (1165, 1000, 'F', false, false, 0, 1, 10000);
+
+-- calories data:
+INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
+VALUES (1008, 1000, 'M', false, false, 1800, 2800, 10000);
+INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
+VALUES (1008, 1000, 'F', false, false, 1200, 2200, 10000);

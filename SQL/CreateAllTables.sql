@@ -30,10 +30,9 @@ CREATE TABLE plan_contains
 
 CREATE TABLE plan
 (
-  plan_id     INT NOT NULL AUTO_INCREMENT,
+  plan_id     INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   plan_name   VARCHAR(255) NOT NULL, 
-  plan_calories INT,
-  PRIMARY KEY (plan_id)
+  plan_calories INT
 );
 
 -- CREATE TABLE fdfood (
@@ -213,8 +212,12 @@ CREATE TABLE user_nutrient_doses (
     LB INT default 0, 
     IA INT default 2500,
     UB INT default 5000,
-    weight INT NOT NULL default 1,
-    default_score INT NOT NULL default 1
+    weightLowerLB INT NOT NULL default 1,
+    default_scoreLowerLB INT NOT NULL default 1,
+    weightBetweenLBandIA INT NOT NULL default 1,
+    default_scoreBetweenLBandIA INT NOT NULL default 1,
+    weightBetweenIAandUB INT NOT NULL default 1,
+    default_scoreBetweenIAandUB INT NOT NULL default 1
 );
 
 

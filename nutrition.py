@@ -1,3 +1,4 @@
+from src.beans.userNutrientDoseBean import UserNutrientDoseBean
 import sys
 sys.path.insert(1, './')
 import pymysql
@@ -12,13 +13,11 @@ import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
 import src.action.processMealContainsAction as processMealContainsAction
 import src.action.processPlanContainsAction as processPlanContainsAction
-<<<<<<< HEAD
 import src.action.clearPlanEntriesAction as clearPlanEntriesAction
 import src.action.removeMealAction as removeMealAction
-=======
 import src.beans.UserBean as userBean
 import src.action.addUserAction as addUserAction
->>>>>>> d4a21e797147e07eda7505d9c6b82676d203522f
+import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
 
 ########## VIEW ##########
 # Show all plans
@@ -147,4 +146,4 @@ if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data. 
     processDataIntoDatabase()
-    app.run(host = 'localhost')
+    # app.run(host = 'localhost')

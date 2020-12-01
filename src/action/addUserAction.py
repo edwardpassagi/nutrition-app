@@ -1,3 +1,4 @@
+from src.enum.NutrientsEnum import NutrientWeightConstants
 import sys
 sys.path.insert(1, './')
 from src.beans.UserBean import UserBean
@@ -13,7 +14,11 @@ def addNewUser(user: UserBean):
     user.setBMI(calculateBMI(user.getHeight(), user.getWeight()))
     user.setBMR(calculateBMR(user.getGender(), (date.today().year - user.getBirthYear()), user.getHeight(), user.getWeight()))
     user.setDailyMaintainCalories(calculateDailyMaintainCalories(user.getDailyActivity(), user.getBMR()))
-    user.setDailyAdjustedCalories(calculateDailyAdjustedCalories(user.getUserDecision(), user.getDailyMaintainCalories(), user.getTargetTimeFrame(), abs(user.getTargetWeight() - user.getWeight())))
+    adjustedDailyCalories = calculateDailyAdjustedCalories(user.getUserDecision(), user.getDailyMaintainCalories(), user.getTargetTimeFrame(), abs(user.getTargetWeight() - user.getWeight()))
+    if user.getGender() == GenderEnum.MALE.value or user.getGender() == GenderEnum.IDC.value:
+        user.setDailyAdjustedCalories(max(adjustedDailyCalories, NutrientWeightConstants.CALORIES_MEN_LB.value))
+    elif user.getGender() == GenderEnum.FEMALE.value:
+        user.setDailyAdjustedCalories(max(adjustedDailyCalories, NutrientWeightConstants.CALORIES_WOMEN_LB.value))
     addUserDAO.editUserInfo(user)
     userHealthInfoDAO.editUserHealthInfo(user)
     userNutrientDosesDAO.editUserNutrientDoses(user)

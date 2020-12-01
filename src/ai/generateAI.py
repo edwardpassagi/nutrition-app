@@ -1,3 +1,4 @@
+from src.enum.NutrientsEnum import NutrientNameEnum
 import sys
 sys.path.insert(1, './')
 import src.dao.generateAIDAO as g_ai_dao
@@ -101,4 +102,4 @@ def generateFood(planName: str):
     # .....
 
     
-    return 1;
+    return 1
