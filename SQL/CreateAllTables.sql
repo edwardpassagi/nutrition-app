@@ -217,6 +217,7 @@ CREATE TABLE user_nutrient_doses (
     default_score INT NOT NULL default 1
 );
 
+
 -- confirmed table
 CREATE TABLE nutrient_doses (
 	  nutrient_id INT, 
