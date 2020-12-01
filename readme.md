@@ -6,4 +6,3 @@ To run:
 On progress:
   1. AI algorithm for meal generation
   2. Prototype for NoSQL section of our program. Currently developing Neo4j.
-  3. big flex
