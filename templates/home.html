@@ -94,17 +94,17 @@
                             {% endif %}
                                 <div class="card-body" style="padding:0px">
                                     <div class="row" style="min-height: 100%;">
-                                        <div class="col collapse show" id="planItemCollapse" aria-expanded="true"
-                                        style="transform: rotate(0); min-height: 100%;">
+                                        <div class="col" style="transform: rotate(0); min-height: 100%;">
                                             <h6>{{plan['plan_name']}}</h6>
                                             <p>{{plan['plan_calories']}} cal</p>
                                             <a href="/details/planid:{{plan['plan_id']}}" class="stretched-link"></a>
                                         </div>
                                         <div class="col-5">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="/TODO:" class="btn btn-warning float-right">Edit</a>
-                                                <a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-danger float-right">Delete</a>
-                                            </div>
+                                            {% if plan['plan_id'] == planID %}
+                                            <a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-warning float-right">Delete</a>
+                                            {% else %}
+                                            <a href="/plan/delete/{{plan['plan_id']}}" class="btn btn-danger float-right">Delete</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     {% if plan['plan_id'] == planID %}
@@ -125,8 +125,24 @@
                 <div class="card panel">
                     <div class="inside-padding">
                         {% if planID %}
-                        <h3>My Meals</h3>
-                        <br>
+                        <div class="collapse show" id="planNameCollapse" aria-expanded="true">
+                            <button class="btn btn-secondary float-right" id="planNameCollapseButton">Edit</button>
+                            <h3>{{planName}}</h3>
+                            <br>
+                        </div>
+<!-- TODO: Rename the Plan -->
+<!-- FIXME: Important! -->
+                        <div class="collapse" id="renamePlanCollapse">
+                            <form method="post" action="/TODO:">
+                                <div class="input-group">
+                                    <input class="form-control" name="planName" value="{{planName}}" type="text" placeholder = "Plan Name" autocomplete="off" required>
+                                    <div class="input-group-append">
+                                        <input class="form-control btn btn-secondary float-right" type="submit" value="Rename">
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <button class="btn btn-secondary btn-block" id="reGenButton">Regenerate Plan</button>
@@ -196,10 +212,11 @@
                                         <a href="/details/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="stretched-link"></a>
                                     </div>
                                     <div class="col-5">
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="/TODO:" class="btn btn-warning float-right">Edit</a>
-                                            <a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-danger float-right">Delete</a>
-                                        </div>
+                                        {% if meal['meal_id'] == mealID %}
+                                        <a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-warning float-right">Delete</a>
+                                        {% else %}
+                                        <a href="/remove/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="btn btn-danger float-right">Delete</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 {% if meal['meal_id'] == mealID %}
@@ -220,8 +237,24 @@
                 <div class="card panel">
                     <div class="inside-padding">
                         {% if mealID %}
-                        <h3>Foods</h3>
-                        <br>
+                        <div class="collapse show" id="mealNameCollapse" aria-expanded="true">
+                            <button class="btn btn-secondary float-right" id="mealNameCollapseButton">Edit</button>
+                            <h3>{{mealName}}</h3>
+                            <br>
+                        </div>
+                        <div class="collapse" id="renameMealCollapse">
+<!-- TODO: Rename the Meal -->
+<!-- FIXME: Important! -->
+                            <form method="post" action="/TODO:">
+                                <div class="input-group">
+                                    <input class="form-control" name="mealName" value="{{mealName}}" type="text" placeholder = "Meal Name" autocomplete="off" required>
+                                    <div class="input-group-append">
+                                        <input class="form-control btn btn-secondary float-right" type="submit" value="Rename">
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <button class="btn btn-secondary btn-block" id="lookupButton">Lookup Food</button>
@@ -339,7 +372,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#genButton').click(function(){
+            $("#genButton").click(function(){
                 var element = $('#planScroll');
                 element.scrollTop(0,0);
                 $('#genCollapse').collapse('toggle');
@@ -350,6 +383,10 @@
                 element.scrollTop(0,0);
                 $('#blankPlanCollapse').collapse('toggle');
                 $('#genCollapse').collapse('hide');
+            })
+            $("#planNameCollapseButton").click(function(){
+                $("#planNameCollapse").collapse('toggle');
+                $("#renamePlanCollapse").collapse('toggle');
             })
             $('#blankMealButton').click(function(){
                 var element = $('#mealScroll');
@@ -362,6 +399,10 @@
                 element.scrollTop(0,0);
                 $('#reGenCollapse').collapse('toggle');
                 $('#blankMealCollapse').collapse('hide');
+            })
+            $("#mealNameCollapseButton").click(function(){
+                $("#mealNameCollapse").collapse('toggle');
+                $("#renameMealCollapse").collapse('toggle');
             })
             $('#addFoodButton').click(function(){
                 var element = $('#addFoodScroll');
