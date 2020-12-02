@@ -1,9 +1,13 @@
 import os
+from typing import List
+from src.beans.FoodBean import FoodBean
 import sys
 sys.path.insert(1, './')
 from src.dao.runQueriesDAO import executeFileCommands
 from src.beans.UserBean import *
 from src.action.addUserAction import *
+import src.dao.FdfoodDAO as fdfoodDAO
+import src.ai.generateAI as generateAI
 
 CREATE_TABLE_FILE = "SQL/CreateAllTables.sql"
 DROP_TABLE_FILE = "SQL/dropAllTables.sql"
@@ -123,6 +127,17 @@ def createUserTest5():
     userTest1.setIsPregnant(False)
     userTest1.setIsNursing(False)
     addNewUser(userTest1)
+    userNutrientDose = userNutrientDosesDAO.getUserNutrientDose(userTest1.getUserID(), 1093)
+    plan: PlanBean = PlanBean()
+    plan.name = "sam and simons"
+    plan.plan_id = 1
+    plan.foodList = []
+    foodList: List(FoodBean) = generateAI.generateFoodList(userTest1, plan)
+    plan.foodList = foodList
+    for fooditem in foodList:
+        print(fooditem.getBrandedFoodFdcID())
+    # print(foodItem.getBrandedFoodFdcID())
+    # print("the description is {} and ingredients is {} and serving size is {} and the calcium amount is {}".format( foodItem.getBrandedFoodDescription(), foodItem.getBrandedFoodIngredients(), foodItem.getBrandedFoodServingSize(), foodItem.getBrandedFoodNutrientByID(1087)))
 
 def runCreateUserTests():
     createUserTest1()

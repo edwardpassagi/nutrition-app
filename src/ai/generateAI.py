@@ -1,4 +1,11 @@
+from src.beans.userNutrientDoseBean import UserNutrientDoseBean
+from src.beans.PlanBean import PlanBean
+from typing import List
+from src.beans.FoodBean import FoodBean
+from src.beans.UserBean import UserBean
 from src.enum.NutrientsEnum import NutrientNameEnum
+import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
+import src.dao.FdfoodDAO as fdfoodDAO
 import sys
 sys.path.insert(1, './')
 import src.dao.generateAIDAO as g_ai_dao
@@ -86,7 +93,7 @@ def generateMeal(planName: str, mealNum: int):
     return mealID
 
 
-def generateFood(planName: str):
+def generateFood(planName: str, user: UserBean):
     """ Find a singular foodID that matches the theme of the planName
 
     Args:
@@ -100,6 +107,78 @@ def generateFood(planName: str):
 
     # TODO: IMPLEMENT AI ALGORITHM HERE
     # .....
-
-    
+    plansList = []
+    for i in range(3):
+        plansList.append(generateFoodList(user))
     return 1
+
+
+def generateFoodList(user: UserBean, plan: PlanBean):
+    userNutrientDoses: List(UserNutrientDoseBean) = userNutrientDosesDAO.getUserNutrientDoses(user.getUserID())
+    foodList: List(FoodBean) = []
+
+    for usernutrientdose in userNutrientDoses:
+        print(usernutrientdose.getUserNutrientID())
+
+    # i = 0
+    # while isNutrientsMet(plan, userNutrientDoses):
+    #     nutrient_id = NutrientNameEnum[i][1]
+    #     if nutrient_id == 1008:
+    #         i = 0
+    #         continue
+    #     userNutrientDose = userNutrientDosesDAO.getUserNutrientDose(user.getUserID(), nutrient_id)
+    #     foodItem: FoodBean = fdfoodDAO.getRandomFood(userNutrientDose)
+    #     if doesFoodItemFit(foodItem, plan, userNutrientDose):
+    #         addFoodToList(foodItem, plan, foodList)
+    #         if isNutrientsMet(plan, userNutrientDoses):
+    #             break
+    #     else:
+    #         if increaseDeniesForNutrients(plan, nutrient_id) > 3:
+    #             removeFoodItemFromList(plan, foodList, nutrient_id)
+    #     i += 1
+    return foodList
+
+def addFoodToList(foodItem: FoodBean, plan: PlanBean, foodList):
+    for nutrient in foodItem.getBrandedFoodNutrientsAmounts():
+        plan.addNutrientAmountByID(nutrient.getNutrientID(), foodItem.getBrandedFoodNutrientAmountByID(nutrient.getNutrientID()))
+    foodList.append(foodItem)
+
+def doesFoodItemFit(footItem: FoodBean, plan: PlanBean, userNutrientDose: UserNutrientDoseBean):
+    for nutrient in NutrientNameEnum:
+        nutrient_id = nutrient.value[1]
+        upper_bound = userNutrientDose.getUserNutrientUB()
+        foodNutrientAmount = footItem.getBrandedFoodNutrientAmountByID(nutrient_id)
+        totalPlanNutrientAmount = plan.getNutrientAmountByID(nutrient_id)
+        if totalPlanNutrientAmount + foodNutrientAmount > upper_bound:
+            return False
+    return True
+
+def isNutrientsMet(plan: PlanBean, userNutrientDoses):
+    for userNutrientDose in userNutrientDoses:
+        nutrient_id = userNutrientDose.getUserNutrientID()
+        if (plan.getNutrientAmountByID(nutrient_id) < userNutrientDoses.getUserNutrientLB()):
+            return False
+        elif plan.getNutrientAmountByID(nutrient_id) > userNutrientDoses.getUserNutrientUB():
+            return False
+    return True
+
+def increaseDeniesForNutrients(plan: PlanBean, id):
+    plan.incraseNumberOfNutrientDeniesByID(id)
+    return plan.getNumberofDeniesForNutrientByID(id)
+
+def removeFoodItemFromList(plan: PlanBean, foodList, nutrient_id):
+    highestNutrientFoodItem: FoodBean = FoodBean()
+    fooditemIDX = 0
+    highestNurtientAmount = 0.0
+    for idx, foodItem in enumerate(foodList):
+        foodItemNutrientAmount = foodItem.setBrandedFoodNutrientAmountByID(nutrient_id)
+        if foodItemNutrientAmount > highestNurtientAmount:
+            highestNurtientAmount = foodItemNutrientAmount
+            fooditemIDX = idx
+    highestNutrientFoodItem: FoodBean = foodList[fooditemIDX]
+    for nutrientBean in highestNutrientFoodItem.getBrandedFoodNutrientsAmounts():
+        nutrient_id = nutrientBean.getNutrientID()
+        plan.subtractNutrientAmountByID(nutrient_id, highestNutrientFoodItem.getBrandedFoodNutrientAmountByID(nutrient_id))
+    foodList.pop(fooditemIDX)
+
+            

@@ -2,6 +2,7 @@
 CREATE TABLE food
 (
   food_id     INT NOT NULL AUTO_INCREMENT,
+  fdc_id INT default 0,
   food_name   VARCHAR(255) NOT NULL,       
   food_image  VARCHAR(255),
   food_calories INT,
@@ -37,9 +38,9 @@ CREATE TABLE plan
 
 -- CREATE TABLE fdfood (
 --     fdc_id INTEGER PRIMARY KEY,
---     data_type VARCHAR(255),
+--     data_type LONGTEXT,
 --     description LONGTEXT,
---     food_category_id INTEGER,
+--     food_category_id LONGTEXT,
 --     publication_date DATETIME
 -- );
 

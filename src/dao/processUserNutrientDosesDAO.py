@@ -86,7 +86,7 @@ def getUserNutrientDose(user_id, nutrient_id):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cmd = "SELECT nutrient_id, LB, IA, UB, weight, default_score FROM user_nutrient_doses WHERE user_id={} AND nutrient_id={}".format(user_id, nutrient_id)
+        cmd = "SELECT nutrient_id, LB, IA, UB, weightLowerLB, default_scoreLowerLB, weightBetweenLBandIA, default_scoreBetweenLBandIA, weightBetweenIAandUB, default_scoreBetweenIAandUB FROM user_nutrient_doses WHERE user_id={} AND nutrient_id={}".format(user_id, nutrient_id)
         cursor.execute(cmd)
         cursor_return = cursor.fetchall()
         return loadUserNutrientInfo(user_id, cursor_return[0])
@@ -110,6 +110,11 @@ def loadUserNutrientInfo(user_id, userNutrientDoseDict):
     userNutrientDoseBean.setUserNutrientLB(int(userNutrientDoseDict['LB']))
     userNutrientDoseBean.setUserNutrientIA(int(userNutrientDoseDict['IA']))
     userNutrientDoseBean.setUserNutrientUB(int(userNutrientDoseDict['UB']))
-    userNutrientDoseBean.setUserNutrientWeight(int(userNutrientDoseDict['weight']))
-    userNutrientDoseBean.setUserNutrientDefaultScore(int(userNutrientDoseDict['default_score']))
+    userNutrientDoseBean.setUserNutreintWeightLowerLB(int(userNutrientDoseDict['weightLowerLB']))
+    userNutrientDoseBean.setUserNutreintWeightBetweenLBandIA(int(userNutrientDoseDict['weightBetweenLBandIA']))
+    userNutrientDoseBean.setUserNutreintWeightBetweenIAandUB(int(userNutrientDoseDict['weightBetweenIAandUB']))
+
+    userNutrientDoseBean.setUserNutreintDefaultScoreLowerLB(int(userNutrientDoseDict['default_scoreLowerLB']))
+    userNutrientDoseBean.setUserNutreintDefaultScoreBetweenLBandIA(int(userNutrientDoseDict['default_scoreBetweenLBandIA']))
+    userNutrientDoseBean.setUserNutreintDefaultScoreBetweenIAandUB(int(userNutrientDoseDict['default_scoreBetweenIAandUB']))
     return userNutrientDoseBean

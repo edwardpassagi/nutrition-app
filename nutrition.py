@@ -1,3 +1,4 @@
+from src.beans.NutrientBean import NutrientBean
 from src.beans.userNutrientDoseBean import UserNutrientDoseBean
 import sys
 sys.path.insert(1, './')
@@ -18,6 +19,7 @@ import src.action.removeMealAction as removeMealAction
 import src.beans.UserBean as userBean
 import src.action.addUserAction as addUserAction
 import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
+import src.dao.FoodNutrientsDAO as foodNutrientDAO
 
 ########## VIEW ##########
 # Show all plans
