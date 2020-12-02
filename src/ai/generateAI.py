@@ -39,7 +39,7 @@ def generatePlanAI(planName: str, numMeal:int, username: str, pid:int = -1):
         # get meal_id and add calories to planID's planCalories
         meal = processMealAction.getMealByMealId(mealID)
         mealCalories = meal[0]['meal_calories']
-        print("MEAL CALORIES: {}".format(mealCalories))
+        # print("MEAL CALORIES: {}".format(mealCalories))
         updateVal = "+" + str(mealCalories)
 
         processPlanAction.updatePlanCaloriesByPlanId(planID, updateVal)
@@ -61,7 +61,7 @@ def generateMeal(planName: str, mealNum: int):
     numFoods = 3
     foodIDs = []
     mealName = planName + " " + mealNameBase[mealNum]
-    print("mealname: {}".format(mealName))
+    # print("mealname: {}".format(mealName))
 
     # FIXME: calorieTotal should sum all calories from food
     calorieTotal = 0

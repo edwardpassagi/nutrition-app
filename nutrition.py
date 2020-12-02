@@ -188,6 +188,28 @@ def link_food_to_meal(username):
     processMealContainsAction.addFoodIdToMealId(mid,fid)  
     return redirect('/{}/planid:{}/mealid:{}'.format(username,pid,mid))
 
+
+########## SOCIAL ##########
+# Show social feed
+@app.route('/<string:username>/social')
+def show_social(username):
+    followings = processUserAction.getUserFollowings(username)
+    followers = processUserAction.getUserFollowers(username)
+    nonFolloweds = processUserAction.getNonFollowedUsers(username)
+    return render_template('social.html', username=username, followings=followings, followers=followers, nonFolloweds=nonFolloweds)
+
+# Following endpoint
+@app.route('/<string:username>/follow/<string:toFollowUsername>')
+def follow_user(username, toFollowUsername):
+    processUserAction.followUser(username, toFollowUsername)
+    return redirect('/{}/social'.format(username))
+
+# Unfollow endpoint
+@app.route('/<string:username>/unfollow/<string:toUnfollowUsername>')
+def unfollow_user(username, toUnfollowUsername):
+    processUserAction.unfollowUser(username, toUnfollowUsername)
+    return redirect('/{}/social'.format(username))
+
 if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data. 

@@ -10,17 +10,17 @@ def createNewMealDAO(mealName, mealCalories):
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "INSERT INTO meal (meal_name, meal_calories) VALUES('{}', {});".format(mealName, str(mealCalories))
-        print(cmd)
+        # print(cmd)
         cursor.execute(cmd)
         conn.commit()
 
         # get the insertID
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "SELECT LAST_INSERT_ID();"
-        print(cmd)
+        # print(cmd)
         cursor.execute(cmd)
         result = cursor.fetchall()
-        print(result)
+        # print(result)
         # return the ID of the inserted meal
         return result[0]['LAST_INSERT_ID()']
     

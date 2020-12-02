@@ -51,7 +51,7 @@ def removeMealIdFromPlanContains(mid):
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "DELETE FROM plan_contains WHERE meal_id={};".format(str(mid))
-        print(cmd)
+        # print(cmd)
         cursor.execute(cmd)
         conn.commit()
 
@@ -72,7 +72,7 @@ def getPlanIdsFromMealIdDAO(mid):
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "SELECT plan_id FROM plan_contains WHERE meal_id={};".format(str(mid))
-        print(cmd)
+        # print(cmd)
         cursor.execute(cmd)
         planIDs = cursor.fetchall()
         return planIDs
@@ -92,7 +92,7 @@ def getMealIdsFromPlanIdDAO(pid):
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "SELECT meal_id FROM plan_contains WHERE plan_id={};".format(str(pid))
-        print(cmd)
+        # print(cmd)
         cursor.execute(cmd)
         mealIDs = cursor.fetchall()
         return mealIDs

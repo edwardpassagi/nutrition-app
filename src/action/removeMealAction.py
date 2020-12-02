@@ -13,7 +13,7 @@ import src.dao.processPlanContainsDAO as processPlanContainsDAO
 def removeMealByID(pid, mid):
     meal = processMealAction.getMealByMealId(mid)
     mealCalories = meal[0]['meal_calories']
-    print("MEAL CALORIES: {}".format(mealCalories))
+    # print("MEAL CALORIES: {}".format(mealCalories))
     updateVal = "-" + str(mealCalories)
 
     processPlanAction.updatePlanCaloriesByPlanId(pid, updateVal)
