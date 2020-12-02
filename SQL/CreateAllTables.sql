@@ -33,6 +33,7 @@ CREATE TABLE plan
   plan_id     INT NOT NULL AUTO_INCREMENT,
   plan_name   VARCHAR(255) NOT NULL, 
   plan_calories INT,
+  username    VARCHAR(255) NOT NULL,
   PRIMARY KEY (plan_id)
 );
 

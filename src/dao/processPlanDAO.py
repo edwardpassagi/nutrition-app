@@ -3,13 +3,13 @@ sys.path.insert(1, './')
 import pymysql
 from db_config import mysql
 
-def createNewPlanDAO(planName, planCalories):
+def createNewPlanDAO(planName, username, planCalories):
     conn = None
     cursor = None
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cmd = "INSERT INTO plan (plan_name, plan_calories) VALUES ('{}',{})".format(planName, str(planCalories))
+        cmd = "INSERT INTO plan (plan_name, plan_calories, username) VALUES ('{}',{},'{}')".format(planName, str(planCalories), username)
         cursor.execute(cmd)
         conn.commit()
         return
@@ -40,13 +40,13 @@ def getPlanByIdDAO(pid):
         cursor.close()
         conn.close()
 
-def getAllPlansDAO():
+def getAllPlansDAO(username):
     conn = None
     cursor = None
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT * FROM plan")
+        cursor.execute("SELECT * FROM plan WHERE username='{}'".format(username))
         plans = cursor.fetchall()
 
         return plans

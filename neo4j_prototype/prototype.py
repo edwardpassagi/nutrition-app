@@ -1,8 +1,5 @@
 from flask import Flask, request, render_template, redirect
-from neo4j import GraphDatabase
-
-driver = GraphDatabase.driver(uri="bolt://localhost:7687", auth=("neo4j","test"))
-session = driver.session()
+from db_config import neo
 
 app = Flask(__name__)
 
@@ -25,7 +22,7 @@ def create_new_user_node(curUser):
     """
     print(curUser)
     formatter = {"curUser": curUser}
-    session.run(query, formatter)
+    neo.run(query, formatter)
     return
 
 # ===== USER SIGNED IN =====
@@ -50,7 +47,7 @@ def get_user_following(username):
     print(query)
 
     formatter = {"curUser": username}
-    results = session.run(query, formatter)
+    results = neo.run(query, formatter)
 
     following_names = []
     for result in results:
@@ -69,7 +66,7 @@ def get_all_nonfollowed_users(username):
     print(query)
 
     formatter = {"curUser": username}
-    results = session.run(query, formatter)
+    results = neo.run(query, formatter)
 
     result_names = []
     for result in results:
@@ -93,7 +90,7 @@ def follow_user(username, to_follow_username):
     """
 
     formatter = {"curUser": username, "toFollow": to_follow_username}
-    session.run(query, formatter)
+    neo.run(query, formatter)
 
 # ===== USER UNFOLLOWING OTHER USERS ===== 
 @app.route('/unfollow', methods=['POST'])
@@ -110,7 +107,7 @@ def unfollow_user(username, to_unfollow_username):
     """
 
     formatter = {"curUser": username, "toUnfollow": to_unfollow_username}
-    session.run(query, formatter)
+    neo.run(query, formatter)
 
 if __name__ == "__main__":
     app.run()

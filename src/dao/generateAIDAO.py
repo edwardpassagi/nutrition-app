@@ -4,14 +4,14 @@ sys.path.insert(1, './')
 import pymysql
 from db_config import mysql
 
-def createNewPlanSQL(planName, planCalories):
+def createNewPlanSQL(planName, planCalories, username):
     conn = None
     cursor = None
 
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cmd = "INSERT INTO plan (plan_name, plan_calories) VALUES('{}', {});".format(planName, str(planCalories))
+        cmd = "INSERT INTO plan (plan_name, plan_calories, username) VALUES('{}', {}, '{}');".format(planName, str(planCalories), username)
         print(cmd)
         cursor.execute(cmd)
         conn.commit()

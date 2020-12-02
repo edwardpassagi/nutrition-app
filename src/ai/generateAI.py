@@ -8,7 +8,7 @@ import src.action.processPlanAction as processPlanAction
 
 mealNameBase = ["Breakfast","Lunch","Dinner","Snack"]
 
-def generatePlanAI(planName: str, numMeal:int, pid:int = -1):
+def generatePlanAI(planName: str, numMeal:int, username: str, pid:int = -1):
     """Generate `numMeal` amount of meals, that is based on the planName
 
     Args:
@@ -26,7 +26,7 @@ def generatePlanAI(planName: str, numMeal:int, pid:int = -1):
 
     # TODO: Generate a plan if pid = -1
     if pid == -1:
-        planID = g_ai_dao.createNewPlanSQL(planName, planCalories)
+        planID = g_ai_dao.createNewPlanSQL(planName, planCalories, username)
     else:
         planID = pid
         planName = processPlanAction.getPlanById(pid)[0]['plan_name']

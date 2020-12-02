@@ -7,12 +7,12 @@ import src.dao.processPlanDAO as processPlanDAO
 import src.dao.processPlanContainsDAO as processPlanContainsDAO
 import src.dao.processMealContainsDAO as processMealContainsDAO
 
-def createNewPlan(planName, planCalories = 0):
-    processPlanDAO.createNewPlanDAO(planName,planCalories)
+def createNewPlan(planName, username, planCalories = 0):
+    processPlanDAO.createNewPlanDAO(planName,username,planCalories)
     return
 
-def getAllPlans():
-    plans = processPlanDAO.getAllPlansDAO()
+def getAllPlans(username):
+    plans = processPlanDAO.getAllPlansDAO(username)
     return plans
 
 def getPlanById(pid):
