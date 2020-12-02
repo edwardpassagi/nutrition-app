@@ -1,0 +1,24 @@
+<h1>You're logged in, {{current_user}} </h1>
+<a href="/">LOG OUT</a>
+
+<h3> All non-followed users: </h3>
+{% for search_result in search_results %}
+    <form action="/follow" method="post">
+        <p>{{search_result}}
+        <input type="hidden" name="username" value="{{current_user}}">
+        <input type="hidden" name="to_follow" value="{{search_result}}">
+        <input type="submit" value="Follow">
+    </form>
+
+{% endfor %}
+
+<b> Currently following: </b>
+<br>
+{% for following in followings %}
+    <form action="/unfollow" method="post">
+        <p>{{following}}
+        <input type="hidden" name="username" value="{{current_user}}">
+        <input type="hidden" name="to_unfollow" value="{{following}}">
+        <input type="submit" value="Unfollow">
+    </form>
+{% endfor %}
