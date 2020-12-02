@@ -115,3 +115,22 @@ def updatePlanCaloriesByPlanIdDAO(id, updateVal):
     finally:
         cursor.close()
         conn.close()
+
+def renamePlanByPidDAO(pid, newPlanName):
+    conn = None
+    cursor = None
+    try:
+        # update plan name
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cmd = "UPDATE plan SET plan_name = '{}' WHERE plan_id = {}".format(newPlanName ,str(pid))
+        cursor.execute(cmd)
+        conn.commit()
+        return
+    
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()

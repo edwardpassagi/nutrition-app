@@ -109,3 +109,22 @@ def updateMealCaloriesByIdDAO(id, updateVal):
     finally:
         cursor.close()
         conn.close()
+
+def renameMealByMidDAO(mid, newMealName):
+    conn = None
+    cursor = None
+    try:
+        # Update meal name by mid
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cmd = "UPDATE meal SET meal_name = '{}' WHERE meal_id = {}".format(newMealName ,str(mid))
+        cursor.execute(cmd)
+        conn.commit()
+        return
+    
+    except Exception as e:
+        print(e)
+    
+    finally:
+        cursor.close()
+        conn.close()

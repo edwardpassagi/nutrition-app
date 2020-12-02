@@ -68,7 +68,6 @@
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
                                 <h6>Plan Preferences</h6>
                                 <br>
-    <!-- TODO: change the action -->
                                 <form method="post" action="/plan/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
@@ -76,7 +75,6 @@
                                         </div>
                                         <input class="form-control" name="planName" value="" type="text" autocomplete="off" required>
                                     </div>
-    <!-- TODO: The submit should add a blank plan with the provided name -->
                                     <input class="form-control btn btn-primary" type="submit" value="Create Blank Plan">
                                 </form>
                             </div>
@@ -130,12 +128,11 @@
                             <h3>{{planName}}</h3>
                             <br>
                         </div>
-<!-- TODO: Rename the Plan -->
-<!-- FIXME: Important! -->
                         <div class="collapse" id="renamePlanCollapse">
-                            <form method="post" action="/TODO:">
+                            <form method="post" action="/rename/plan">
                                 <div class="input-group">
                                     <input class="form-control" name="planName" value="{{planName}}" type="text" placeholder = "Plan Name" autocomplete="off" required>
+                                    <input type="hidden" name="planID" value="{{planID}}">
                                     <div class="input-group-append">
                                         <input class="form-control btn btn-secondary float-right" type="submit" value="Rename">
                                     </div>
@@ -159,7 +156,6 @@
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
                                 <h6>Plan Preferences</h6>
                                 <br>
-    <!-- TODO: change the action -->
                                 <form method="post" action="/plan/regenerate">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
@@ -179,9 +175,6 @@
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
                                 <h6>Meal Preferences</h6>
                                 <br>
-    <!-- TODO: change the action -->
-    <!-- TODO: The submit should add a meal with the provided name -->
-    <!-- DON'T FORGET! the meal must be attached to the current plan (somehow?) -->
                                 <form method="post" action="/meal/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
@@ -243,11 +236,11 @@
                             <br>
                         </div>
                         <div class="collapse" id="renameMealCollapse">
-<!-- TODO: Rename the Meal -->
-<!-- FIXME: Important! -->
-                            <form method="post" action="/TODO:">
+                            <form method="post" action="/rename/meal">
                                 <div class="input-group">
                                     <input class="form-control" name="mealName" value="{{mealName}}" type="text" placeholder = "Meal Name" autocomplete="off" required>
+                                    <input type="hidden" name="planID" value="{{planID}}">
+                                    <input type="hidden" name="mealID" value="{{mealID}}">
                                     <div class="input-group-append">
                                         <input class="form-control btn btn-secondary float-right" type="submit" value="Rename">
                                     </div>
@@ -271,9 +264,6 @@
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
                                 <h6>Food Preferences</h6>
                                 <br>
-    <!-- TODO: change the action -->
-    <!-- TODO: The submit should add a food with the provided name -->
-    <!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
                                 <form method="post" action="/food/create">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
@@ -297,9 +287,6 @@
 
                         <div class="collapse" id="lookupCollapse">
                             <div class="card card-body panel-item" style="min-height:7.5vh;">
-    <!-- TODO: change the action -->
-    <!-- TODO: The submit should add a food with the provided name -->
-    <!-- DON'T FORGET! the food must be attached to the current meal (somehow?) -->
                                 <form method="post" action="/search/food">
                                     <div class="input-group">
                                         <input class="form-control" name="foodKeyword" value="" type="text" autocomplete="off" aria-describedby="lookupButtonSeach" required>
