@@ -93,7 +93,12 @@
     background-color: white;
     box-shadow: var(--shadow-near);
 }
-
+.append{
+    border-radius: var(--btn-radius);
+    border-color: var(--vvl-green);
+    background-color: white;
+    box-shadow: var(--shadow-near);
+}
 /* The Primary Button Attributes */
 .btn-primary{
     box-shadow: 0 0 16px rgba(0,0,0,0.125);
