@@ -48,3 +48,7 @@ def updatePlanCaloriesByPlanId(pid, updateVal = "+0"):
 def setPlanCaloriesFromPlanId(pid, planCalories = 0):
     processPlanDAO.setPlanCaloriesFromPlanIdDAO(pid, planCalories)
     return
+
+def renamePlanByPid(pid, newPlanName):
+    processPlanDAO.renamePlanByPidDAO(pid, newPlanName)
+    return

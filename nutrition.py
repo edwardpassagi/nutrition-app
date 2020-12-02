@@ -73,12 +73,20 @@ def delete_plan_by_id(id):
     processPlanAction.deletePlanById(id)
     return redirect('/')
 
-# TODO: Create Empty Plan
+# Create Empty Plan
 @app.route('/plan/create', methods=['POST'])
 def create_plan():
     plan_name = request.form['planName']
     processPlanAction.createNewPlan(plan_name)
     return redirect('/')
+
+# Update plan name
+@app.route('/rename/plan', methods=["POST"])
+def rename_plan():
+    pid = request.form['planID']
+    newPlanName = request.form['planName']
+    processPlanAction.renamePlanByPid(pid, newPlanName)
+    return redirect('/details/planid:{}'.format(pid))
 
 
 
@@ -100,6 +108,15 @@ def regenerate_meal():
     gai.generatePlanAI("", int(plan_num_meals), pid)
     # redirect to plan details
     return redirect('/details/planid:{}'.format(pid))
+
+# Update meal name
+@app.route('/rename/meal', methods=["POST"])
+def rename_meal():
+    pid = request.form['planID']
+    mid = request.form['mealID']
+    newMealName = request.form['mealName']
+    processMealAction.renameMealByMid(mid, newMealName)
+    return redirect('/details/planid:{}/mealid:{}'.format(pid,mid))
 
 
 ########## FOOD ##########
@@ -143,5 +160,5 @@ def link_food_to_meal():
 if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data. 
-    processDataIntoDatabase()
+    # processDataIntoDatabase()
     app.run(host = 'localhost')
