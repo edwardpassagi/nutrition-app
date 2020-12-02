@@ -5,6 +5,7 @@ CREATE TABLE food
   food_name   VARCHAR(255) NOT NULL,       
   food_image  VARCHAR(255),
   food_calories INT,
+  username    VARCHAR(255),
   PRIMARY KEY     (food_id)
 );
 

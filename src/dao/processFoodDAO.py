@@ -5,13 +5,13 @@ from db_config import mysql
 
 SEARCH_LIMIT = 50
 
-def createNewFoodDAO(foodName, foodCalories, foodImage):
+def createNewFoodDAO(foodName, foodCalories, foodImage, username):
     conn = None
     cursor = None
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cmd = "INSERT INTO food (food_name, food_image, food_calories) VALUES('{}', '{}', {});".format(foodName, foodImage, str(foodCalories))
+        cmd = "INSERT INTO food (food_name, food_image, food_calories, username) VALUES('{}', '{}', {}, '{}');".format(foodName, foodImage, str(foodCalories), username)
         cursor.execute(cmd)
         conn.commit()
 
@@ -68,7 +68,7 @@ def getFoodById(id):
         cursor.close()
         conn.close()
 
-def getFoodByKeywordDAO(foodKeyword):
+def getFoodByKeywordDAO(foodKeyword, username):
     global SEARCH_LIMIT
     conn = None
     cursor = None
@@ -76,7 +76,7 @@ def getFoodByKeywordDAO(foodKeyword):
         # Get food
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cmd = "SELECT * FROM food WHERE food_name LIKE('%{}%') LIMIT {};".format(foodKeyword, SEARCH_LIMIT)
+        cmd = "SELECT * FROM food WHERE food_name LIKE('%{}%') AND (username='{}' OR username IS NULL) LIMIT {};".format(foodKeyword, username, SEARCH_LIMIT)
         cursor.execute(cmd)
         foods = cursor.fetchall()
         return foods

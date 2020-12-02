@@ -84,7 +84,7 @@ def search_food_keyword(username):
     foods = processFoodAction.getFoodsByMealID(mid)
     planName = processPlanAction.getPlanById(pid)[0]['plan_name']
     mealName = processMealAction.getMealByMealId(mid)[0]['meal_name']
-    foodResults = processFoodAction.getFoodByKeyword(foodKeyword)
+    foodResults = processFoodAction.getFoodByKeyword(foodKeyword, username)
     print(pid,mid)
     
     return render_template('home.html', username=username, plans=plans, planID=pid, planName=planName, meals=meals, mealID=mid, mealName=mealName, foods=foods, foodResults = foodResults, foodKeyword = foodKeyword)
@@ -175,7 +175,7 @@ def create_empty_food_to_meal(username):
     pid = request.form['planID']
     mid = request.form['mealID']
     #TODO: Create food instance
-    fid = processFoodAction.createNewFood(foodName, foodCalories)
+    fid = processFoodAction.createNewFood(foodName, foodCalories, username)
     processMealContainsAction.addFoodIdToMealId(mid,fid)
     return redirect('/{}/planid:{}/mealid:{}'.format(username,pid,mid))
 
