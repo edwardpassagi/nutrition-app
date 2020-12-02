@@ -80,9 +80,9 @@ VALUES (1101, 1000, 'F', false, false, 0, 2, 11);
 
 -- Copper Data:
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
-VALUES (1098, 18, 'IDC', false, false, 300, 890, 8000);
+VALUES (1098, 18, 'IDC', false, false, 0, 1, 8);
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
-VALUES (1098, 1000, 'IDC', false, false, 300, 900, 10000);
+VALUES (1098, 1000, 'IDC', false, false, 0, 1, 10);
 
 -- Zinc Data:
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
@@ -132,17 +132,17 @@ VALUES (1162, 1000, 'F', false, false, 35, 75, 2000);
 
 -- Vitamin E Data:
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
-VALUES (1109, 18, 'IDC', false, false, 5, 15, 10000);
+VALUES (1109, 18, 'IDC', false, false, 0, 15, 10000);
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
-VALUES (1109, 1000, 'IDC', false, false, 5, 15, 10000);
+VALUES (1109, 1000, 'IDC', false, false, 0, 15, 10000);
 
 -- Vitamin K Data:
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
-VALUES (1185, 18, 'IDC', false, false, 15, 75, 10000);
+VALUES (1185, 18, 'IDC', false, false, 0, 75, 10000);
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
-VALUES (1185, 1000, 'M', false, false, 40, 120, 10000);
+VALUES (1185, 1000, 'M', false, false, 0, 120, 10000);
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)
-VALUES (1185, 1000, 'F', false, false, 30, 90, 10000);
+VALUES (1185, 1000, 'F', false, false, 0, 90, 10000);
 
 -- Thiamin Data:
 INSERT INTO nutrient_doses(nutrient_id, max_age, gender, pregnant, nursing, LB, IA, UB)

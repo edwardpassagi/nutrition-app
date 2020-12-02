@@ -10,7 +10,10 @@ def addFoodIdToMealId(mid,fid):
     processMealContainsDAO.linkMidToFidDAO(mid,fid)
     # add calories to mid entry and all it pids
     food = processFoodAction.getFoodById(fid)
-    foodCalories = food[0]['food_calories']
+    try:
+        foodCalories = food[0]['food_calories']
+    except Exception:
+        foodCalories = 350
     updateVal = "+" + str(foodCalories)
     processMealAction.updateMealCaloriesById(mid, updateVal)
     processPlanAction.updatePlanCaloriesByMealId(mid, updateVal)

@@ -1,4 +1,6 @@
+from src.beans.PlanBean import PlanBean
 from src.beans.NutrientBean import NutrientBean
+from src.beans.UserBean import UserBean
 from src.beans.userNutrientDoseBean import UserNutrientDoseBean
 import sys
 sys.path.insert(1, './')
@@ -20,6 +22,8 @@ import src.beans.UserBean as userBean
 import src.action.addUserAction as addUserAction
 import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
 import src.dao.FoodNutrientsDAO as foodNutrientDAO
+import time
+import src.action.runQueriesAction as QueriesAction
 
 ########## VIEW ##########
 # Show all plans
@@ -68,7 +72,8 @@ def search_food_keyword():
 def generate_plan():
     plan_name = request.form['planName']
     plan_num_meals = request.form['planNumMeals']
-    gai.generatePlanAI(plan_name, int(plan_num_meals))
+    user: UserBean = QueriesAction.createUserTest3()
+    gai.generatePlanAI(plan_name, int(plan_num_meals), user)
     return redirect('/')
 
 # Delete Plan
@@ -146,6 +151,13 @@ def link_food_to_meal():
 
 if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
-    # it will clear out all the data. 
-    processDataIntoDatabase()
-    # app.run(host = 'localhost')
+    # it will clear out all the data.
+    # start_time = time.time()
+    # processDataIntoDatabase()
+    # plan: PlanBean = QueriesAction.getPlanTest1()
+    # plan.generatePlanTotalCaloriesBasedOnFood()
+    # print(plan.getTotalCalories())
+    # for item in plan.getPlanFoodList():
+    #     print(item.getBrandedFoodDescription(), item.getBrandedFoodNutrientCalories())
+    # print("--- %s seconds ---" % (time.time() - start_time)) 
+    app.run(host = 'localhost')

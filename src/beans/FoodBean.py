@@ -5,23 +5,36 @@ sys.path.insert(1, './')
 from src.enum.NutrientsEnum import NutrientNameEnum
 
 class FoodBean():
-    fdc_id = 0
-    description = ""
-    food_category_id = 0
-    brand_owner = ""
-    ingredients = ""
-    serving_size = ""
-    serving_size_unit = ""
-    household_serving_fulltext = ""
-    branded_food_category = ""
-    total_protein_amount = ""
-    total_carbohydrates_amount = ""
-    total_fat_amount = ""
-    total_energy_amount = ""
-    nutrients_amounts = [] # list of NutrientBean class
+    # fdc_id = 0
+    # description = ""
+    # food_category_id = 0
+    # brand_owner = ""
+    # ingredients = ""
+    # serving_size = ""
+    # serving_size_unit = ""
+    # household_serving_fulltext = ""
+    # branded_food_category = ""
+    # total_protein_amount = ""
+    # total_carbohydrates_amount = ""
+    # total_fat_amount = ""
+    # total_energy_amount = ""
+    # nutrients_amounts = [] # list of NutrientBean class
     
     def __init__(self):
-            return 
+        self.fdc_id = 0
+        self.description = ""
+        self.food_category_id = 0
+        self.brand_owner = ""
+        self.ingredients = ""
+        self.serving_size = ""
+        self.serving_size_unit = ""
+        self.household_serving_fulltext = ""
+        self.branded_food_category = ""
+        self.total_protein_amount = ""
+        self.total_carbohydrates_amount = ""
+        self.total_fat_amount = ""
+        self.total_energy_amount = ""
+        self.nutrients_amounts = [] # list of NutrientBean class 
 
     # the following are setters
 
@@ -66,6 +79,9 @@ class FoodBean():
 
     def setBrandedFoodNutrientsAmounts(self, newNutrientsAmounts):
         self.nutrients_amounts = newNutrientsAmounts
+
+    def setBrandedFoodNutrientCalories(self, amount):
+        return self.setBrandedFoodNutrientAmountByID(1008, amount)
 
     def setBrandedFoodNutrientAmountByID(self, id: int, newNutrientAmount):
         for element in self.nutrients_amounts:
@@ -121,3 +137,6 @@ class FoodBean():
         for element in self.nutrients_amounts:
             if element.getNutrientID() == id:
                 return element.getNutrientAmount()
+
+    def getBrandedFoodNutrientCalories(self):
+        return self.getBrandedFoodNutrientAmountByID(1008)

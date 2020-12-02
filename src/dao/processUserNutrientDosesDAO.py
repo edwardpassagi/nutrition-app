@@ -69,7 +69,7 @@ def getUserNutrientDoses(user_id):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cmd = "SELECT nutrient_id, LB, IA, UB, weight, default_score FROM user_nutrient_doses WHERE user_id={}".format(user_id)
+        cmd = "SELECT nutrient_id, LB, IA, UB, weightLowerLB, default_scoreLowerLB, weightBetweenLBandIA, default_scoreBetweenLBandIA, weightBetweenIAandUB, default_scoreBetweenIAandUB FROM user_nutrient_doses WHERE user_id={}".format(user_id)
         cursor.execute(cmd)
         cursor_return = cursor.fetchall()
         return loadUserNutrientDosesInfo(user_id, cursor_return)
