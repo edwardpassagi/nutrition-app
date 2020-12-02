@@ -15,7 +15,8 @@
             <ul class="navbar-nav ml-auto">
                 <row>
                     <a class="btn btn-primary btn-nav float-right ml-2" href="/" role="button">Log Out</a>
-                    <a class="btn btn-primary btn-nav float-right ml-2 " href="/{{username}}" role="button">Planner</a>
+                    <a class="btn btn-primary btn-nav float-right ml-2 " href="/{{username}}/social" role="button">Social</a>
+                    <a class="btn btn-primary btn-nav float-right ml-2 " href="/{{username}}" role="button">My Plan</a>
                     <a class="btn btn-primary btn-nav float-right " href="preferences.html" role="button">Diet Preferences</a>
                 </row>
             </ul>
@@ -26,26 +27,34 @@
             <div class="col-4">
                 <div class="card panel">
                     <div class="inside-padding">
-                        <h3>{{username}}'s Followings ({{followings|length}})</h3>
+                        <h3>Viewing {{followingUsername}}'s plan</h3>
                         <br>
+                        <!-- The container is hodling the header buttons -->
                     </div>
+
                     <div class="container-scroll inside-padding" id="planScroll">
-                    <!-- the for-loop that generates all following cards -->
-                    {% for following in followings %}
+                    <!-- the for-loop that generates all plan cards -->
+                    {% for plan in plans %}
                         <tr>
                             <!-- All plan containers -->
+                            {% if plan['plan_id'] == planID %}
+                            <div class="card panel-item panel-item-selected">
+                            {% else %}
                             <div class="card panel-item">
+                            {% endif %}
                                 <div class="card-body" style="padding:0px">
                                     <div class="row" style="min-height: 100%;">
                                         <div class="col" style="transform: rotate(0); min-height: 100%;">
-                                            <h6>{{following}}</h6>
-                                            <a href="/{{username}}/view/{{following}}" class="stretched-link"></a>
-                                        </div>
-                                        <div class="col-5">
-                                            <a href="/{{username}}/unfollow/{{following}}" class="btn btn-danger float-right">Unfollow</a>
+                                            <h6>{{plan['plan_name']}}</h6>
+                                            <p>{{plan['plan_calories']}} cal</p>
+                                            <a href="/{{username}}/view/{{followingUsername}}/planid:{{plan['plan_id']}}" class="stretched-link"></a>
                                         </div>
                                     </div>
+                                    {% if plan['plan_id'] == planID %}
+                                    <a class="btn panel-btn btn-primary" style="background-color: white; border-color: white;"></a>
+                                    {% else %}
                                     <a class="btn panel-btn btn-primary"></a>
+                                    {% endif %}
                                 </div>
                             </div>
                             <br>
@@ -58,31 +67,38 @@
             <div class="col-4">
                 <div class="card panel">
                     <div class="inside-padding">
-                        <h3>{{username}}'s Followers ({{followers|length}})</h3>
+                        {% if planID %}
+                        <h3>{{planName}}</h3>
                         <br>
                     </div>
 
                     <div class="container-scroll inside-padding" id="mealScroll">
-
-
-                    <!-- The for loop containing all followers -->
-                    {% for follower in followers %}
-                        <tr>
-                            <!-- All plan containers -->
-                            <div class="card panel-item">
-                                <div class="card-body" style="padding:0px">
-                                    <div class="row" style="min-height: 100%;">
-                                        <div class="col" style="transform: rotate(0); min-height: 100%;">
-                                            <h6>{{follower}}</h6>
-                                            <a href="#" class="stretched-link"></a>
-                                        </div>
+                    <!-- The for loop containing all meals -->
+                    {% for meal in meals %}
+                        {% if meal['meal_id'] == mealID %}
+                        <div class="card panel-item panel-item-selected">
+                        {% else %}
+                        <div class="card panel-item">
+                        {% endif %}
+                            <div class="card-body" style="padding:0px">
+                                <div class="row" style="min-height: 100%;">
+                                    <div class="col"
+                                    style="transform: rotate(0); min-height: 100%;">
+                                        <h6>{{meal['meal_name']}}</h6>
+                                        <p>{{meal['meal_calories']}} cal</p>
+                                        <a href="/{{username}}/view/{{followingUsername}}/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="stretched-link"></a>
                                     </div>
-                                    <a class="btn panel-btn btn-primary"></a>
                                 </div>
+                                {% if meal['meal_id'] == mealID %}
+                                <a class="btn panel-btn btn-primary" style="background-color: white; border-color: white;"></a>
+                                {% else %}
+                                <a class="btn panel-btn btn-primary"></a>
+                                {% endif %}
                             </div>
-                            <br>
-                        </tr>
-                        {% endfor %}
+                        </div>
+                        <br>
+                    {% endfor %}
+                    {% endif %}
                     </div>
                 </div>
             </div>
@@ -90,12 +106,13 @@
             <div class="col-4">
                 <div class="card panel">
                     <div class="inside-padding">
-                       <h3>Who to follow</h3>
+                        {% if mealID %}
+                        <h3>{{mealName}}</h3>
                         <br>
                     </div>
 
                     <div class="container-scroll inside-padding" id="addFoodScroll">
-                        {% for nonFollowed in nonFolloweds %}
+                        {% for food in foods %}
                         <tr>
                             <!--This container holds all the foods-->
                             <div class="card panel-item">
@@ -103,18 +120,16 @@
                                     <div class="row" style="min-height: 100%;">
                                         <div class="col"
                                         style="transform: rotate(0); min-height: 100%;">
-                                            <h6>{{nonFollowed}}</h6>
-                                        </div>
-                                        <div class="col-1">
-                                            <td><a href="/{{username}}/follow/{{nonFollowed}}" class="btn btn-success float-right">Follow</a></td>
+                                            <h6>{{food['food_name']}}</h6>
+                                            <p class="calories">{{food['food_calories']}} cal</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <br>
-
                         </tr>
                         {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

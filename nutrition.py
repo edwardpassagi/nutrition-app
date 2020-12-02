@@ -210,6 +210,34 @@ def unfollow_user(username, toUnfollowUsername):
     processUserAction.unfollowUser(username, toUnfollowUsername)
     return redirect('/{}/social'.format(username))
 
+########## VIEW ##########
+# Show all plans
+@app.route('/<string:username>/view/<string:followingUsername>')
+def show_friend_plans(username, followingUsername):
+    plans = processPlanAction.getAllPlans(followingUsername)
+    return render_template('friends_plan.html', username=username, followingUsername=followingUsername, plans=plans)
+
+# Show all meals in plan
+@app.route('/<string:username>/view/<string:followingUsername>/planid:<int:id>')
+def show_friend_meals(username, followingUsername, id):
+    plans = processPlanAction.getAllPlans(followingUsername)
+    meals = processMealAction.getMealsByPlanID(id)
+    planName = processPlanAction.getPlanById(id)[0]['plan_name']
+    return render_template('friends_plan.html', username=username, followingUsername=followingUsername,  plans=plans, planID=id, planName=planName, meals=meals)
+
+# Display 
+# Show all foods in meal    
+@app.route('/<string:username>/view/<string:followingUsername>/planid:<int:pid>/mealid:<int:mid>')
+def show_friend_food_in_meal(username,followingUsername,pid,mid):
+    if not processUserAction.isValidUsername(username):
+        return render_template('login.html', error = True)
+    plans = processPlanAction.getAllPlans(followingUsername)
+    meals = processMealAction.getMealsByPlanID(pid)
+    foods = processFoodAction.getFoodsByMealID(mid)
+    planName = processPlanAction.getPlanById(pid)[0]['plan_name']
+    mealName = processMealAction.getMealByMealId(mid)[0]['meal_name']
+    return render_template('friends_plan.html', username=username, followingUsername=followingUsername, plans=plans, planID=pid, planName=planName, meals=meals, mealID=mid, mealName=mealName, foods=foods)
+
 if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data. 
