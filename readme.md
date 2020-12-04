@@ -4,5 +4,9 @@ To run:
   3. To auto create / reset table, comment nutrition.py line before app.run (on if __name__ = "__main__" block)
 
 On progress:
-  1. AI algorithm for meal generation
-  2. Prototype for NoSQL section of our program. Currently developing Neo4j.
+  1. AI algorithm for meal generation [done]
+  2. Prototype for NoSQL section of our program. Currently developing Neo4j. [done]
+
+
+TODO:
+  1. Host codebase in a web-server so it can be accessed by others (cPanel, heroku?)
