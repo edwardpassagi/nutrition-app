@@ -6,7 +6,6 @@
 <!--    <link rel="stylesheet" href="{{ url_for('static', filename='static/home.css') }}" type="text/css" media=screen>-->
     <link rel="stylesheet"
           href= "{{ url_for('static',filename='styles/login.css') }}">
-    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/home.css') }}">
     <script src="https://kit.fontawesome.com/65913c67fd.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -14,7 +13,11 @@
 <body style="background-color: #f0f0f0;">
     <div>
         <div class="container-sm">
-            <nav class="navbar fixed-top">
+            <nav class="navbar fixed-top" style="background-color: #28a746">
+                <a class="navbar-brand text-center" href="/">Log In</a>
+                <a class="navbar-brand" href="/new_ingredient">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
             </nav>
         </div>
 
@@ -22,18 +25,16 @@
             <div class = "collapse show multi-collapse" id="login-container">
                 <h2>Log in</h2>
                 <div class="px-3 py-3">
-                    {% if error %}
-                    <div class="alert alert-danger" role="alert">
-                    Username not found. Please try again or create an account.
-                    </div>
-                    {% endif %}
-                    <form method="POST" action="/login">
+                    <form method="get" action="/login">
                         <div class="form-group">
                             <input name="username" class="form-control" value="" type="text" placeholder = "username" autocomplete="off" required>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block" id="genButton">Log In</button>
+                        <div class="form-group">
+                            <input name="password" class="form-control" value="" type="password" placeholder = "password" autocomplete="off" required>
+                        </div>
+                        <button type="submit" class="form-control btn btn-success">Log In</button>
                     </form>
-                    <button class="btn btn-secondary btn-block" type="submit" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="register-container login-container">
+                    <button class="btn btn-outline-success btn-block" type="submit" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="register-container login-container">
                         Create an account
                     </button>
                 </div>
@@ -49,12 +50,25 @@
                             <label for="username">Username</label>
                             <input name="username" class="form-control" value="" type="text" placeholder = "username" autocomplete="off" required>
                         </div>
+                        <div class="form-group">
+                            <label for="password">Create a password</label>
+                            <input name="password" class="form-control" value="" type="password" placeholder = "password" autocomplete="off" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="r-password">Repeat password</label>
+                            <input name="r-password" class="form-control" value="" type="password" placeholder = "password" autocomplete="off" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input name="email" class="form-control" value="" type="text" placeholder = "someone@email.com" autocomplete="off" required>
+                        </div>
                         <br>
-                        <button type="submit" class="form-control btn btn-primary">Register</button>
+                        <button type="submit" class="form-control btn btn-success">Register</button>
                     </form>
-                    <button class="btn btn-secondary btn-block" type="submit" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="true" aria-controls="register-container login-container">
+                    <button class="btn btn-outline-success btn-block" type="submit" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="true" aria-controls="register-container login-container">
                         I already have an account
                     </button>
+                    <a href="/foods" class="btn btn-warning">BYPASS TO FOODS</a>
                 </div>
             </div>
         </div>

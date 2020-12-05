@@ -4,25 +4,25 @@ sys.path.insert(1, './')
 import pymysql
 from db_config import mysql
 
-def createNewPlanSQL(planName, planCalories):
+def createNewPlanSQL(planName, planCalories, username):
     conn = None
     cursor = None
 
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cmd = "INSERT INTO plan (plan_name, plan_calories) VALUES('{}', {});".format(planName, str(planCalories))
-        print(cmd)
+        cmd = "INSERT INTO plan (plan_name, plan_calories, username) VALUES('{}', {}, '{}');".format(planName, str(planCalories), username)
+        # print(cmd)
         cursor.execute(cmd)
         conn.commit()
 
         # get the insertID
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "SELECT LAST_INSERT_ID();"
-        print(cmd)
+        # print(cmd)
         cursor.execute(cmd)
         result = cursor.fetchall()
-        print(result)
+        # print(result)
         return result[0]['LAST_INSERT_ID()']
     
     except Exception as e:
@@ -41,7 +41,7 @@ def linkFoodIdToMealId(mealID, foodID):
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "INSERT INTO meal_contains (meal_id, food_id) VALUES({}, {});".format(str(mealID), str(foodID))
-        print(cmd)
+        # print(cmd)
         cursor.execute(cmd)
         conn.commit()
 
@@ -61,7 +61,7 @@ def linkMealIDtoPlanID(planID, mealID):
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cmd = "INSERT INTO plan_contains (plan_id, meal_id) VALUES({}, {});".format(str(planID), str(mealID))
-        print(cmd)
+        # print(cmd)
         cursor.execute(cmd)
         conn.commit()
 

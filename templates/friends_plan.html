@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='static/home.css') }}" type="text/css" media=screen>-->
+    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/home.css') }}">
+    <script src="https://kit.fontawesome.com/65913c67fd.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container-sm">
+        <nav class="navbar fixed-top">
+            <ul class="navbar-nav ml-auto">
+                <row>
+                    <a class="btn btn-primary btn-nav float-right ml-2" href="/" role="button">Log Out</a>
+                    <a class="btn btn-primary btn-nav float-right ml-2 " href="/{{username}}/social" role="button">Social</a>
+                    <a class="btn btn-primary btn-nav float-right ml-2 " href="/{{username}}" role="button">My Plan</a>
+                    <a class="btn btn-primary btn-nav float-right " href="preferences.html" role="button">Diet Preferences</a>
+                </row>
+            </ul>
+        </nav>
+    </div>
+    <div class="container-meals">
+        <div class="row" style="height:inherit;">
+            <div class="col-4">
+                <div class="card panel">
+                    <div class="inside-padding">
+                        <h3>Viewing {{followingUsername}}'s plan</h3>
+                        <br>
+                        <!-- The container is hodling the header buttons -->
+                    </div>
+
+                    <div class="container-scroll inside-padding" id="planScroll">
+                    <!-- the for-loop that generates all plan cards -->
+                    {% for plan in plans %}
+                        <tr>
+                            <!-- All plan containers -->
+                            {% if plan['plan_id'] == planID %}
+                            <div class="card panel-item panel-item-selected">
+                            {% else %}
+                            <div class="card panel-item">
+                            {% endif %}
+                                <div class="card-body" style="padding:0px">
+                                    <div class="row" style="min-height: 100%;">
+                                        <div class="col" style="transform: rotate(0); min-height: 100%;">
+                                            <h6>{{plan['plan_name']}}</h6>
+                                            <p>{{plan['plan_calories']}} cal</p>
+                                            <a href="/{{username}}/view/{{followingUsername}}/planid:{{plan['plan_id']}}" class="stretched-link"></a>
+                                        </div>
+                                    </div>
+                                    {% if plan['plan_id'] == planID %}
+                                    <a class="btn panel-btn btn-primary" style="background-color: white; border-color: white;"></a>
+                                    {% else %}
+                                    <a class="btn panel-btn btn-primary"></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <br>
+                        </tr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card panel">
+                    <div class="inside-padding">
+                        {% if planID %}
+                        <h3>{{planName}}</h3>
+                        <br>
+                    </div>
+
+                    <div class="container-scroll inside-padding" id="mealScroll">
+                    <!-- The for loop containing all meals -->
+                    {% for meal in meals %}
+                        {% if meal['meal_id'] == mealID %}
+                        <div class="card panel-item panel-item-selected">
+                        {% else %}
+                        <div class="card panel-item">
+                        {% endif %}
+                            <div class="card-body" style="padding:0px">
+                                <div class="row" style="min-height: 100%;">
+                                    <div class="col"
+                                    style="transform: rotate(0); min-height: 100%;">
+                                        <h6>{{meal['meal_name']}}</h6>
+                                        <p>{{meal['meal_calories']}} cal</p>
+                                        <a href="/{{username}}/view/{{followingUsername}}/planid:{{planID}}/mealid:{{meal['meal_id']}}" class="stretched-link"></a>
+                                    </div>
+                                </div>
+                                {% if meal['meal_id'] == mealID %}
+                                <a class="btn panel-btn btn-primary" style="background-color: white; border-color: white;"></a>
+                                {% else %}
+                                <a class="btn panel-btn btn-primary"></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card panel">
+                    <div class="inside-padding">
+                        {% if mealID %}
+                        <h3>{{mealName}}</h3>
+                        <br>
+                    </div>
+
+                    <div class="container-scroll inside-padding" id="addFoodScroll">
+                        {% for food in foods %}
+                        <tr>
+                            <!--This container holds all the foods-->
+                            <div class="card panel-item">
+                                <div class="card-body" style="padding:0px">
+                                    <div class="row" style="min-height: 100%;">
+                                        <div class="col"
+                                        style="transform: rotate(0); min-height: 100%;">
+                                            <h6>{{food['food_name']}}</h6>
+                                            <p class="calories">{{food['food_calories']}} cal</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#genButton").click(function(){
+                var element = $('#planScroll');
+                element.scrollTop(0,0);
+                $('#genCollapse').collapse('toggle');
+                $('#blankPlanCollapse').collapse('hide');
+            })
+            $('#blankPlanButton').click(function(){
+                var element = $('#planScroll');
+                element.scrollTop(0,0);
+                $('#blankPlanCollapse').collapse('toggle');
+                $('#genCollapse').collapse('hide');
+            })
+            $("#planNameCollapseButton").click(function(){
+                $("#planNameCollapse").collapse('toggle');
+                $("#renamePlanCollapse").collapse('toggle');
+            })
+            $('#blankMealButton').click(function(){
+                var element = $('#mealScroll');
+                element.scrollTop(0,0);
+                $('#blankMealCollapse').collapse('toggle');
+                $('#reGenCollapse').collapse('hide');
+            })
+            $('#reGenButton').click(function(){
+                var element = $('#mealScroll');
+                element.scrollTop(0,0);
+                $('#reGenCollapse').collapse('toggle');
+                $('#blankMealCollapse').collapse('hide');
+            })
+            $("#mealNameCollapseButton").click(function(){
+                $("#mealNameCollapse").collapse('toggle');
+                $("#renameMealCollapse").collapse('toggle');
+            })
+            $('#addFoodButton').click(function(){
+                var element = $('#addFoodScroll');
+                element.scrollTop(0,0);
+                $('#addFoodCollapse').collapse('toggle');
+                $('#lookupCollapse').collapse('hide');
+            })
+            $('#lookupButton').click(function(){
+                var element = $('#addFoodScroll');
+                element.scrollTop(0,0);
+                $('#lookupCollapse').collapse('toggle');
+                $('#addFoodCollapse').collapse('hide');
+            })
+        });
+    </script>
+</body>

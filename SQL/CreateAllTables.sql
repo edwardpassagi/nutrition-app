@@ -6,6 +6,7 @@ CREATE TABLE food
   food_name   VARCHAR(255) NOT NULL,       
   food_image  VARCHAR(255),
   food_calories INT,
+  username    VARCHAR(255),
   PRIMARY KEY     (food_id)
 );
 
@@ -34,6 +35,7 @@ CREATE TABLE plan
   plan_id     INT NOT NULL AUTO_INCREMENT,
   plan_name   VARCHAR(255) NOT NULL, 
   plan_calories INT,
+  username    VARCHAR(255) NOT NULL,
   PRIMARY KEY (plan_id)
 );
 
