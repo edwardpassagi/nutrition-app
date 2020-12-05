@@ -54,7 +54,7 @@ def getMealsByPlanIdDAO(id):
     conn = None
     cursor = None
     try:
-        # Get meals
+        # Get all meals within a plan id
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         get_meal_from_plan_cmd = "SELECT meal_id, meal_name, meal_calories FROM plan NATURAL JOIN plan_contains pc NATURAL JOIN meal m where plan_id = {};".format(str(id))

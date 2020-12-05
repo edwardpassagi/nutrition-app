@@ -3,7 +3,6 @@ sys.path.insert(1, './')
 from app import app
 from flask import render_template, request, redirect
 
-
 import src.ai.generateAI as gai
 from src.action.ProcessDataAction import processDataIntoDatabase
 import src.action.processPlanAction as processPlanAction
@@ -41,6 +40,11 @@ def register_processing():
     return redirect("/{}".format(username))
 
 ########## VIEW ##########
+# Show preferences page for user
+@app.route('/<string:username>/preferences')
+def show_prefrences(username):
+    return render_template("preferences.html", username=username)
+
 # Show all plans
 @app.route('/<string:username>')
 def show_plans(username):
