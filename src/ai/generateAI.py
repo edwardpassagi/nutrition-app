@@ -1,3 +1,11 @@
+from src.beans.userNutrientDoseBean import UserNutrientDoseBean
+from src.beans.PlanBean import PlanBean
+from typing import List
+from src.beans.FoodBean import FoodBean
+from src.beans.UserBean import UserBean
+from src.enum.NutrientsEnum import NutrientNameEnum
+import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
+import src.dao.FdfoodDAO as fdfoodDAO
 import sys
 sys.path.insert(1, './')
 import src.dao.generateAIDAO as g_ai_dao
@@ -5,10 +13,13 @@ import src.dao.generateAIDAO as g_ai_dao
 import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
 import src.action.processPlanAction as processPlanAction
+import src.action.runQueriesAction as runQueriesAction
+import src.action.processMealContainsAction as processMealContainsAction
+import src.action.processPlanContainsAction as processPlanContainsAction
 
 mealNameBase = ["Breakfast","Lunch","Dinner","Snack"]
 
-def generatePlanAI(planName: str, numMeal:int, username: str, pid:int = -1):
+def generatePlanAI(planName: str, numMeal:int, username: str, user: UserBean, pid:int = -1):
     """Generate `numMeal` amount of meals, that is based on the planName
 
     Args:
@@ -31,20 +42,41 @@ def generatePlanAI(planName: str, numMeal:int, username: str, pid:int = -1):
         planID = pid
         planName = processPlanAction.getPlanById(pid)[0]['plan_name']
 
+    print("generating plan")
+    # plan: PlanBean = runQueriesAction.getPlanTest1()
+    plan: PlanBean = generateFoodList(user)
+    print("done generating plan")
+
+    # make the meal
+    # TODO: make new meal that consists of all the foodIDs, catch error
+    mealID = processMealAction.createNewMeal("AI Generatated", 0)
+
+    for food in plan.getPlanFoodList():
+        foodName = food.getBrandedFoodDescription()
+        foodCalories = food.getBrandedFoodNutrientCalories()
+        print("foodname: {}".format(foodName))
+        print("foodcal: {}".format(foodCalories))
+        fid = processFoodAction.createNewFood(foodName, foodCalories)
+        processMealContainsAction.addFoodIdToMealId(mealID,fid)
+
+    processPlanContainsAction.linkPidToMid(planID, mealID)
+    
+
+
 
     # TODO: Link plan with all of the meals
-    for eachMeal in range(numMeal):
-        mealID = generateMeal(planName, eachMeal)
+    # for eachMeal in range(numMeal):
+    #     mealID = generateMeal(planName, eachMeal)
+    
+    #     # get meal_id and add calories to planID's planCalories
+    #     meal = processMealAction.getMealByMealId(mealID)
+    #     mealCalories = meal[0]['meal_calories']
+    #     print("MEAL CALORIES: {}".format(mealCalories))
+    #     updateVal = "+" + str(mealCalories)
 
-        # get meal_id and add calories to planID's planCalories
-        meal = processMealAction.getMealByMealId(mealID)
-        mealCalories = meal[0]['meal_calories']
-        # print("MEAL CALORIES: {}".format(mealCalories))
-        updateVal = "+" + str(mealCalories)
+    #     processPlanAction.updatePlanCaloriesByPlanId(planID, updateVal)
 
-        processPlanAction.updatePlanCaloriesByPlanId(planID, updateVal)
-
-        g_ai_dao.linkMealIDtoPlanID(planID, mealID)
+    #     g_ai_dao.linkMealIDtoPlanID(planID, mealID)
 
     return
 
@@ -85,20 +117,219 @@ def generateMeal(planName: str, mealNum: int):
     return mealID
 
 
-def generateFood(planName: str):
-    """ Find a singular foodID that matches the theme of the planName
+# def generateFood(planName: str, user: UserBean):
+#     """ Find a singular foodID that matches the theme of the planName
 
-    Args:
-        planName (str): The name of the plan
+#     Args:
+#         planName (str): The name of the plan
     
-    Returns:
-        foodID (int): The ID of the food that corresponds to the theme of the planName.
-    """
+#     Returns:
+#         foodID (int): The ID of the food that corresponds to the theme of the planName.
+#     """
 
-    "STEAK ABALLONE"
+#     "STEAK ABALLONE"
 
-    # TODO: IMPLEMENT AI ALGORITHM HERE
-    # .....
+#     # TODO: IMPLEMENT AI ALGORITHM HERE
+#     # .....
+#     plansList = []
+#     for i in range(3):
+#         plan = PlanBean()
+#         plan.setPlanID(i+1)
+#         plan.setPlanName("{} {}".format(planName, i))
+#         plansList.append(generateFoodList(user, plan))
+#         plan.clearAllNutrientAmounts()
 
-    
-    return 1;
+#     highestMscore = 0.0
+#     index = 0
+#     for idx, plan in enumerate(plansList):
+#         if plan.getPlanMScore() > highestMscore:
+#             highestMscore = plan.getPlanMScore()
+#             index = idx
+#     return plansList[index]
+
+
+def generatePlan(user: UserBean, preference = 0):
+    plansList = []
+    for i in range(3):
+        plan: PlanBean = generateFoodList(user)
+        plan.setPlanID(i+1)
+        plansList.append(plan)
+        print("plan ", plan.getPlanID(), " has the following info")
+        printList(plan, plan.getPlanFoodList())
+
+    # preference = 0 => calories
+    if preference == 0:
+        return getPlanBasedOnCalories(plansList)
+    else: # preference = anything else => based on mscore
+        return getPlanBasedOnMScore(plansList)
+
+def getPlanBasedOnMScore(planList):
+    highestMscore = 0.0
+    index = 0
+    for idx, plan in enumerate(planList):
+        if plan.getPlanMScore() > highestMscore:
+            highestMscore = plan.getPlanMScore()
+            index = idx
+    return planList[index]
+
+def getPlanBasedOnCalories(planList):
+    lowestCalories = 10000
+    index = 0
+    for idx, plan in enumerate(planList):
+        if plan.getTotalCalories() < lowestCalories:
+            lowestCalories = plan.getTotalCalories()
+            index = idx
+    return planList[index] 
+
+def generateFoodList(user: UserBean):
+    print("user current wieght is {}".format(user.getWeight()))
+    print("user height is {}".format(user.getHeight()))
+    print("user decision is {}".format(user.getUserDecision()))
+    print("user target wieght is {}".format(user.getTargetWeight()))
+    print("user daily activity is {}".format(user.getDailyActivity()))
+    print("user trying to lose wieght in {}".format(user.getTargetTimeFrame()))
+    print("user required daily calories to maintain current weight {}".format(user.getDailyMaintainCalories()))
+    print("user required daily calories to lose weight in the given time frame {}".format(user.getDailyAdjustedCalories()))
+
+    plan = PlanBean()
+    plan.clearAllNutrientAmounts()
+    userNutrientDoses: List(UserNutrientDoseBean) = userNutrientDosesDAO.getUserNutrientDoses(user.getUserID())
+    foodList: List(FoodBean) = []
+    i = 0
+    nutrients_list = list(NutrientNameEnum)
+    # printList(plan, plan.getPlanFoodList())
+    while isNutrientsMet(plan, userNutrientDoses) == False:
+        nutrient_id = nutrients_list[i].value[1]
+        if nutrient_id == 1008:
+            i = 0
+            # userNutrientDose = userNutrientDosesDAO.getUserNutrientDose(user.getUserID(), nutrient_id)
+            # if checkCaloriesAmount(plan, userNutrientDose):
+            #     removeFoodItemFromList(plan, foodList, nutrient_id)
+            continue
+        userNutrientDose = getIndividualUserNutrientDose(userNutrientDoses, nutrient_id)
+        foodItem: FoodBean = fdfoodDAO.getRandomFood(userNutrientDose)
+        print("trying to add {}".format(foodItem.getBrandedFoodFdcID()))
+        if doesFoodItemFit(foodItem, plan, userNutrientDoses):
+            addFoodToList(foodItem, plan, foodList)
+            print("food item {} added".format(foodItem.getBrandedFoodFdcID()))
+            if isNutrientsMet(plan, userNutrientDoses):
+                break
+        else:
+            # print("unable to add food item {}".format(foodItem.getBrandedFoodFdcID()))
+            if increaseDeniesForNutrients(plan, nutrient_id) > 3:
+                removeFoodItemFromList(plan, foodList, nutrient_id)
+        i += 1
+    # print("we have a plan")
+    plan.generatePlanTotalCalories()
+    plan.setFoodList(foodList)
+    plan.setPlanMScore(calculatePlanMscore(plan, userNutrientDoses))
+    print("plan total calories is {}".format(plan.getTotalCalories()))
+    print("plan Mscore is {}".format(plan.getPlanMScore()))
+    return plan
+
+def addFoodToList(foodItem: FoodBean, plan: PlanBean, foodList):
+    for nutrient in foodItem.getBrandedFoodNutrientsAmounts():
+        plan.addNutrientAmountByID(nutrient.getNutrientID(), foodItem.getBrandedFoodNutrientAmountByID(nutrient.getNutrientID()))
+    foodList.append(foodItem)
+
+def doesFoodItemFit(footItem: FoodBean, plan: PlanBean, userNutrientDose):
+    for nutrient in NutrientNameEnum:
+        nutrient_id = nutrient.value[1]
+        if nutrient_id == 1008:
+            continue
+        upper_bound = getUserNutrientDoseUpperBound(userNutrientDose, nutrient_id)
+        foodNutrientAmount = footItem.getBrandedFoodNutrientAmountByID(nutrient_id)
+        totalPlanNutrientAmount = plan.getNutrientAmountByID(nutrient_id)
+        if totalPlanNutrientAmount + foodNutrientAmount > upper_bound:
+            return False
+    return True
+
+def getUserNutrientDoseUpperBound(userNutrientDoses, nutrient_id):
+    for userNutrientDose in userNutrientDoses:
+        n_id = userNutrientDose.getUserNutrientID()
+        if n_id == nutrient_id:
+            return userNutrientDose.getUserNutrientUB()
+    return 0
+
+def isNutrientsMet(plan: PlanBean, userNutrientDoses):
+    for userNutrientDose in userNutrientDoses:
+        nutrient_id = userNutrientDose.getUserNutrientID()
+        if plan.getNutrientAmountByID(nutrient_id) < userNutrientDose.getUserNutrientLB():
+            return False
+    return True
+
+def increaseDeniesForNutrients(plan: PlanBean, id):
+    plan.incraseNumberOfNutrientDeniesByID(id)
+    return plan.getNumberofDeniesForNutrientByID(id)
+
+def removeFoodItemFromList(plan: PlanBean, foodList, nutrient_id):
+    highestNutrientFoodItem: FoodBean = FoodBean()
+    fooditemIDX = 0
+    highestNurtientAmount = 0.0
+    for idx, foodItem in enumerate(foodList):
+        foodItemNutrientAmount = foodItem.getBrandedFoodNutrientAmountByID(nutrient_id)
+        if foodItemNutrientAmount > highestNurtientAmount:
+            highestNurtientAmount = foodItemNutrientAmount
+            fooditemIDX = idx
+    if len(foodList) != 0:
+        highestNutrientFoodItem: FoodBean = foodList[fooditemIDX]
+        for nutrientBean in highestNutrientFoodItem.getBrandedFoodNutrientsAmounts():
+            nutrient_id = nutrientBean.getNutrientID()
+            plan.subtractNutrientAmountByID(nutrient_id, highestNutrientFoodItem.getBrandedFoodNutrientAmountByID(nutrient_id))
+        print("removed food item {}".format(foodList[fooditemIDX].getBrandedFoodFdcID()))
+        foodList.pop(fooditemIDX)
+        plan.resetNumberOfNutrientDeniesByID(nutrient_id)
+
+def checkCaloriesAmount(plan: PlanBean, userNutrientDose: UserNutrientDoseBean):
+    if plan.getNutrientAmountByID(1008) > userNutrientDose.getUserNutrientUB() * 1.25:
+        return True
+    return False
+
+
+def printList(plan: PlanBean, foodList):
+    for idx, fooditem in enumerate(foodList):
+        print("{} the fdc_id is {} and the name is {}".format(idx, fooditem.getBrandedFoodFdcID(), fooditem.getBrandedFoodDescription()))
+
+    for nutrientAmount in plan.getNutrientsAmounts():
+        print("nutrient is {} and the total amount is {}".format(nutrientAmount, plan.getNutrientsAmounts()[nutrientAmount]))
+
+def getIndividualUserNutrientDose(userNutrientDoses, nutrient_id):
+    for nutrientDose in userNutrientDoses:
+        if nutrientDose.getUserNutrientID() == nutrient_id:
+            return nutrientDose
+    return None
+
+def calculatePlanMscore(plan: PlanBean, userNutrientDoses):
+    MScore = 0.0
+    for nutrient in NutrientNameEnum:
+        nutrient_id = nutrient.value[1]
+        nutrientNscoreValue = calculateNScoreForNutrient(plan, nutrient_id, userNutrientDoses)
+        MScore += nutrientNscoreValue
+        plan.increasePlanMScoreBy(nutrientNscoreValue)
+    return MScore
+
+def calculateNScoreForNutrient(plan: PlanBean, nutrient_id, userNutrientDoses):
+    NScore = 0.0
+    nutrientDose: UserNutrientDoseBean = getIndividualUserNutrientDose(userNutrientDoses, nutrient_id)
+    actualAmountOfNutrient = plan.getNutrientAmountByID(nutrient_id)
+    if actualAmountOfNutrient > nutrientDose.getUserNutrientIA() and actualAmountOfNutrient <= nutrientDose.getUserNutrientUB():
+        NScore = calculateNScoreBetweenIAandLB(actualAmountOfNutrient, nutrientDose.getUserNutreintWeightBetweenIAandUB(), nutrientDose.getUserNutreintDefaultScoreBetweenIAandUB(), nutrientDose.getUserNutrientUB())
+    elif actualAmountOfNutrient <= nutrientDose.getUserNutrientIA() and actualAmountOfNutrient > nutrientDose.getUserNutrientLB():
+        NScore = calculateNScoreBetweenIAandLB(actualAmountOfNutrient, nutrientDose.getUserNutreintWeightBetweenLBandIA(), nutrientDose.getUserNutreintDefaultScoreBetweenLBandIA(), nutrientDose.getUserNutrientIA()) 
+    elif actualAmountOfNutrient >= 0 and actualAmountOfNutrient <= nutrientDose.getUserNutrientLB():
+        NScore = calculateNScoreLessThanLB(actualAmountOfNutrient, nutrientDose.getUserNutreintWeightLowerLB(), nutrientDose.getUserNutreintDefaultScoreLowerLB(), nutrientDose.getUserNutrientLB())
+    return NScore
+
+def calculateNScoreBetweenIAandUB(acutalAmount, weight, defaultScore, UB):
+    return -(weight * (acutalAmount/UB)) + defaultScore
+
+def calculateNScoreBetweenIAandLB(actualAmount, weight, defaultScore, IA):
+    return (weight * (actualAmount/IA)) + defaultScore
+
+def calculateNScoreLessThanLB(actualAmount, weight, defaultScore, LB):
+    if LB == 0:
+        return weight + defaultScore
+    return (weight * (actualAmount/LB)) + defaultScore
+
+
+            

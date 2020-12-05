@@ -1,3 +1,7 @@
+from src.beans.PlanBean import PlanBean
+from src.beans.NutrientBean import NutrientBean
+from src.beans.UserBean import UserBean
+from src.beans.userNutrientDoseBean import UserNutrientDoseBean
 import sys
 sys.path.insert(1, './')
 from app import app
@@ -14,6 +18,11 @@ import src.action.clearPlanEntriesAction as clearPlanEntriesAction
 import src.action.removeMealAction as removeMealAction
 import src.beans.UserBean as userBean
 import src.action.addUserAction as addUserAction
+import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
+import src.dao.FoodNutrientsDAO as foodNutrientDAO
+import time
+import src.action.runQueriesAction as QueriesAction
+
 
 import src.neo.action.processUserAction as processUserAction
 
@@ -99,7 +108,9 @@ def search_food_keyword(username):
 def generate_plan(username):
     plan_name = request.form['planName']
     plan_num_meals = request.form['planNumMeals']
-    gai.generatePlanAI(plan_name, int(plan_num_meals), username)
+
+    user: UserBean = QueriesAction.createUserTest3()
+    gai.generatePlanAI(plan_name, int(plan_num_meals),username, user)
     return redirect('/{}'.format(username))
 
 # Delete Plan
@@ -244,6 +255,6 @@ def show_friend_food_in_meal(username,followingUsername,pid,mid):
 
 if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
-    # it will clear out all the data. 
+    # it will clear out all the data.
     # processDataIntoDatabase()
     app.run(host = 'localhost')
