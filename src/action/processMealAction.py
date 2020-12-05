@@ -19,3 +19,7 @@ def getMealsByPlanID(id):
 def updateMealCaloriesById(id, updateVal):
     processMealDAO.updateMealCaloriesByIdDAO(id, updateVal)
     return
+
+def renameMealByMid(mid, newMealName):
+    processMealDAO.renameMealByMidDAO(mid, newMealName)
+    return

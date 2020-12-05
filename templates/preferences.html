@@ -21,35 +21,196 @@
             </ul>
         </nav>
     </div>
+    <div class="card panel inside-padding" style="position: absolute; width: 200px; height: 20vh; margin-left: 32px; z-index: 1;">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-secondary btn-block" id="healthInfoCollapseButton">Health Info</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-secondary btn-block" id="planGoalsCollapseButton">Plan Goals</button>
+            </div>
+        </div>
+    </div>
     <div class="container-meals" style="max-width: 576px;">
         <div class="card panel" style="margin: auto;">
             <div class="inside-padding">
                 <h3>User Preferences</h3>
             </div>
-            <div class="container-scroll inside-padding" style="width:70%; margin: auto;">
-                <form method="post" action="/plan/generate">
-                    <div class="row">
-                        <div class="col-3" style="margin: auto;">
-                            <h6>Height: </h6>
+            <div class="container-scroll inside-padding" style="width:80%; margin: auto;">
+<!-- TODO: THE FORM-->
+                <form method="post" action="/TODO:">
+                    <div class="collapse show" aria-expanded="true" id="healthInfoCollapse">
+                        <h4>Health Info</h4>
+                        <div class="row">
+                            <div class="col-4" style="margin: auto;">
+                                <h6>Gender: </h6>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="form-group">
+                                    <select class="form-control" name="gender" required>
+                                        <option>Female</option>
+                                        <option>Male</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col" style="margin: auto;">
-                            <div class="form-group input-group">
-                                <input class="form-control" name="planName" value="" type="text" autocomplete="off" required>
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2">ft</span>
+                        <div class="row">
+                            <div class="col-4" style="margin: auto;">
+                                <h6>Age: </h6>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="form-group input-group">
+                                    <input class="form-control" name="age" value="" type="number" autocomplete="off" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text append">years</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4" style="margin: auto;">
+                                <h6>Height: </h6>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="form-group input-group">
+                                    <select class="form-control" name="heightFt" required>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text append">ft</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="form-group input-group">
+                                    <select class="form-control" name="heightIn" required>
+                                        <option>0</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text append">in</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4" style="margin: auto;">
+                                <h6>Weight: </h6>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="form-group input-group">
+                                    <input class="form-control" name="weight" value="" type="number" autocomplete="off" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text append">pounds</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4" style="margin: auto;">
+                                <h6>Daily Activity: </h6>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="form-group">
+                                    <select class="form-control" name="activity" required>
+                                        <option>No Activity</option>
+                                        <option>Light</option>
+                                        <option>Moderate</option>
+                                        <option>Active</option>
+                                        <option>Extreme</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Number of Meals</span>
+                    <div class="collapse" id="planGoalsCollapse">
+                        <h4>Plan Goals</h4>
+                        <div class="row">
+                            <div class="col-4" style="margin: auto;">
+                                <h6>Goal weight: </h6>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="form-group input-group">
+                                    <input class="form-control" name="goalWeight" value="" type="number" autocomplete="off" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text append">pounds</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <input class="form-control" name="planNumMeals" value="" type="number" placeholder = "3 meals" autocomplete="off" required>
+                        <div class="row">
+                            <div class="col-4" style="margin: auto;">
+                                <h6>Timeframe: </h6>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="form-group input-group">
+                                    <input class="form-control" name="numWeeks" value="" type="number" autocomplete="off" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text append">weeks</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!--
+                        <div class="row">
+                            <div class="col-4" style="margin: auto;">
+                                <h6>Dietary Restrictions: </h6>
+                            </div>
+                            <div class="col" style="margin: auto;">
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-secondary">
+                                        <input type="checkbox" name="halal"> Halal
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="checkbox" name="lactoseInt">Lactose Intolerant
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="checkbox" name="vegan">Vegan
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="checkbox" name="vegan">Vegetarian
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+-->
+<!--TODO: Submit is here-->
+                    <br>
+                    <input class="form-control btn btn-primary" type="submit" value="Submit">
                     </div>
-                    <input class="form-control btn btn-primary" type="submit" value="Generate Plan">
                 </form>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#healthInfoCollapseButton").click(function(){
+                $("#healthInfoCollapse").collapse('show');
+                $("#planGoalsCollapse").collapse('hide');
+            })
+            $("#planGoalsCollapseButton").click(function(){
+                $("#healthInfoCollapse").collapse('hide');
+                $("#planGoalsCollapse").collapse('show');
+            })
+        });
+    </script>
 </body>

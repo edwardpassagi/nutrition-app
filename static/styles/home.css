@@ -59,8 +59,10 @@
 .panel-btn{
     padding: 0px;
     min-height: 6px;
-    min-width: 100%;
-    margin-bottom: calc(-3vh);
+    min-width: calc(100% - var(--b-radius) - var(--b-radius));
+    position: absolute;
+    left: var(--b-radius);
+    bottom: var(--b-radius);
 }
 .container-scroll{
     height: 60vh;
@@ -91,7 +93,12 @@
     background-color: white;
     box-shadow: var(--shadow-near);
 }
-
+.append{
+    border-radius: var(--btn-radius);
+    border-color: var(--vvl-green);
+    background-color: white;
+    box-shadow: var(--shadow-near);
+}
 /* The Primary Button Attributes */
 .btn-primary{
     box-shadow: 0 0 16px rgba(0,0,0,0.125);
