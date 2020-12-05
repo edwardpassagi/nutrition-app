@@ -152,12 +152,5 @@ def link_food_to_meal():
 if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data.
-    # start_time = time.time()
     # processDataIntoDatabase()
-    # plan: PlanBean = QueriesAction.getPlanTest1()
-    # plan.generatePlanTotalCaloriesBasedOnFood()
-    # print(plan.getTotalCalories())
-    # for item in plan.getPlanFoodList():
-    #     print(item.getBrandedFoodDescription(), item.getBrandedFoodNutrientCalories())
-    # print("--- %s seconds ---" % (time.time() - start_time)) 
     app.run(host = 'localhost')
