@@ -6,7 +6,8 @@ class NutrientBean:
     nutrient_name = ""
     nutrient_unit_name = ""
     nutrient_nbr = 0
-
+    amount = 0
+    
     def __init__(self):
         return
 
@@ -22,6 +23,9 @@ class NutrientBean:
     def setNutrientNbr(self, newNutrientNbr):
         self.nutrient_nbr = newNutrientNbr
 
+    def setNutrientAmount(self, newNutrientAmount):
+        self.amount = newNutrientAmount
+    
     # The following are getters
 
     def getNutrientID(self):
@@ -35,5 +39,8 @@ class NutrientBean:
 
     def getNutrientNbr(self):
         return self.nutrient_nbr
+
+    def getNutrientAmount(self):
+        return self.amount
 
     

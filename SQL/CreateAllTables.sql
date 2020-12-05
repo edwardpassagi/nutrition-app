@@ -2,6 +2,7 @@
 CREATE TABLE food
 (
   food_id     INT NOT NULL AUTO_INCREMENT,
+  fdc_id INT default 0,
   food_name   VARCHAR(255) NOT NULL,       
   food_image  VARCHAR(255),
   food_calories INT,
@@ -38,9 +39,9 @@ CREATE TABLE plan
 
 -- CREATE TABLE fdfood (
 --     fdc_id INTEGER PRIMARY KEY,
---     data_type VARCHAR(255),
+--     data_type LONGTEXT,
 --     description LONGTEXT,
---     food_category_id INTEGER,
+--     food_category_id LONGTEXT,
 --     publication_date DATETIME
 -- );
 
@@ -213,9 +214,14 @@ CREATE TABLE user_nutrient_doses (
     LB INT default 0, 
     IA INT default 2500,
     UB INT default 5000,
-    weight INT NOT NULL default 1,
-    default_score INT NOT NULL default 1
+    weightLowerLB INT NOT NULL default 1,
+    default_scoreLowerLB INT NOT NULL default 1,
+    weightBetweenLBandIA INT NOT NULL default 1,
+    default_scoreBetweenLBandIA INT NOT NULL default 1,
+    weightBetweenIAandUB INT NOT NULL default 1,
+    default_scoreBetweenIAandUB INT NOT NULL default 1
 );
+
 
 -- confirmed table
 CREATE TABLE nutrient_doses (

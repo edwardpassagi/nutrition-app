@@ -1,5 +1,7 @@
 import sys
 sys.path.insert(1, './')
+from src.enum.NutrientsEnum import NutrientNameEnum
+from src.beans.PlanBean import PlanBean
 
 class UserBean():
     user_id = 0
@@ -22,6 +24,24 @@ class UserBean():
     BMR = 0.0
     daily_maintain_calories = 0.0
     daily_adjusted_calories = 0.0
+    user_plans = []
+    nutrientDosesAmounts = {NutrientNameEnum.CALCIUM_CONSTANT.value[1]: 0.0, 
+                            NutrientNameEnum.PHOSPHEROUS_CONSTANT.value[1]: 0.0, 
+                            NutrientNameEnum.MAGNESIUM_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.POTASSIUM_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.SODIUM_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.IRON_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.MANGANESE_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.COPPER_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.ZINC_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.PANTOTHONIC_ACID_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.NICACIN_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.VITAMIN_A_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.VITAMIN_C_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.VITAMIN_E_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.VITAMIN_K_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.THIAMIN_CONSTANT.value[1]: 0.0,
+                            NutrientNameEnum.CALORIES_CONSTANT.value[1]: 0.0}
 
     def __init__(self):
         return 
