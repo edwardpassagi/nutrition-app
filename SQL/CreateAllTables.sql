@@ -31,9 +31,10 @@ CREATE TABLE plan_contains
 
 CREATE TABLE plan
 (
-  plan_id     INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  plan_id     INT NOT NULL AUTO_INCREMENT,
   plan_name   VARCHAR(255) NOT NULL, 
-  plan_calories INT
+  plan_calories INT,
+  PRIMARY KEY (plan_id)
 );
 
 -- CREATE TABLE fdfood (
