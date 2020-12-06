@@ -62,10 +62,14 @@ def generatePlanAI(planName: str, numMeal:int, username: str, user: UserBean, pi
         foodCalories = food.getBrandedFoodNutrientCalories()
         print("foodname: {}".format(foodName))
         print("foodcal: {}".format(foodCalories))
-        fid = processFoodAction.createNewFood(foodName, foodCalories)
+        fid = processFoodAction.createNewFood(foodName, foodCalories, username)
         processMealContainsAction.addFoodIdToMealId(mealID,fid)
 
     processPlanContainsAction.linkPidToMid(planID, mealID)
+    newMeal = processMealAction.getMealByMealId(mealID)
+    mealCalories = newMeal[0]["meal_calories"]
+    updateVal = "+" + str(mealCalories)
+    processPlanAction.updatePlanCaloriesByPlanId(planID, updateVal)
     
 
 
@@ -84,7 +88,7 @@ def generatePlanAI(planName: str, numMeal:int, username: str, user: UserBean, pi
 
     #     g_ai_dao.linkMealIDtoPlanID(planID, mealID)
 
-    return
+    return planID
 
 def generateMeal(planName: str, mealNum: int):
     """Generate Meal based on the name of the plan

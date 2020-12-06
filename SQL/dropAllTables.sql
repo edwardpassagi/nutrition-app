@@ -1,10 +1,10 @@
 DROP TABLE IF EXISTS user_info;
 DROP TABLE IF EXISTS user_health_info;
-DROP TABLE IF EXISTS food;
-DROP TABLE IF EXISTS meal_contains;
-DROP TABLE IF EXISTS meal;
-DROP TABLE IF EXISTS plan_contains;
-DROP TABLE IF EXISTS plan;
+-- DROP TABLE IF EXISTS food;
+-- DROP TABLE IF EXISTS meal_contains;
+-- DROP TABLE IF EXISTS meal;
+-- DROP TABLE IF EXISTS plan_contains;
+-- DROP TABLE IF EXISTS plan;
 -- DROP TABLE IF EXISTS fdfood;
 -- DROP TABLE IF EXISTS foundation_food;
 -- DROP TABLE IF EXISTS input_food;
