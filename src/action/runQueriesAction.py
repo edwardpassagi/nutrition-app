@@ -6,7 +6,7 @@ sys.path.insert(1, './')
 from src.dao.runQueriesDAO import executeFileCommands
 from src.beans.UserBean import *
 from src.action.addUserAction import *
-import src.dao.FdfoodDAO as fdfoodDAO
+import src.dao.fdfoodDAO as fdfoodDAO
 import src.ai.generateAI as generateAI
 import src.dao.processUserNutrientDosesDAO as nutrientDAO
 

@@ -1,19 +1,25 @@
-from src.beans.userNutrientDoseBean import UserNutrientDoseBean
-from src.beans.PlanBean import PlanBean
-from typing import List
-from src.beans.FoodBean import FoodBean
-from src.beans.UserBean import UserBean
-from src.enum.NutrientsEnum import NutrientNameEnum
-import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
-import src.dao.FdfoodDAO as fdfoodDAO
 import sys
 sys.path.insert(1, './')
+
+from typing import List
+from src.enum.NutrientsEnum import NutrientNameEnum
+
+from src.beans.userNutrientDoseBean import UserNutrientDoseBean
+from src.beans.PlanBean import PlanBean
+from src.beans.FoodBean import FoodBean
+from src.beans.UserBean import UserBean
+
+import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
+import src.dao.fdfoodDAO as fdfoodDAO
 import src.dao.generateAIDAO as g_ai_dao
 
 import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
 import src.action.processPlanAction as processPlanAction
-import src.action.runQueriesAction as runQueriesAction
+
+# FIXME: CIRCULAR DEPENDENCY ON runQueriesAction
+# import src.action.runQueriesAction as runQueriesAction
+
 import src.action.processMealContainsAction as processMealContainsAction
 import src.action.processPlanContainsAction as processPlanContainsAction
 
@@ -56,10 +62,14 @@ def generatePlanAI(planName: str, numMeal:int, username: str, user: UserBean, pi
         foodCalories = food.getBrandedFoodNutrientCalories()
         print("foodname: {}".format(foodName))
         print("foodcal: {}".format(foodCalories))
-        fid = processFoodAction.createNewFood(foodName, foodCalories)
+        fid = processFoodAction.createNewFood(foodName, foodCalories, username)
         processMealContainsAction.addFoodIdToMealId(mealID,fid)
 
     processPlanContainsAction.linkPidToMid(planID, mealID)
+    newMeal = processMealAction.getMealByMealId(mealID)
+    mealCalories = newMeal[0]["meal_calories"]
+    updateVal = "+" + str(mealCalories)
+    processPlanAction.updatePlanCaloriesByPlanId(planID, updateVal)
     
 
 
@@ -78,7 +88,7 @@ def generatePlanAI(planName: str, numMeal:int, username: str, user: UserBean, pi
 
     #     g_ai_dao.linkMealIDtoPlanID(planID, mealID)
 
-    return
+    return planID
 
 def generateMeal(planName: str, mealNum: int):
     """Generate Meal based on the name of the plan

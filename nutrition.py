@@ -1,14 +1,11 @@
-from src.beans.PlanBean import PlanBean
-from src.beans.NutrientBean import NutrientBean
-from src.beans.UserBean import UserBean
-from src.beans.userNutrientDoseBean import UserNutrientDoseBean
 import sys
 sys.path.insert(1, './')
 from app import app
 from flask import render_template, request, redirect
 
+from src.beans.UserBean import UserBean
 import src.ai.generateAI as gai
-from src.action.ProcessDataAction import processDataIntoDatabase
+import src.action.ProcessDataAction as ProcessDataAction
 import src.action.processPlanAction as processPlanAction
 import src.action.processMealAction as processMealAction
 import src.action.processFoodAction as processFoodAction
@@ -16,11 +13,6 @@ import src.action.processMealContainsAction as processMealContainsAction
 import src.action.processPlanContainsAction as processPlanContainsAction
 import src.action.clearPlanEntriesAction as clearPlanEntriesAction
 import src.action.removeMealAction as removeMealAction
-import src.beans.UserBean as userBean
-import src.action.addUserAction as addUserAction
-import src.dao.processUserNutrientDosesDAO as userNutrientDosesDAO
-import src.dao.FoodNutrientsDAO as foodNutrientDAO
-import time
 import src.action.runQueriesAction as QueriesAction
 
 
@@ -110,8 +102,8 @@ def generate_plan(username):
     plan_num_meals = request.form['planNumMeals']
 
     user: UserBean = QueriesAction.createUserTest3()
-    gai.generatePlanAI(plan_name, int(plan_num_meals),username, user)
-    return redirect('/{}'.format(username))
+    pid = gai.generatePlanAI(plan_name, int(plan_num_meals),username, user)
+    return redirect('/{}/planid:{}'.format(username, pid))
 
 # Delete Plan
 @app.route('/<string:username>/plan/delete/<int:id>')
@@ -146,12 +138,15 @@ def remove_meal(username, pid,mid):
 # Regenerate Meal
 @app.route('/<string:username>/plan/regenerate', methods=['POST'])
 def regenerate_meal(username):
-    plan_num_meals = request.form['planNumMeals']
+    plan_num_meals = request.form['planNumMeals'] 
     pid = request.form['planID']
+    # TODO: dont hardcode user object
+    user: UserBean = QueriesAction.createUserTest3()
     # unlink all mid entry from pid
     clearPlanEntriesAction.deletePlanIdEntry(pid)
+
     # call regenerate AI
-    gai.generatePlanAI("", int(plan_num_meals), username, pid)
+    gai.generatePlanAI("", int(plan_num_meals), username, user, pid)
     # redirect to plan details
     return redirect('/{}/planid:{}'.format(username,pid))
 
@@ -256,5 +251,5 @@ def show_friend_food_in_meal(username,followingUsername,pid,mid):
 if __name__ == "__main__":
     # do not uncomment the below line unless you are sure of its side effects, 
     # it will clear out all the data.
-    # processDataIntoDatabase()
+    # ProcessDataAction.processDataIntoDatabase()
     app.run(host = 'localhost')
