@@ -10,3 +10,4 @@ On progress:
 
 TODO:
   1. Host codebase in a web-server so it can be accessed by others (cPanel, heroku?)
+  2. Days avoided the gray square: 1
