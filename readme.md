@@ -10,4 +10,4 @@ On progress:
 
 TODO:
   1. Host codebase in a web-server so it can be accessed by others (cPanel, heroku?) -> timeline?
-  2. Fix the front-end for the social features [By 12/23/2020] -> please create PR for this -> I will, as soon as possible -> ok 
+  2. Fix the front-end for the social features [By 12/23/2020] -> please create PR for this -> I will, as soon as possible -> ok
